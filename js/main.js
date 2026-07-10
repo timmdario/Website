@@ -215,7 +215,9 @@ function openEnvelope() {
     // Kurze Pause
     tl.to({}, { duration: 0.3 });
 
-    // Brief steigt aus dem Umschlag
+    // Brief steigt aus dem Umschlag - z-index auf 10 setzen (vor allen Umschlag-Teilen)
+    tl.set('.envelope-letter-new', { zIndex: 10 });
+
     tl.to('.envelope-letter-new', {
         y: -220,
         duration: 1,
