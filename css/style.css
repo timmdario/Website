@@ -38,26 +38,16 @@ html {
 
 body {
     font-family: var(--font-body);
-    background-color: var(--color-creme);
+    background-color: #F8F4EE;
     color: var(--color-Text);
     line-height: 1.7;
     overflow-x: hidden;
     position: relative;
-}
-
-/* Engraved floral background pattern for entire site */
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    opacity: 0.035;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Cg fill='none' stroke='%236B5740' stroke-width='0.6' stroke-linecap='round'%3E%3C!-- Rose 1 --%3E%3Cpath d='M80 80c-6-10-2-22 6-28'/%3E%3Cpath d='M80 80c6-10 18-14 26-8'/%3E%3Cpath d='M80 80c-2-12 6-22 16-22'/%3E%3Cpath d='M80 80c-10-6-22-2-28 6'/%3E%3Cpath d='M80 80c0-14 10-24 20-20'/%3E%3Cpath d='M80 80c-14 0-22 10-18 20'/%3E%3Ccircle cx='80' cy='80' r='4'/%3E%3Cpath d='M80 84v25'/%3E%3Cpath d='M72 95c-6 4-6 14 0 18'/%3E%3Cpath d='M88 95c6 4 6 14 0 18'/%3E%3Cpath d='M75 105c-8 2-14 8-14 16'/%3E%3Cpath d='M85 105c8 2 14 8 14 16'/%3E%3C!-- Rose 2 --%3E%3Cpath d='M220 220c-6-10-2-22 6-28'/%3E%3Cpath d='M220 220c6-10 18-14 26-8'/%3E%3Cpath d='M220 220c-2-12 6-22 16-22'/%3E%3Cpath d='M220 220c-10-6-22-2-28 6'/%3E%3Cpath d='M220 220c0-14 10-24 20-20'/%3E%3Cpath d='M220 220c-14 0-22 10-18 20'/%3E%3Ccircle cx='220' cy='220' r='4'/%3E%3Cpath d='M220 224v25'/%3E%3Cpath d='M212 235c-6 4-6 14 0 18'/%3E%3Cpath d='M228 235c6 4 6 14 0 18'/%3E%3C!-- Small buds --%3E%3Cpath d='M150 50c-4-6-2-14 4-18'/%3E%3Cpath d='M150 50c4-6 12-8 16-4'/%3E%3Cpath d='M150 50c-2-8 4-14 10-14'/%3E%3Ccircle cx='150' cy='50' r='2.5'/%3E%3Cpath d='M150 52.5v15'/%3E%3Cpath d='M145 60c-4 3-4 9 0 12'/%3E%3Cpath d='M155 60c4 3 4 9 0 12'/%3E%3Cpath d='M50 250c-4-6-2-14 4-18'/%3E%3Cpath d='M50 250c4-6 12-8 16-4'/%3E%3Cpath d='M50 250c-2-8 4-14 10-14'/%3E%3Ccircle cx='50' cy='250' r='2.5'/%3E%3Cpath d='M50 252.5v15'/%3E%3C!-- Leaves --%3E%3Cpath d='M120 130c-10-4-22 0-26 10'/%3E%3Cpath d='M120 130c-8 6-8 18-2 24'/%3E%3Cpath d='M120 130l-14 14'/%3E%3Cpath d='M180 180c10 4 22 0 26-10'/%3E%3Cpath d='M180 180c8-6 8-18 2-24'/%3E%3Cpath d='M180 180l14-14'/%3E%3C!-- Vine scroll --%3E%3Cpath d='M30 150c10-8 24-8 34 0'/%3E%3Cpath d='M30 150c0-12 8-22 20-24'/%3E%3Cpath d='M270 150c-10-8-24-8-34 0'/%3E%3Cpath d='M270 150c0-12-8-22-20-24'/%3E%3Cpath d='M150 280c8-10 8-24 0-34'/%3E%3Cpath d='M150 280c12 0 22-8 24-20'/%3E%3C/g%3E%3C/svg%3E");
-    background-size: 300px 300px;
-    pointer-events: none;
-    z-index: 0;
+    background-image: url('../assets/botanical-bg.svg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
 }
 
 body > * {
@@ -80,7 +70,7 @@ body > * {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: var(--color-creme);
+    background: #F8F4EE;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -89,7 +79,7 @@ body > * {
     overflow: hidden;
 }
 
-/* Engraved floral background pattern */
+/* Botanical background image */
 #envelope-overlay::before {
     content: '';
     position: absolute;
@@ -97,12 +87,14 @@ body > * {
     left: 0;
     right: 0;
     bottom: 0;
-    opacity: 0.06;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cg fill='none' stroke='%236B5740' stroke-width='0.8'%3E%3Cpath d='M100 20c-8 12-20 18-30 18s-18-8-18-18c0-12 12-22 18-22s18 10 18 22z'/%3E%3Cpath d='M100 20c8 12 20 18 30 18s18-8 18-18c0-12-12-22-18-22s-18 10-18 22z'/%3E%3Cpath d='M100 20v60'/%3E%3Cpath d='M85 80c-5 8-4 18 2 24'/%3E%3Cpath d='M115 80c5 8 4 18-2 24'/%3E%3Cpath d='M70 50c-10 2-18 10-18 20'/%3E%3Cpath d='M130 50c10 2 18 10 18 20'/%3E%3Cpath d='M60 90c-8 6-10 18-6 26'/%3E%3Cpath d='M140 90c8 6 10 18 6 26'/%3E%3Ccircle cx='100' cy='100' r='3'/%3E%3Cpath d='M100 105c0 15-8 25-8 35s4 15 8 15 8-5 8-15-8-20-8-35z'/%3E%3Cpath d='M88 120c-6-2-14 0-18 6'/%3E%3Cpath d='M112 120c6-2 14 0 18 6'/%3E%3Cpath d='M100 155v30'/%3E%3Cpath d='M92 170c-4 4-4 12 0 16'/%3E%3Cpath d='M108 170c4 4 4 12 0 16'/%3E%3C/g%3E%3Cg fill='none' stroke='%236B5740' stroke-width='0.5'%3E%3Cpath d='M30 30c4 8 2 18-4 22'/%3E%3Cpath d='M26 32c-2 6 0 14 4 18'/%3E%3Cpath d='M170 170c-4-8-2-18 4-22'/%3E%3Cpath d='M174 168c2-6 0-14-4-18'/%3E%3Cpath d='M170 30c-4 8-2 18 4 22'/%3E%3Cpath d='M174 32c2 6 0 14-4 18'/%3E%3Cpath d='M30 170c4-8 2-18-4-22'/%3E%3Cpath d='M26 168c-2-6 0-14 4-18'/%3E%3C/g%3E%3C/svg%3E");
-    background-size: 200px 200px;
+    background-image: url('../assets/botanical-bg.svg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     pointer-events: none;
 }
 
+/* Soft light overlay */
 #envelope-overlay::after {
     content: '';
     position: absolute;
@@ -111,9 +103,7 @@ body > * {
     right: 0;
     bottom: 0;
     background:
-        radial-gradient(ellipse at 30% 20%, rgba(212, 165, 116, 0.12) 0%, transparent 50%),
-        radial-gradient(ellipse at 70% 80%, rgba(196, 164, 132, 0.1) 0%, transparent 50%),
-        radial-gradient(ellipse at 50% 50%, rgba(255, 253, 249, 0.3) 0%, transparent 60%);
+        radial-gradient(ellipse at 50% 50%, rgba(255, 253, 249, 0.2) 0%, transparent 60%);
     pointer-events: none;
 }
 
@@ -589,7 +579,7 @@ body > * {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(245, 240, 232, 0.95);
+    background: rgba(248, 244, 238, 0.92);
     backdrop-filter: blur(10px);
     z-index: 100;
     box-shadow: 0 2px 20px rgba(139, 115, 85, 0.1);
@@ -646,7 +636,7 @@ body > * {
     align-items: center;
     justify-content: center;
     position: relative;
-    background: linear-gradient(180deg, var(--color-weiss) 0%, var(--color-creme) 100%);
+    background: linear-gradient(180deg, rgba(248, 244, 238, 0.85) 0%, rgba(245, 240, 232, 0.9) 100%);
     overflow: hidden;
 }
 
@@ -766,7 +756,7 @@ body > * {
 
 .details-section {
     padding: 6rem 2rem;
-    background: var(--color-weiss);
+    background: rgba(255, 253, 249, 0.88);
 }
 
 .details-grid {
@@ -778,12 +768,13 @@ body > * {
 }
 
 .detail-card {
-    background: var(--color-creme);
+    background: rgba(245, 240, 232, 0.85);
     padding: 2.5rem 2rem;
     border-radius: 12px;
     text-align: center;
     transition: var(--transition-smooth);
     border: 1px solid transparent;
+    backdrop-filter: blur(5px);
 }
 
 .detail-card:hover {
@@ -830,7 +821,7 @@ body > * {
 
 .faq-section {
     padding: 6rem 2rem;
-    background: linear-gradient(180deg, var(--color-creme) 0%, var(--color-weiss) 100%);
+    background: linear-gradient(180deg, rgba(245, 240, 232, 0.88) 0%, rgba(255, 253, 249, 0.9) 100%);
 }
 
 .faq-list {
@@ -842,9 +833,10 @@ body > * {
     margin-bottom: 1rem;
     border-radius: 8px;
     overflow: hidden;
-    background: var(--color-weiss);
+    background: rgba(255, 253, 249, 0.9);
     box-shadow: var(--shadow-soft);
-    border: 1px solid var(--color-creme-dunkel);
+    border: 1px solid rgba(237, 229, 216, 0.3);
+    backdrop-filter: blur(5px);
 }
 
 .faq-question {
@@ -901,7 +893,7 @@ body > * {
 
 .rsvp-section {
     padding: 6rem 2rem;
-    background: var(--color-weiss);
+    background: rgba(255, 253, 249, 0.88);
 }
 
 .rsvp-intro {
@@ -915,10 +907,11 @@ body > * {
 .rsvp-form {
     max-width: 600px;
     margin: 0 auto;
-    background: var(--color-creme);
+    background: rgba(245, 240, 232, 0.85);
     padding: 3rem;
     border-radius: 16px;
     box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(5px);
 }
 
 .form-group {
@@ -939,12 +932,12 @@ body > * {
 .form-group textarea {
     width: 100%;
     padding: 0.9rem 1.2rem;
-    border: 2px solid var(--color-creme-dunkel);
+    border: 2px solid rgba(237, 229, 216, 0.5);
     border-radius: 8px;
     font-family: var(--font-body);
     font-size: 1rem;
     color: var(--color-Text);
-    background: var(--color-weiss);
+    background: rgba(255, 253, 249, 0.7);
     transition: var(--transition-smooth);
 }
 
@@ -1083,8 +1076,8 @@ body > * {
 .footer {
     padding: 3rem 2rem;
     text-align: center;
-    background: linear-gradient(180deg, var(--color-creme) 0%, var(--color-creme-dunkel) 100%);
-    border-top: 1px solid var(--color-creme-dunkel);
+    background: linear-gradient(180deg, rgba(245, 240, 232, 0.88) 0%, rgba(237, 229, 216, 0.9) 100%);
+    border-top: 1px solid rgba(237, 229, 216, 0.5);
 }
 
 .footer-flowers {

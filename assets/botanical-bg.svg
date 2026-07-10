@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <!-- Soft beige watercolor wash -->
+    <radialGradient id="wash1" cx="85%" cy="50%" r="40%">
+      <stop offset="0%" stop-color="#E8DDD0" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#F5F0E8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="wash2" cx="90%" cy="20%" r="30%">
+      <stop offset="0%" stop-color="#DED3C4" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#F5F0E8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="wash3" cx="80%" cy="85%" r="35%">
+      <stop offset="0%" stop-color="#E0D5C8" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#F5F0E8" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background base -->
+  <rect width="1920" height="1080" fill="#F8F4EE"/>
+
+  <!-- Soft organic washes -->
+  <ellipse cx="1650" cy="540" rx="500" ry="600" fill="url(#wash1)"/>
+  <ellipse cx="1750" cy="200" rx="350" ry="300" fill="url(#wash2)"/>
+  <ellipse cx="1550" cy="900" rx="400" ry="280" fill="url(#wash3)"/>
+
+  <!-- ===== BOTANICAL ELEMENTS - RIGHT SIDE ===== -->
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+
+    <!-- === MAIN STEM 1 - tall, from bottom right === -->
+    <path d="M1780 1080 Q1760 900 1740 750 Q1720 600 1700 500 Q1680 400 1670 320 Q1660 240 1665 180" stroke="#B8A99A" stroke-width="1.2"/>
+    <!-- Branch off main stem -->
+    <path d="M1740 750 Q1700 720 1660 730 Q1620 740 1590 770" stroke="#B8A99A" stroke-width="0.9"/>
+    <path d="M1700 500 Q1660 480 1630 490 Q1600 500 1570 530" stroke="#B8A99A" stroke-width="0.9"/>
+    <path d="M1670 320 Q1640 310 1610 325 Q1580 340 1560 370" stroke="#B8A99A" stroke-width="0.8"/>
+
+    <!-- Leaves on main stem 1 - outlined -->
+    <path d="M1740 750 Q1720 700 1750 670 Q1770 700 1740 750Z" stroke="#B8A99A" stroke-width="0.8" fill="#B8A99A" fill-opacity="0.08"/>
+    <path d="M1700 500 Q1680 460 1710 430 Q1730 460 1700 500Z" stroke="#B8A99A" stroke-width="0.8" fill="#B8A99A" fill-opacity="0.08"/>
+    <path d="M1670 320 Q1655 290 1680 265 Q1695 290 1670 320Z" stroke="#B8A99A" stroke-width="0.8" fill="#B8A99A" fill-opacity="0.08"/>
+
+    <!-- Filled darker leaves -->
+    <path d="M1660 730 Q1640 690 1665 665 Q1685 695 1660 730Z" fill="#9A8B7A" fill-opacity="0.25" stroke="#9A8B7A" stroke-width="0.6"/>
+    <path d="M1590 770 Q1570 740 1590 715 Q1610 740 1590 770Z" fill="#9A8B7A" fill-opacity="0.2" stroke="#9A8B7A" stroke-width="0.6"/>
+    <path d="M1630 490 Q1610 460 1635 440 Q1650 465 1630 490Z" fill="#9A8B7A" fill-opacity="0.2" stroke="#9A8B7A" stroke-width="0.6"/>
+
+    <!-- Leaf veins -->
+    <path d="M1740 750 Q1735 710 1750 670" stroke="#B8A99A" stroke-width="0.4"/>
+    <path d="M1700 500 Q1695 470 1710 430" stroke="#B8A99A" stroke-width="0.4"/>
+
+    <!-- === MAIN STEM 2 - medium, curving === -->
+    <path d="M1850 1080 Q1830 920 1810 800 Q1790 680 1780 580 Q1770 480 1775 400 Q1780 320 1790 260" stroke="#C4B5A5" stroke-width="1.1"/>
+    <!-- Branches -->
+    <path d="M1810 800 Q1840 770 1870 775 Q1900 780 1920 800" stroke="#C4B5A5" stroke-width="0.8"/>
+    <path d="M1780 580 Q1810 560 1835 570 Q1860 580 1880 610" stroke="#C4B5A5" stroke-width="0.8"/>
+
+    <!-- Leaves on stem 2 -->
+    <path d="M1810 800 Q1830 760 1855 750 Q1840 780 1810 800Z" stroke="#C4B5A5" stroke-width="0.7" fill="#C4B5A5" fill-opacity="0.06"/>
+    <path d="M1780 580 Q1800 550 1820 545 Q1810 570 1780 580Z" stroke="#C4B5A5" stroke-width="0.7" fill="#C4B5A5" fill-opacity="0.06"/>
+    <path d="M1790 260 Q1810 235 1830 240 Q1820 265 1790 260Z" stroke="#C4B5A5" stroke-width="0.7" fill="#C4B5A5" fill-opacity="0.06"/>
+
+    <!-- Filled leaves -->
+    <path d="M1870 775 Q1890 750 1905 760 Q1895 780 1870 775Z" fill="#9A8B7A" fill-opacity="0.22" stroke="#9A8B7A" stroke-width="0.5"/>
+    <path d="M1835 570 Q1855 545 1870 555 Q1860 575 1835 570Z" fill="#9A8B7A" fill-opacity="0.18" stroke="#9A8B7A" stroke-width="0.5"/>
+
+    <!-- === MAIN STEM 3 - shorter, top area === -->
+    <path d="M1700 1080 Q1690 950 1680 850 Q1670 750 1665 670 Q1660 590 1660 530 Q1660 470 1665 420" stroke="#AEA093" stroke-width="1"/>
+    <path d="M1680 850 Q1650 830 1625 840 Q1600 850 1580 870" stroke="#AEA093" stroke-width="0.7"/>
+    <path d="M1665 670 Q1635 655 1610 665 Q1590 675 1575 700" stroke="#AEA093" stroke-width="0.7"/>
+
+    <!-- Leaves on stem 3 -->
+    <path d="M1680 850 Q1660 815 1685 795 Q1700 820 1680 850Z" stroke="#AEA093" stroke-width="0.7" fill="#AEA093" fill-opacity="0.07"/>
+    <path d="M1665 670 Q1645 640 1670 620 Q1685 645 1665 670Z" stroke="#AEA093" stroke-width="0.7" fill="#AEA093" fill-opacity="0.07"/>
+    <path d="M1665 420 Q1645 395 1665 378 Q1680 400 1665 420Z" stroke="#AEA093" stroke-width="0.7" fill="#AEA093" fill-opacity="0.07"/>
+
+    <path d="M1625 840 Q1610 815 1620 800 Q1635 815 1625 840Z" fill="#9A8B7A" fill-opacity="0.2" stroke="#9A8B7A" stroke-width="0.5"/>
+    <path d="M1610 665 Q1595 645 1605 632 Q1618 648 1610 665Z" fill="#9A8B7A" fill-opacity="0.18" stroke="#9A8B7A" stroke-width="0.5"/>
+
+    <!-- === GRACEFUL CURVING VINE - right edge === -->
+    <path d="M1920 400 Q1880 380 1860 340 Q1840 300 1850 260 Q1860 220 1890 200 Q1910 185 1920 170" stroke="#C4B5A5" stroke-width="0.9"/>
+    <path d="M1860 340 Q1830 350 1810 380 Q1795 400 1790 430" stroke="#C4B5A5" stroke-width="0.7"/>
+
+    <!-- Small leaves on vine -->
+    <path d="M1860 340 Q1845 320 1855 305 Q1868 322 1860 340Z" stroke="#C4B5A5" stroke-width="0.6" fill="#C4B5A5" fill-opacity="0.06"/>
+    <path d="M1850 260 Q1838 245 1848 232 Q1858 248 1850 260Z" stroke="#C4B5A5" stroke-width="0.6" fill="#C4B5A5" fill-opacity="0.06"/>
+    <path d="M1810 380 Q1795 365 1805 352 Q1815 368 1810 380Z" fill="#9A8B7A" fill-opacity="0.18" stroke="#9A8B7A" stroke-width="0.4"/>
+
+    <!-- === SMALL BUDS / FLOWERS === -->
+    <!-- Bud 1 -->
+    <ellipse cx="1665" cy="180" rx="4" ry="6" stroke="#C4B5A5" stroke-width="0.7" fill="#C4B5A5" fill-opacity="0.1" transform="rotate(-10 1665 180)"/>
+    <path d="M1665 174 Q1668 168 1665 162" stroke="#C4B5A5" stroke-width="0.5"/>
+
+    <!-- Bud 2 -->
+    <ellipse cx="1790" cy="260" rx="3.5" ry="5.5" stroke="#C4B5A5" stroke-width="0.7" fill="#C4B5A5" fill-opacity="0.1" transform="rotate(15 1790 260)"/>
+    <path d="M1790 254 Q1793 249 1790 243" stroke="#C4B5A5" stroke-width="0.5"/>
+
+    <!-- Bud 3 - small flower -->
+    <circle cx="1665" cy="420" r="3" stroke="#C4B5A5" stroke-width="0.6" fill="#C4B5A5" fill-opacity="0.08"/>
+    <path d="M1665 417 Q1668 413 1665 409" stroke="#C4B5A5" stroke-width="0.4"/>
+    <path d="M1665 417 Q1662 413 1665 409" stroke="#C4B5A5" stroke-width="0.4"/>
+
+    <!-- === DECORATIVE CURLS / TENDRILS === -->
+    <path d="M1670 320 Q1650 300 1640 280 Q1635 265 1645 255 Q1655 250 1660 260" stroke="#C4B5A5" stroke-width="0.5" fill="none"/>
+    <path d="M1780 580 Q1800 565 1815 545 Q1825 530 1820 520" stroke="#C4B5A5" stroke-width="0.5" fill="none"/>
+    <path d="M1680 850 Q1660 840 1645 820 Q1635 805 1640 795" stroke="#AEA093" stroke-width="0.4" fill="none"/>
+    <path d="M1810 800 Q1825 790 1840 775 Q1850 765 1845 755" stroke="#C4B5A5" stroke-width="0.4" fill="none"/>
+
+    <!-- === BOTTOM RIGHT LEAF CLUSTER === -->
+    <path d="M1920 950 Q1870 920 1850 870 Q1840 840 1855 815 Q1870 840 1880 870 Q1890 900 1920 920" stroke="#B8A99A" stroke-width="0.8" fill="#B8A99A" fill-opacity="0.06"/>
+    <path d="M1850 870 Q1830 850 1835 825 Q1850 840 1850 870Z" fill="#9A8B7A" fill-opacity="0.2" stroke="#9A8B7A" stroke-width="0.5"/>
+    <path d="M1920 1000 Q1880 980 1860 940 Q1850 910 1860 890 Q1875 915 1880 945 Q1885 970 1920 985" stroke="#C4B5A5" stroke-width="0.7" fill="#C4B5A5" fill-opacity="0.05"/>
+
+    <!-- === TOP RIGHT CLUSTER === -->
+    <path d="M1920 80 Q1870 90 1840 130 Q1820 160 1830 190 Q1845 165 1860 140 Q1880 115 1920 105" stroke="#C4B5A5" stroke-width="0.8" fill="#C4B5A5" fill-opacity="0.05"/>
+    <path d="M1840 130 Q1825 115 1830 95 Q1845 110 1840 130Z" fill="#9A8B7A" fill-opacity="0.18" stroke="#9A8B7A" stroke-width="0.5"/>
+    <path d="M1920 130 Q1890 135 1870 155 Q1855 175 1860 195" stroke="#C4B5A5" stroke-width="0.6"/>
+    <path d="M1870 155 Q1858 142 1865 128 Q1875 140 1870 155Z" stroke="#C4B5A5" stroke-width="0.5" fill="#C4B5A5" fill-opacity="0.05"/>
+
+    <!-- === SCATTERED SMALL LEAVES (floating) === -->
+    <path d="M1750 150 Q1742 138 1750 128 Q1758 138 1750 150Z" stroke="#C4B5A5" stroke-width="0.5" fill="#C4B5A5" fill-opacity="0.05"/>
+    <path d="M1820 480 Q1812 468 1820 458 Q1828 468 1820 480Z" stroke="#C4B5A5" stroke-width="0.5" fill="#C4B5A5" fill-opacity="0.05"/>
+    <path d="M1730 620 Q1722 608 1730 598 Q1738 608 1730 620Z" stroke="#C4B5A5" stroke-width="0.5" fill="#C4B5A5" fill-opacity="0.04"/>
+
+    <!-- === BUTTERFLIES === -->
+
+    <!-- Butterfly 1 - near top, medium -->
+    <g transform="translate(1720, 220) rotate(-15)">
+      <path d="M0 0 Q-12 -10 -16 -22 Q-14 -30 -6 -28 Q0 -22 0 0Z" stroke="#B8A99A" stroke-width="0.6" fill="#B8A99A" fill-opacity="0.08"/>
+      <path d="M0 0 Q12 -10 16 -22 Q14 -30 6 -28 Q0 -22 0 0Z" stroke="#B8A99A" stroke-width="0.6" fill="#B8A99A" fill-opacity="0.08"/>
+      <path d="M0 0 Q-8 8 -10 18 Q-6 22 0 16Z" stroke="#B8A99A" stroke-width="0.5" fill="#B8A99A" fill-opacity="0.06"/>
+      <path d="M0 0 Q8 8 10 18 Q6 22 0 16Z" stroke="#B8A99A" stroke-width="0.5" fill="#B8A99A" fill-opacity="0.06"/>
+      <line x1="0" y1="-2" x2="0" y2="18" stroke="#B8A99A" stroke-width="0.5"/>
+      <!-- Antennae -->
+      <path d="M0 -2 Q-4 -12 -6 -18" stroke="#B8A99A" stroke-width="0.3"/>
+      <path d="M0 -2 Q4 -12 6 -18" stroke="#B8A99A" stroke-width="0.3"/>
+    </g>
+
+    <!-- Butterfly 2 - middle area, small -->
+    <g transform="translate(1640, 600) rotate(10) scale(0.7)">
+      <path d="M0 0 Q-12 -10 -16 -22 Q-14 -30 -6 -28 Q0 -22 0 0Z" stroke="#9A8B7A" stroke-width="0.7" fill="#9A8B7A" fill-opacity="0.12"/>
+      <path d="M0 0 Q12 -10 16 -22 Q14 -30 6 -28 Q0 -22 0 0Z" stroke="#9A8B7A" stroke-width="0.7" fill="#9A8B7A" fill-opacity="0.12"/>
+      <path d="M0 0 Q-8 8 -10 18 Q-6 22 0 16Z" stroke="#9A8B7A" stroke-width="0.5" fill="#9A8B7A" fill-opacity="0.08"/>
+      <path d="M0 0 Q8 8 10 18 Q6 22 0 16Z" stroke="#9A8B7A" stroke-width="0.5" fill="#9A8B7A" fill-opacity="0.08"/>
+      <line x1="0" y1="-2" x2="0" y2="18" stroke="#9A8B7A" stroke-width="0.5"/>
+      <path d="M0 -2 Q-4 -12 -6 -18" stroke="#9A8B7A" stroke-width="0.3"/>
+      <path d="M0 -2 Q4 -12 6 -18" stroke="#9A8B7A" stroke-width="0.3"/>
+    </g>
+
+    <!-- Butterfly 3 - lower, small -->
+    <g transform="translate(1800, 750) rotate(-25) scale(0.6)">
+      <path d="M0 0 Q-12 -10 -16 -22 Q-14 -30 -6 -28 Q0 -22 0 0Z" stroke="#C4B5A5" stroke-width="0.7" fill="#C4B5A5" fill-opacity="0.1"/>
+      <path d="M0 0 Q12 -10 16 -22 Q14 -30 6 -28 Q0 -22 0 0Z" stroke="#C4B5A5" stroke-width="0.7" fill="#C4B5A5" fill-opacity="0.1"/>
+      <path d="M0 0 Q-8 8 -10 18 Q-6 22 0 16Z" stroke="#C4B5A5" stroke-width="0.5" fill="#C4B5A5" fill-opacity="0.07"/>
+      <path d="M0 0 Q8 8 10 18 Q6 22 0 16Z" stroke="#C4B5A5" stroke-width="0.5" fill="#C4B5A5" fill-opacity="0.07"/>
+      <line x1="0" y1="-2" x2="0" y2="18" stroke="#C4B5A5" stroke-width="0.5"/>
+      <path d="M0 -2 Q-4 -12 -6 -18" stroke="#C4B5A5" stroke-width="0.3"/>
+      <path d="M0 -2 Q4 -12 6 -18" stroke="#C4B5A5" stroke-width="0.3"/>
+    </g>
+
+    <!-- Butterfly 4 - top right, tiny -->
+    <g transform="translate(1870, 160) rotate(5) scale(0.5)">
+      <path d="M0 0 Q-12 -10 -16 -22 Q-14 -30 -6 -28 Q0 -22 0 0Z" stroke="#B8A99A" stroke-width="0.8" fill="#B8A99A" fill-opacity="0.1"/>
+      <path d="M0 0 Q12 -10 16 -22 Q14 -30 6 -28 Q0 -22 0 0Z" stroke="#B8A99A" stroke-width="0.8" fill="#B8A99A" fill-opacity="0.1"/>
+      <path d="M0 0 Q-8 8 -10 18 Q-6 22 0 16Z" stroke="#B8A99A" stroke-width="0.6" fill="#B8A99A" fill-opacity="0.07"/>
+      <path d="M0 0 Q8 8 10 18 Q6 22 0 16Z" stroke="#B8A99A" stroke-width="0.6" fill="#B8A99A" fill-opacity="0.07"/>
+      <line x1="0" y1="-2" x2="0" y2="18" stroke="#B8A99A" stroke-width="0.6"/>
+      <path d="M0 -2 Q-4 -12 -6 -18" stroke="#B8A99A" stroke-width="0.4"/>
+      <path d="M0 -2 Q4 -12 6 -18" stroke="#B8A99A" stroke-width="0.4"/>
+    </g>
+
+  </g>
+</svg>
