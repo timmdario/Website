@@ -1005,7 +1005,7 @@ body > * {
 /* Radio Buttons */
 .radio-group {
     display: flex;
-    gap: 1.5rem;
+    gap: 2.5rem;
     flex-wrap: wrap;
     margin-top: 0.25rem;
 }
