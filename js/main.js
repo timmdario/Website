@@ -470,10 +470,12 @@ function initSmoothScroll() {
             const target = document.querySelector(targetId);
 
             if (target) {
-                gsap.to(window, {
-                    scrollTo: { y: target, offsetY: 80 },
-                    duration: 1,
-                    ease: 'power2.inOut'
+                const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight - 20;
+
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
                 });
             }
         });

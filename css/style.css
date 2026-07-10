@@ -1156,10 +1156,28 @@ body > * {
     margin-bottom: 1rem;
 }
 
-.footer-note {
+.footer-links {
+    margin-bottom: 1rem;
+}
+
+.footer-links a {
     font-size: 0.85rem;
     color: var(--color-Text-hell);
-    font-style: italic;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(122, 111, 101, 0.3);
+    transition: var(--transition-smooth);
+}
+
+.footer-links a:hover {
+    color: var(--color-braun-dunkel);
+    border-bottom-color: var(--color-braun-dunkel);
+}
+
+.footer-credit {
+    font-size: 0.8rem;
+    color: var(--color-Text-hell);
+    opacity: 0.6;
+    letter-spacing: 1px;
 }
 
 /* ========================================

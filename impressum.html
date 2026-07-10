@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impressum - Malika & Dario</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .impressum-page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+        }
+
+        .impressum-card {
+            max-width: 650px;
+            width: 100%;
+            background: rgba(255, 253, 249, 0.92);
+            backdrop-filter: blur(8px);
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(139, 115, 85, 0.12);
+            border: 1px solid rgba(212, 165, 116, 0.15);
+        }
+
+        .impressum-card h1 {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            color: var(--color-braun-dunkel);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .impressum-card h2 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            color: var(--color-braun-dunkel);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .impressum-card p {
+            font-size: 0.95rem;
+            color: var(--color-Text-hell);
+            line-height: 1.7;
+        }
+
+        .impressum-card a {
+            color: var(--color-rost-dark);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(168, 132, 95, 0.3);
+            transition: var(--transition-smooth);
+        }
+
+        .impressum-card a:hover {
+            border-bottom-color: var(--color-rost-dark);
+        }
+
+        .impressum-back {
+            display: inline-block;
+            margin-top: 2rem;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: var(--color-braun);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(139, 115, 85, 0.3);
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .impressum-back:hover {
+            color: var(--color-braun-dunkel);
+            border-bottom-color: var(--color-braun-dunkel);
+        }
+
+        .impressum-divider {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+            margin: 1.5rem auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="impressum-page">
+        <div class="impressum-card">
+            <h1>Impressum</h1>
+
+            <h2>Angaben gemäß § 5 TMG</h2>
+            <p>Dario Timm<br>
+            Friesenstraße 42<br>
+            39108 Magdeburg</p>
+
+            <div class="impressum-divider"></div>
+
+            <h2>Kontakt</h2>
+            <p>E-Mail: <a href="mailto:kontakt@example.de">kontakt@example.de</a></p>
+
+            <div class="impressum-divider"></div>
+
+            <h2>Verantwortlich für den Inhalt</h2>
+            <p>§ 55 Abs. 2 RStV:<br>
+            Dario Timm<br>
+            Friesenstraße 42<br>
+            39108 Magdeburg</p>
+
+            <div class="impressum-divider"></div>
+
+            <h2>Haftungsausschluss</h2>
+
+            <h3>Haftung für Inhalte</h2>
+            <p>Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen.</p>
+
+            <h3>Haftung für Links</h3>
+            <p>Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.</p>
+
+            <h3>Urheberrecht</h3>
+            <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.</p>
+
+            <a href="index.html" class="impressum-back">&larr; Zurück zur Startseite</a>
+        </div>
+    </div>
+</body>
+</html>
