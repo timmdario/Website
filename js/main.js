@@ -97,7 +97,6 @@ function initEnvelopeAnimation() {
     gsap.set('.envelope-hint-new', { opacity: 0, y: 10 });
     gsap.set('.envelope-left-flap', { rotationY: 0 });
     gsap.set('.envelope-right-flap', { rotationY: 0 });
-    gsap.set('.envelope-bottom-flap', { rotationX: 0 });
 
     const introTl = gsap.timeline({ delay: 0.3 });
 
@@ -121,13 +120,6 @@ function initEnvelopeAnimation() {
         duration: 0.5,
         ease: 'power2.out'
     }, '-=0.4');
-
-    // Bottom flap
-    introTl.to('.envelope-bottom-flap', {
-        rotationX: -15,
-        duration: 0.4,
-        ease: 'power2.out'
-    }, '-=0.3');
 
     // Siegel erscheint mit Drehung
     introTl.to('.wax-seal', {
@@ -197,13 +189,6 @@ function openEnvelope() {
         duration: 0.5,
         ease: 'power2.inOut'
     }, '-=0.4');
-
-    // Bottom flap öffnet sich
-    tl.to('.envelope-bottom-flap', {
-        rotationX: -40,
-        duration: 0.4,
-        ease: 'power2.inOut'
-    }, '-=0.3');
 
     // Top flap öffnet sich nach oben (3D Rotation)
     tl.to('.envelope-top-flap', {
