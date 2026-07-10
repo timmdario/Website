@@ -89,39 +89,47 @@ function animatePetals() {
 let isEnvelopeOpen = false;
 
 function initEnvelopeAnimation() {
-    // Initial States
-    gsap.set('.envelope-3d', { scale: 0.85, opacity: 0 });
-    gsap.set('.envelope-top-flap', { rotationX: 0 });
-    gsap.set('.envelope-letter-new', { y: 0 });
+    gsap.set('.envelope', { scale: 0.85, opacity: 0, rotateX: 5 });
+    gsap.set('.envelope-flap-top', { rotationX: 0 });
+    gsap.set('.envelope-letter', { y: 0, opacity: 0, scale: 1 });
     gsap.set('.wax-seal', { scale: 0, rotation: -180 });
     gsap.set('.envelope-hint-new', { opacity: 0, y: 10 });
-    gsap.set('.envelope-left-flap', { rotationY: 0 });
-    gsap.set('.envelope-right-flap', { rotationY: 0 });
+    gsap.set('.envelope-flap-left', { rotationY: 0 });
+    gsap.set('.envelope-flap-right', { rotationY: 0 });
+    gsap.set('.overlay-logo', { opacity: 0, y: -10 });
 
     const introTl = gsap.timeline({ delay: 0.3 });
 
-    // Envelope erscheint
-    introTl.to('.envelope-3d', {
+    // Logo appears
+    introTl.to('.overlay-logo', {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: 'power2.out'
+    });
+
+    // Envelope appears
+    introTl.to('.envelope', {
         scale: 1,
         opacity: 1,
         duration: 1,
         ease: 'back.out(1.4)'
-    });
+    }, '-=0.4');
 
-    // Side flaps klappen ein (von außen nach innen)
-    introTl.to('.envelope-left-flap', {
+    // Side flaps fold in
+    introTl.to('.envelope-flap-left', {
         rotationY: -20,
         duration: 0.5,
         ease: 'power2.out'
     }, '-=0.3');
 
-    introTl.to('.envelope-right-flap', {
+    introTl.to('.envelope-flap-right', {
         rotationY: 20,
         duration: 0.5,
         ease: 'power2.out'
     }, '-=0.4');
 
-    // Siegel erscheint mit Drehung
+    // Seal appears with spin
     introTl.to('.wax-seal', {
         scale: 1,
         rotation: 0,
@@ -129,7 +137,7 @@ function initEnvelopeAnimation() {
         ease: 'elastic.out(1, 0.5)'
     }, '-=0.1');
 
-    // Hint Text
+    // Hint text
     introTl.to('.envelope-hint-new', {
         opacity: 1,
         y: 0,
@@ -137,7 +145,6 @@ function initEnvelopeAnimation() {
         ease: 'power2.out'
     }, '-=0.2');
 
-    // Create petals
     createPetals(30);
 }
 
@@ -151,13 +158,13 @@ function openEnvelope() {
         }
     });
 
-    // Hint ausblenden
-    tl.to('.envelope-hint-new', {
+    // Hide hint + logo
+    tl.to(['.envelope-hint-new', '.overlay-logo'], {
         opacity: 0,
         duration: 0.3
     });
 
-    // Siegel "bricht" - puls und dann verschwinden
+    // Seal "breaks" - pulse then vanish
     tl.to('.wax-seal', {
         scale: 1.3,
         duration: 0.15,
@@ -172,55 +179,55 @@ function openEnvelope() {
         ease: 'power3.in'
     });
 
-    // Blütenblätterexpllosion beim Öffnen des Siegels
+    // Petal explosion
     tl.call(() => {
         animatePetals();
     }, null, '-=0.1');
 
-    // Side flaps öffnen sich
-    tl.to('.envelope-left-flap', {
+    // Side flaps open
+    tl.to('.envelope-flap-left', {
         rotationY: -60,
         duration: 0.5,
         ease: 'power2.inOut'
     }, '-=0.1');
 
-    tl.to('.envelope-right-flap', {
+    tl.to('.envelope-flap-right', {
         rotationY: 60,
         duration: 0.5,
         ease: 'power2.inOut'
     }, '-=0.4');
 
-    // Top flap öffnet sich nach oben (3D Rotation)
-    tl.to('.envelope-top-flap', {
+    // Top flap opens
+    tl.to('.envelope-flap-top', {
         rotationX: -180,
         duration: 0.8,
         ease: 'power2.inOut'
     }, '-=0.2');
 
-    // Kurze Pause
+    // Short pause
     tl.to({}, { duration: 0.3 });
 
-    // Brief steigt aus dem Umschlag - z-index auf 10 setzen (vor allen Umschlag-Teilen)
-    tl.set('.envelope-letter-new', { zIndex: 10 });
+    // Letter rises out - bring to front
+    tl.set('.envelope-letter', { opacity: 1, zIndex: 10 });
 
-    tl.to('.envelope-letter-new', {
+    tl.to('.envelope-letter', {
         y: -220,
         duration: 1,
         ease: 'power2.out'
     });
 
-    // Letter wird leicht größer und centriert
-    tl.to('.envelope-letter-new', {
+    // Letter gets slightly bigger and centers
+    tl.to('.envelope-letter', {
         scale: 1.15,
         duration: 0.6,
         ease: 'power2.out'
     }, '-=0.5');
 
-    // Pause für Wirkung
+    // Pause for effect
     tl.to({}, { duration: 1 });
 
-    // Alles verschwindet - Overlay fade out
-    tl.to('.envelope-3d', {
+    // Everything fades out
+    tl.to('.envelope', {
         scale: 0.8,
         opacity: 0,
         duration: 0.8,

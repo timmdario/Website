@@ -18,13 +18,42 @@
 
             <img src="assets/logo.png" alt="Malika & Dario" class="overlay-logo">
 
-            <!-- Envelope images -->
-            <div class="envelope-img-wrapper">
-                <img src="assets/envelope-closed.svg" alt="Briefumschlag" class="envelope-img envelope-closed" id="envelope-closed">
-                <img src="assets/envelope-open.svg" alt="Briefumschlag offen" class="envelope-img envelope-open" id="envelope-open">
+            <!-- 3D Envelope -->
+            <div class="envelope" id="envelope">
+                <!-- Back body -->
+                <div class="envelope-body"></div>
 
-                <!-- Letter that slides out of the open envelope -->
-                <div class="envelope-letter-new" id="envelope-letter">
+                <!-- Side flaps -->
+                <div class="envelope-flap-left"></div>
+                <div class="envelope-flap-right"></div>
+
+                <!-- Top flap (opens upward) -->
+                <div class="envelope-flap-top">
+                    <div class="flap-inner"></div>
+                </div>
+
+                <!-- Front pocket -->
+                <div class="envelope-front">
+                    <!-- Decorative monogram -->
+                    <div class="envelope-monogram">M<span class="monogram-amp">&</span>D</div>
+                </div>
+
+                <!-- Wax Seal -->
+                <div class="wax-seal" id="wax-seal">
+                    <div class="wax-seal-drip" style="top:-4px;left:18px;width:10px;height:8px;"></div>
+                    <div class="wax-seal-drip" style="top:8px;right:-3px;width:8px;height:10px;"></div>
+                    <div class="wax-seal-drip" style="bottom:-3px;left:30px;width:12px;height:7px;"></div>
+                    <div class="wax-seal-drip" style="top:12px;left:-4px;width:7px;height:9px;"></div>
+                    <div class="wax-seal-drip" style="bottom:6px;right:8px;width:6px;height:6px;"></div>
+                    <div class="seal-inner">
+                        <span class="seal-letter">M</span>
+                        <span class="seal-amp">&</span>
+                        <span class="seal-letter">D</span>
+                    </div>
+                </div>
+
+                <!-- Letter inside -->
+                <div class="envelope-letter" id="envelope-letter">
                     <div class="letter-paper">
                         <div class="letter-ornament-top">~ * ~</div>
                         <p class="letter-invite-text">Ihr seid herzlich eingeladen zur Hochzeit von</p>
