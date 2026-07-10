@@ -142,6 +142,16 @@ body > * {
 .petal.cream { background: var(--color-creme-dunkel); }
 .petal.rose { background: var(--color-rost); }
 
+/* Overlay Logo */
+.overlay-logo {
+    width: 180px;
+    height: auto;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 5;
+    filter: drop-shadow(0 2px 8px rgba(107, 87, 64, 0.15));
+}
+
 /* ========================================
    3D ENVELOPE - DETAILED
    ======================================== */
@@ -585,11 +595,15 @@ body > * {
     box-shadow: 0 2px 20px rgba(139, 115, 85, 0.1);
 }
 
-.nav-names {
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
-    color: var(--color-braun-dunkel);
-    font-weight: 600;
+.nav-logo {
+    display: flex;
+    align-items: center;
+}
+
+.nav-logo-img {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
 }
 
 .nav-links {
@@ -644,6 +658,13 @@ body > * {
     text-align: center;
     padding: 2rem;
     z-index: 1;
+}
+
+.hero-logo {
+    display: block;
+    max-width: 220px;
+    height: auto;
+    margin: 0 auto 1.5rem;
 }
 
 .hero-subtitle {
@@ -1195,6 +1216,18 @@ body > * {
         gap: 1rem;
         flex-wrap: wrap;
         justify-content: center;
+    }
+
+    .nav-logo-img {
+        height: 40px;
+    }
+
+    .hero-logo {
+        max-width: 160px;
+    }
+
+    .overlay-logo {
+        width: 140px;
     }
 
     .hero-names {

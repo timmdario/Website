@@ -16,9 +16,15 @@
             <!-- Floating petals container -->
             <div class="petals-container" id="petals-container"></div>
 
-            <div class="envelope-3d">
-                <!-- Letter that slides out -->
-                <div class="envelope-letter-new">
+            <img src="assets/logo.png" alt="Malika & Dario" class="overlay-logo">
+
+            <!-- Envelope images -->
+            <div class="envelope-img-wrapper">
+                <img src="assets/envelope-closed.svg" alt="Briefumschlag" class="envelope-img envelope-closed" id="envelope-closed">
+                <img src="assets/envelope-open.svg" alt="Briefumschlag offen" class="envelope-img envelope-open" id="envelope-open">
+
+                <!-- Letter that slides out of the open envelope -->
+                <div class="envelope-letter-new" id="envelope-letter">
                     <div class="letter-paper">
                         <div class="letter-ornament-top">~ * ~</div>
                         <p class="letter-invite-text">Ihr seid herzlich eingeladen zur Hochzeit von</p>
@@ -28,28 +34,6 @@
                         <div class="letter-ornament-bottom">~ * ~</div>
                     </div>
                 </div>
-
-                <!-- Envelope body -->
-                <div class="envelope-back"></div>
-
-                <!-- Envelope flap (top, opens upward) -->
-                <div class="envelope-top-flap">
-                    <div class="flap-inner"></div>
-                </div>
-
-                <!-- Left side flap -->
-                <div class="envelope-side-flap envelope-left-flap"></div>
-
-                <!-- Right side flap -->
-                <div class="envelope-side-flap envelope-right-flap"></div>
-
-                <!-- Wax seal -->
-                <div class="wax-seal" id="wax-seal">
-                    <div class="seal-inner">M<span class="seal-amp">&</span>D</div>
-                </div>
-
-                <!-- Envelope front -->
-                <div class="envelope-front"></div>
             </div>
 
             <p class="envelope-hint-new">Klick zum Öffnen</p>
@@ -60,7 +44,7 @@
     <main id="website-content" class="hidden">
         <!-- Navigation -->
         <nav class="navbar">
-            <div class="nav-names">M & D</div>
+            <a href="#willkommen" class="nav-logo"><img src="assets/logo.png" alt="Malika & Dario" class="nav-logo-img"></a>
             <ul class="nav-links">
                 <li><a href="#willkommen">Willkommen</a></li>
                 <li><a href="#details">Details</a></li>
@@ -76,6 +60,7 @@
             <div class="hero-flower hero-flower-2">🌺</div>
             <div class="hero-flower hero-flower-3">🌼</div>
             <div class="hero-content">
+                <img src="assets/logo.png" alt="Malika & Dario" class="hero-logo">
                 <p class="hero-subtitle">Wir heiraten!</p>
                 <h1 class="hero-names">Malika <span class="amp">&</span> Dario</h1>
                 <div class="hero-divider">

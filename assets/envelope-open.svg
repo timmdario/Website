@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="380" viewBox="0 0 400 380">
+  <defs>
+    <linearGradient id="bodyGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#CCA87A"/>
+      <stop offset="25%" stop-color="#C4A484"/>
+      <stop offset="55%" stop-color="#A8845F"/>
+      <stop offset="80%" stop-color="#9A7B5B"/>
+      <stop offset="100%" stop-color="#8A6B4B"/>
+    </linearGradient>
+    <linearGradient id="flapGradOpen" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#B89B7A"/>
+      <stop offset="40%" stop-color="#A88A6A"/>
+      <stop offset="100%" stop-color="#8A6B4B"/>
+    </linearGradient>
+    <linearGradient id="frontGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#CCA87A"/>
+      <stop offset="30%" stop-color="#C4A484"/>
+      <stop offset="70%" stop-color="#A8845F"/>
+      <stop offset="100%" stop-color="#8A6B4B"/>
+    </linearGradient>
+    <linearGradient id="innerGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#A88A6A"/>
+      <stop offset="100%" stop-color="#8A6B4B"/>
+    </linearGradient>
+    <filter id="shadow2" x="-10%" y="-5%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#5A4030" flood-opacity="0.2"/>
+    </filter>
+    <filter id="innerShadow">
+      <feComponentTransfer in="SourceAlpha">
+        <feFuncA type="table" tableValues="1 0"/>
+      </feComponentTransfer>
+      <feGaussianBlur stdDeviation="4"/>
+      <feOffset dx="0" dy="3" result="offsetblur"/>
+      <feFlood flood-color="#5A4030" flood-opacity="0.15" result="color"/>
+      <feComposite in2="offsetblur" operator="in"/>
+      <feComposite in2="SourceAlpha" operator="in"/>
+      <feMerge>
+        <feMergeNode in="SourceGraphic"/>
+        <feMergeNode/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- ENVELOPE BACK (main body) -->
+  <g filter="url(#shadow2)">
+    <rect x="10" y="120" width="380" height="250" rx="6" fill="url(#bodyGrad2)"/>
+    <!-- Inner border / stitching -->
+    <rect x="16" y="126" width="368" height="238" rx="3" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="0.8" stroke-dasharray="4,4"/>
+    <!-- Top edge highlight -->
+    <line x1="16" y1="121" x2="394" y2="121" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  </g>
+
+  <!-- INSIDE OF ENVELOPE (visible when open) -->
+  <rect x="14" y="124" width="372" height="200" rx="4" fill="url(#innerGrad)" filter="url(#innerShadow)"/>
+  <!-- Inner paper texture lines -->
+  <line x1="30" y1="140" x2="370" y2="140" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"/>
+  <line x1="30" y1="160" x2="370" y2="160" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"/>
+  <line x1="30" y1="180" x2="370" y2="180" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"/>
+
+  <!-- LEFT FLAP (folded outward) -->
+  <path d="M10 120 L140 190 L10 300 Z" fill="#B89B7A" stroke="rgba(0,0,0,0.04)" stroke-width="0.5"/>
+  <path d="M10 120 L140 190 L10 300 Z" fill="rgba(255,255,255,0.03)"/>
+  <!-- Left flap fold crease -->
+  <line x1="14" y1="128" x2="130" y2="188" stroke="rgba(0,0,0,0.06)" stroke-width="0.8"/>
+
+  <!-- RIGHT FLAP (folded outward) -->
+  <path d="M390 120 L260 190 L390 300 Z" fill="#B89B7A" stroke="rgba(0,0,0,0.04)" stroke-width="0.5"/>
+  <path d="M390 120 L260 190 L390 300 Z" fill="rgba(255,255,255,0.03)"/>
+  <!-- Right flap fold crease -->
+  <line x1="386" y1="128" x2="270" y2="188" stroke="rgba(0,0,0,0.06)" stroke-width="0.8"/>
+
+  <!-- TOP FLAP (open, pointing upward) -->
+  <path d="M10 120 L200 10 L390 120 Z" fill="url(#flapGradOpen)"/>
+  <path d="M10 120 L200 10 L390 120 Z" fill="rgba(255,255,255,0.04)"/>
+  <!-- Flap edge highlight -->
+  <line x1="15" y1="118" x2="196" y2="14" stroke="rgba(255,255,255,0.08)" stroke-width="0.7"/>
+  <line x1="385" y1="118" x2="204" y2="14" stroke="rgba(0,0,0,0.04)" stroke-width="0.7"/>
+  <!-- Flap fold line -->
+  <line x1="12" y1="120" x2="388" y2="120" stroke="rgba(0,0,0,0.1)" stroke-width="1.2"/>
+  <!-- Flap inner line -->
+  <line x1="20" y1="115" x2="200" y2="20" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>
+  <line x1="380" y1="115" x2="200" y2="20" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>
+
+  <!-- ENVELOPE FRONT (bottom pocket) -->
+  <path d="M10 250 L200 175 L390 250 L390 370 Q390 376 384 376 L16 376 Q10 376 10 370 Z" fill="url(#frontGrad2)"/>
+  <path d="M10 250 L200 175 L390 250 L390 370 Q390 376 384 376 L16 376 Q10 376 10 370 Z" fill="rgba(255,255,255,0.03)"/>
+  <!-- Front pocket top edge -->
+  <path d="M12 250 L200 177 L388 250" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+  <path d="M14 252 L200 180 L386 252" fill="none" stroke="rgba(0,0,0,0.05)" stroke-width="0.5"/>
+  <!-- Bottom edge -->
+  <line x1="12" y1="374" x2="388" y2="374" stroke="rgba(0,0,0,0.08)" stroke-width="0.5"/>
+
+  <!-- Decorative corner ornaments on front -->
+  <path d="M25 365 Q25 355 35 355" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
+  <path d="M375 365 Q375 355 365 355" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
+
+  <!-- Broken wax seal pieces (scattered) -->
+  <g opacity="0.7">
+    <!-- Piece 1 -->
+    <path d="M175 260 Q180 252 188 255 Q190 262 184 267 Z" fill="#A04030" stroke="#7A2E20" stroke-width="0.3"/>
+    <!-- Piece 2 -->
+    <path d="M210 255 Q218 250 222 258 Q216 263 210 260 Z" fill="#8B3A2A" stroke="#6B2A1A" stroke-width="0.3"/>
+    <!-- Piece 3 -->
+    <path d="M195 268 Q200 262 208 265 Q206 272 198 272 Z" fill="#C45C4A" stroke="#A04030" stroke-width="0.3"/>
+    <!-- Small crumbs -->
+    <circle cx="170" cy="265" r="1.5" fill="#A04030" opacity="0.5"/>
+    <circle cx="225" cy="258" r="1" fill="#8B3A2A" opacity="0.4"/>
+    <circle cx="200" cy="275" r="1.2" fill="#C45C4A" opacity="0.4"/>
+  </g>
+</svg>
