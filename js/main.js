@@ -18,13 +18,70 @@ emailjs.init(EMAILJS_PUBLIC_KEY);
 // ========================================
 const envelopeOverlay = document.getElementById('envelope-overlay');
 const websiteContent = document.getElementById('website-content');
-const envelope = document.querySelector('.envelope');
-const envelopeFlap = document.querySelector('.envelope-flap');
-const envelopeLetter = document.querySelector('.envelope-letter');
-const envelopeHint = document.querySelector('.envelope-hint');
+const envelopeHint = document.querySelector('.envelope-hint-new');
+const waxSeal = document.getElementById('wax-seal');
+const petalsContainer = document.getElementById('petals-container');
 const rsvpForm = document.getElementById('rsvp-form');
 const formSuccess = document.getElementById('form-success');
 const faqItems = document.querySelectorAll('.faq-item');
+
+// ========================================
+// PETALS / BLÜTENBLÄTTER
+// ========================================
+function createPetals(count) {
+    petalsContainer.innerHTML = '';
+    const colors = ['pink', 'gold', 'cream', 'rose'];
+
+    for (let i = 0; i < count; i++) {
+        const petal = document.createElement('div');
+        petal.className = `petal ${colors[i % colors.length]}`;
+
+        const size = 8 + Math.random() * 12;
+        petal.style.width = size + 'px';
+        petal.style.height = size + 'px';
+
+        petalsContainer.appendChild(petal);
+    }
+}
+
+function animatePetals() {
+    const petals = document.querySelectorAll('.petal');
+
+    petals.forEach((petal, i) => {
+        const angle = (Math.random() - 0.5) * 200;
+        const distance = 100 + Math.random() * 250;
+        const rotation = Math.random() * 720 - 360;
+        const delay = Math.random() * 0.4;
+
+        gsap.set(petal, {
+            x: 0,
+            y: 0,
+            opacity: 0,
+            scale: 0,
+            rotation: 0
+        });
+
+        gsap.to(petal, {
+            x: Math.cos(angle * Math.PI / 180) * distance,
+            y: Math.sin(angle * Math.PI / 180) * distance - 50,
+            opacity: 0.9,
+            scale: 1,
+            rotation: rotation,
+            duration: 1.2 + Math.random() * 0.8,
+            delay: delay,
+            ease: 'power2.out'
+        });
+
+        gsap.to(petal, {
+            y: `+=${200 + Math.random() * 200}`,
+            opacity: 0,
+            rotation: `+=${Math.random() * 180}`,
+            duration: 1.5 + Math.random() * 1,
+            delay: delay + 0.6,
+            ease: 'power1.in'
+        });
+    });
+}
 
 // ========================================
 // BRIEFUMSCHLAG ANIMATION (GSAP)
@@ -32,28 +89,64 @@ const faqItems = document.querySelectorAll('.faq-item');
 let isEnvelopeOpen = false;
 
 function initEnvelopeAnimation() {
-    // Initial positionierung
-    gsap.set('.envelope-flower', { scale: 0, opacity: 0 });
-    gsap.set('.letter-content', { y: 20, opacity: 0 });
+    // Initial States
+    gsap.set('.envelope-3d', { scale: 0.85, opacity: 0 });
+    gsap.set('.envelope-top-flap', { rotationX: 0 });
+    gsap.set('.envelope-letter-new', { y: 0 });
+    gsap.set('.wax-seal', { scale: 0, rotation: -180 });
+    gsap.set('.envelope-hint-new', { opacity: 0, y: 10 });
+    gsap.set('.envelope-left-flap', { rotationY: 0 });
+    gsap.set('.envelope-right-flap', { rotationY: 0 });
+    gsap.set('.envelope-bottom-flap', { rotationX: 0 });
 
-    // Blumen einfliegen lassen
-    gsap.to('.envelope-flower', {
+    const introTl = gsap.timeline({ delay: 0.3 });
+
+    // Envelope erscheint
+    introTl.to('.envelope-3d', {
         scale: 1,
-        opacity: 0.6,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: 'back.out(1.7)',
-        delay: 0.3
+        opacity: 1,
+        duration: 1,
+        ease: 'back.out(1.4)'
     });
 
-    // Letter Content einblenden
-    gsap.to('.letter-content', {
-        y: 0,
-        opacity: 1,
-        duration: 0.6,
-        delay: 0.8,
+    // Side flaps klappen ein (von außen nach innen)
+    introTl.to('.envelope-left-flap', {
+        rotationY: -20,
+        duration: 0.5,
         ease: 'power2.out'
-    });
+    }, '-=0.3');
+
+    introTl.to('.envelope-right-flap', {
+        rotationY: 20,
+        duration: 0.5,
+        ease: 'power2.out'
+    }, '-=0.4');
+
+    // Bottom flap
+    introTl.to('.envelope-bottom-flap', {
+        rotationX: -15,
+        duration: 0.4,
+        ease: 'power2.out'
+    }, '-=0.3');
+
+    // Siegel erscheint mit Drehung
+    introTl.to('.wax-seal', {
+        scale: 1,
+        rotation: 0,
+        duration: 0.7,
+        ease: 'elastic.out(1, 0.5)'
+    }, '-=0.1');
+
+    // Hint Text
+    introTl.to('.envelope-hint-new', {
+        opacity: 1,
+        y: 0,
+        duration: 0.5,
+        ease: 'power2.out'
+    }, '-=0.2');
+
+    // Create petals
+    createPetals(30);
 }
 
 function openEnvelope() {
@@ -66,50 +159,92 @@ function openEnvelope() {
         }
     });
 
-    // Klick-Hint ausblenden
-    tl.to(envelopeHint, {
+    // Hint ausblenden
+    tl.to('.envelope-hint-new', {
         opacity: 0,
         duration: 0.3
     });
 
-    // Klappe öffnen (Rotation)
-    tl.to(envelopeFlap, {
-        rotationX: 180,
-        duration: 0.8,
-        ease: 'power2.inOut'
-    }, '+=0.2');
-
-    // Brief aus dem Umschlag nach oben schieben
-    tl.to(envelopeLetter, {
-        y: -80,
-        duration: 0.6,
-        ease: 'power2.out'
-    }, '-=0.3');
-
-    // Letter Content einblenden (noch deutlicher)
-    tl.to('.letter-content', {
-        scale: 1.05,
-        duration: 0.4,
-        ease: 'power1.out'
-    }, '-=0.2');
-
-    // Kurze Pause für Wirkung
-    tl.to({}, { duration: 0.8 });
-
-    // Gesamten Overlay ausblenden
-    tl.to(envelopeOverlay, {
-        opacity: 0,
-        duration: 0.8,
-        ease: 'power2.inOut'
+    // Siegel "bricht" - puls und dann verschwinden
+    tl.to('.wax-seal', {
+        scale: 1.3,
+        duration: 0.15,
+        ease: 'power2.in'
     });
 
-    // Blumen ausblenden
-    tl.to('.envelope-flower', {
+    tl.to('.wax-seal', {
         scale: 0,
+        rotation: 45,
         opacity: 0,
+        duration: 0.3,
+        ease: 'power3.in'
+    });
+
+    // Blütenblätterexpllosion beim Öffnen des Siegels
+    tl.call(() => {
+        animatePetals();
+    }, null, '-=0.1');
+
+    // Side flaps öffnen sich
+    tl.to('.envelope-left-flap', {
+        rotationY: -60,
+        duration: 0.5,
+        ease: 'power2.inOut'
+    }, '-=0.1');
+
+    tl.to('.envelope-right-flap', {
+        rotationY: 60,
+        duration: 0.5,
+        ease: 'power2.inOut'
+    }, '-=0.4');
+
+    // Bottom flap öffnet sich
+    tl.to('.envelope-bottom-flap', {
+        rotationX: -40,
         duration: 0.4,
-        stagger: 0.05
-    }, '-=0.6');
+        ease: 'power2.inOut'
+    }, '-=0.3');
+
+    // Top flap öffnet sich nach oben (3D Rotation)
+    tl.to('.envelope-top-flap', {
+        rotationX: -180,
+        duration: 0.8,
+        ease: 'power2.inOut'
+    }, '-=0.2');
+
+    // Kurze Pause
+    tl.to({}, { duration: 0.3 });
+
+    // Brief steigt aus dem Umschlag
+    tl.to('.envelope-letter-new', {
+        y: -220,
+        duration: 1,
+        ease: 'power2.out'
+    });
+
+    // Letter wird leicht größer und centriert
+    tl.to('.envelope-letter-new', {
+        scale: 1.15,
+        duration: 0.6,
+        ease: 'power2.out'
+    }, '-=0.5');
+
+    // Pause für Wirkung
+    tl.to({}, { duration: 1 });
+
+    // Alles verschwindet - Overlay fade out
+    tl.to('.envelope-3d', {
+        scale: 0.8,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power2.in'
+    });
+
+    tl.to('#envelope-overlay', {
+        opacity: 0,
+        duration: 0.6,
+        ease: 'power2.inOut'
+    }, '-=0.4');
 }
 
 function showWebsite() {
@@ -385,7 +520,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Briefumschlag Animation starten
     initEnvelopeAnimation();
 
-    // Klick auf Umschlag
+    // Klick auf Umschlag oder Siegel
     envelopeOverlay.addEventListener('click', openEnvelope);
 
     // Touch-Unterstützung für Mobile
@@ -400,7 +535,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Formular initialisieren
     initForm();
 
-    // Smooth Scroll initialisieren (nach GSAP ScrollTo Plugin oder manuell)
+    // Smooth Scroll initialisieren
     initSmoothScroll();
 
     // Navbar Scroll-Effekt
@@ -412,7 +547,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // ========================================
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
-        if (!isEnvelopeOpen && document.activeElement === envelopeOverlay) {
+        if (!isEnvelopeOpen) {
             openEnvelope();
         }
     }

@@ -12,25 +12,51 @@
 <body>
     <!-- Envelope Animation Overlay -->
     <div id="envelope-overlay">
-        <div class="envelope-wrapper">
-            <div class="envelope">
-                <div class="envelope-flap"></div>
-                <div class="envelope-letter">
-                    <div class="letter-content">
-                        <p class="letter-invite">Ihr seid eingeladen zur Hochzeit von</p>
-                        <h1 class="letter-names">Malika & Dario</h1>
-                        <p class="letter-date">30. Mai 2027</p>
+        <div class="envelope-scene">
+            <!-- Floating petals container -->
+            <div class="petals-container" id="petals-container"></div>
+
+            <div class="envelope-3d">
+                <!-- Letter that slides out -->
+                <div class="envelope-letter-new">
+                    <div class="letter-paper">
+                        <div class="letter-ornament-top">~ * ~</div>
+                        <p class="letter-invite-text">Ihr seid herzlich eingeladen zur Hochzeit von</p>
+                        <h1 class="letter-couple-names">Malika & Dario</h1>
+                        <div class="letter-divider">✿</div>
+                        <p class="letter-date-text">30. Mai 2027</p>
+                        <div class="letter-ornament-bottom">~ * ~</div>
                     </div>
                 </div>
-                <div class="envelope-body"></div>
+
+                <!-- Envelope body -->
+                <div class="envelope-back"></div>
+
+                <!-- Envelope flap (top, opens upward) -->
+                <div class="envelope-top-flap">
+                    <div class="flap-inner"></div>
+                </div>
+
+                <!-- Left side flap -->
+                <div class="envelope-side-flap envelope-left-flap"></div>
+
+                <!-- Right side flap -->
+                <div class="envelope-side-flap envelope-right-flap"></div>
+
+                <!-- Bottom flap -->
+                <div class="envelope-bottom-flap"></div>
+
+                <!-- Wax seal -->
+                <div class="wax-seal" id="wax-seal">
+                    <div class="seal-inner">M<span class="seal-amp">&</span>D</div>
+                </div>
+
+                <!-- Envelope front -->
+                <div class="envelope-front"></div>
             </div>
-            <p class="envelope-hint">Klick zum Öffnen</p>
+
+            <p class="envelope-hint-new">Klick zum Öffnen</p>
         </div>
-        <!-- Decorative flowers around envelope -->
-        <div class="envelope-flower flower-tl">❀</div>
-        <div class="envelope-flower flower-tr">✿</div>
-        <div class="envelope-flower flower-bl">❁</div>
-        <div class="envelope-flower flower-br">✾</div>
     </div>
 
     <!-- Main Website Content -->
