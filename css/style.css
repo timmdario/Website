@@ -225,7 +225,7 @@ body {
     height: 50%;
     background: linear-gradient(0deg, var(--color-rost-dark) 0%, var(--color-rost) 100%);
     clip-path: polygon(0 100%, 50% 20%, 100% 100%);
-    z-index: 4;
+    z-index: 2;
 }
 
 /* ========================================
