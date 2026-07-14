@@ -258,8 +258,44 @@ function showWebsite() {
     // Hero Section Animation
     initHeroAnimation();
 
+    // Countdown starten
+    initCountdown();
+
     // Scroll-Animationen initialisieren
     initScrollAnimations();
+}
+
+// ========================================
+// COUNTDOWN
+// ========================================
+function initCountdown() {
+    const targetDate = new Date('2027-05-15T16:00:00').getTime();
+
+    function update() {
+        const now = new Date().getTime();
+        const diff = targetDate - now;
+
+        if (diff <= 0) {
+            document.getElementById('countdown-days').textContent = '0';
+            document.getElementById('countdown-hours').textContent = '0';
+            document.getElementById('countdown-minutes').textContent = '0';
+            document.getElementById('countdown-seconds').textContent = '0';
+            return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById('countdown-days').textContent = days;
+        document.getElementById('countdown-hours').textContent = hours;
+        document.getElementById('countdown-minutes').textContent = minutes;
+        document.getElementById('countdown-seconds').textContent = seconds;
+    }
+
+    update();
+    setInterval(update, 1000);
 }
 
 // ========================================
@@ -295,6 +331,13 @@ function initHeroAnimation() {
         { opacity: 0, y: 15 },
         { opacity: 1, y: 0, duration: 0.5 },
         '-=0.2'
+    );
+
+    // Countdown
+    heroTl.fromTo('.countdown',
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' },
+        '-=0.1'
     );
 
     // Hero Flowers
