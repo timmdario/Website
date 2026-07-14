@@ -1,0 +1,38 @@
+// Google Apps Script - In ein Google Sheet einfügen unter Erweiterungen → Apps Script
+// Dann deployen als Web App (Zugriff: "Jeder")
+
+function doPost(e) {
+  try {
+    var data = JSON.parse(e.postData.contents);
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    
+    // Spalten: Zeitstempel, Name, Anzahl Gäste, Übernachtung Freitag, Übernachtung Samstag,
+    //           Auf dem Gelände, Frühstück Sonntag, Ernährungswünsche, Nachricht
+    sheet.appendRow([
+      new Date(),
+      data.name || '',
+      data.guests || '',
+      data.overnight_friday || '',
+      data.overnight_saturday || '',
+      data.on_site || '',
+      data.breakfast || '',
+      data.dietary || '',
+      data.message || ''
+    ]);
+    
+    return ContentService.createTextOutput(
+      JSON.stringify({ success: true })
+    ).setMimeType(ContentService.MimeType.JSON);
+    
+  } catch (error) {
+    return ContentService.createTextOutput(
+      JSON.stringify({ success: false, error: error.toString() })
+    ).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function doGet(e) {
+  return ContentService.createTextOutput(
+    JSON.stringify({ status: 'ok' })
+  ).setMimeType(ContentService.MimeType.JSON);
+}

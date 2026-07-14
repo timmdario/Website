@@ -10,6 +10,9 @@ const EMAILJS_PUBLIC_KEY = 'bsy7xvQ7fhd3udqmU';
 const EMAILJS_SERVICE_ID = 'service_3k4jtrq';
 const EMAILJS_TEMPLATE_ID = 'template_vcgt7mo';
 
+// Google Sheets Web App URL (nach Deployment einfügen)
+const GOOGLE_SHEETS_URL = '';
+
 // EmailJS initialisieren
 emailjs.init(EMAILJS_PUBLIC_KEY);
 
@@ -488,6 +491,25 @@ function initForm() {
                 dietary: data.dietary || 'Keine',
                 message: data.message || 'Keine Nachricht'
             });
+
+            // An Google Sheets senden (wenn URL konfiguriert)
+            if (GOOGLE_SHEETS_URL) {
+                fetch(GOOGLE_SHEETS_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: data.name,
+                        guests: data.guests,
+                        overnight_friday: data.overnight_friday,
+                        overnight_saturday: data.overnight_saturday,
+                        on_site: data.on_site,
+                        breakfast: data.breakfast,
+                        dietary: data.dietary || 'Keine',
+                        message: data.message || 'Keine Nachricht'
+                    })
+                });
+            }
 
             // Erfolg anzeigen
             rsvpForm.classList.add('hidden');
