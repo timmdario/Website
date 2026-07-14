@@ -531,7 +531,7 @@ function initForm() {
             }
 
             // Button Text ändern
-            submitBtn.innerHTML = '<span>Fantastisch!</span> ✿';
+            submitBtn.innerHTML = '<span>Hanitastisch!</span> ✿';
             submitBtn.disabled = false;
 
             // Erfolg anzeigen
