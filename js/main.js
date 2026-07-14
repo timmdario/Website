@@ -11,7 +11,7 @@ const EMAILJS_SERVICE_ID = 'service_3k4jtrq';
 const EMAILJS_TEMPLATE_ID = 'template_vcgt7mo';
 
 // Google Sheets Web App URL (nach Deployment einfügen)
-const GOOGLE_SHEETS_URL = '';
+const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycby3RfTSbQKhbHknWcXXNKOetq30jxkC_lPRUgXc__kjFyKqw3iu-pOT7NjHjZRf70zdhw/exec';
 
 // EmailJS initialisieren
 emailjs.init(EMAILJS_PUBLIC_KEY);
