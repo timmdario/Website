@@ -508,7 +508,7 @@ function initForm() {
                         dietary: data.dietary || 'Keine',
                         message: data.message || 'Keine Nachricht'
                     })
-                });
+                }).catch(err => console.warn('Google Sheets:', err));
             }
 
             // Erfolg anzeigen
