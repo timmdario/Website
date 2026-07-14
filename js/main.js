@@ -13,6 +13,9 @@ const EMAILJS_TEMPLATE_ID = 'template_vcgt7mo';
 // EmailJS initialisieren
 emailjs.init(EMAILJS_PUBLIC_KEY);
 
+// ScrollTrigger Plugin registrieren
+gsap.registerPlugin(ScrollTrigger);
+
 // ========================================
 // DOM ELEMENTE
 // ========================================
