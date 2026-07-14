@@ -269,10 +269,11 @@ function showWebsite() {
 // COUNTDOWN
 // ========================================
 function initCountdown() {
-    const targetDate = new Date('2027-05-15T16:00:00').getTime();
+    // 15. Mai 2027, 16:00 Uhr deutsche Zeit (MESZ = UTC+2)
+    const targetDate = new Date('2027-05-15T16:00:00+02:00').getTime();
 
     function update() {
-        const now = new Date().getTime();
+        const now = Date.now();
         const diff = targetDate - now;
 
         if (diff <= 0) {
