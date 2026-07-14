@@ -1079,7 +1079,7 @@ body > * {
 .radio-label {
     display: inline-flex;
     align-items: center;
-    gap: 1.3rem;
+    gap: 2rem;
     cursor: pointer;
     font-size: 0.95rem;
     color: var(--color-Text);
