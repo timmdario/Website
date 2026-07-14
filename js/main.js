@@ -9,6 +9,7 @@
 const EMAILJS_PUBLIC_KEY = 'bsy7xvQ7fhd3udqmU';
 const EMAILJS_SERVICE_ID = 'service_3k4jtrq';
 const EMAILJS_TEMPLATE_ID = 'template_vcgt7mo';
+const EMAILJS_CONFIRM_TEMPLATE_ID = 'template_bestaetigung';
 
 // Google Sheets Web App URL (nach Deployment einfügen)
 const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycby3RfTSbQKhbHknWcXXNKOetq30jxkC_lPRUgXc__kjFyKqw3iu-pOT7NjHjZRf70zdhw/exec';
@@ -481,8 +482,10 @@ function initForm() {
         submitBtn.disabled = true;
 
         try {
+            // E-Mail an Brautpaar senden
             await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
                 name: data.name,
+                email: data.email,
                 guests: data.guests,
                 overnight_friday: data.overnight_friday,
                 overnight_saturday: data.overnight_saturday,
@@ -492,6 +495,21 @@ function initForm() {
                 message: data.message || 'Keine Nachricht'
             });
 
+            // Bestätigungs-E-Mail an Gast senden
+            if (data.email) {
+                emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_CONFIRM_TEMPLATE_ID, {
+                    name: data.name,
+                    email: data.email,
+                    guests: data.guests,
+                    overnight_friday: data.overnight_friday,
+                    overnight_saturday: data.overnight_saturday,
+                    on_site: data.on_site,
+                    breakfast: data.breakfast,
+                    dietary: data.dietary || 'Keine',
+                    message: data.message || 'Keine Nachricht'
+                }).catch(err => console.warn('Bestätigungs-E-Mail:', err));
+            }
+
             // An Google Sheets senden (wenn URL konfiguriert)
             if (GOOGLE_SHEETS_URL) {
                 fetch(GOOGLE_SHEETS_URL, {
@@ -500,6 +518,7 @@ function initForm() {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         name: data.name,
+                        email: data.email,
                         guests: data.guests,
                         overnight_friday: data.overnight_friday,
                         overnight_saturday: data.overnight_saturday,
@@ -510,6 +529,10 @@ function initForm() {
                     })
                 }).catch(err => console.warn('Google Sheets:', err));
             }
+
+            // Button Text ändern
+            submitBtn.innerHTML = '<span>Fantastisch!</span> ✿';
+            submitBtn.disabled = false;
 
             // Erfolg anzeigen
             rsvpForm.classList.add('hidden');
