@@ -182,6 +182,91 @@
             </div>
         </section>
 
+        <!-- Before / After Slider -->
+        <section class="ba-section">
+            <div class="section-header">
+                <span class="section-flower">❀</span>
+                <h2>Vorher & Nachher</h2>
+                <span class="section-flower">❀</span>
+            </div>
+            <p class="ba-subtitle">Schiebt den Regler, um zu sehen, wie sich die Hofanlage verwandelt hat.</p>
+            <div class="ba-slider" id="ba-slider">
+                <img src="https://images.unsplash.com/photo-1510076857177-7470076d4098?w=800&q=80" alt="Vorher" class="ba-img ba-before">
+                <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=800&q=80" alt="Nachher" class="ba-img ba-after">
+                <div class="ba-handle" id="ba-handle">
+                    <div class="ba-handle-line"></div>
+                    <div class="ba-handle-circle">
+                        <span>◄ ►</span>
+                    </div>
+                    <div class="ba-handle-line"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Zimmer-Galerie -->
+        <section class="gallery-section">
+            <div class="section-header">
+                <span class="section-flower">✿</span>
+                <h2>Unsere Zimmer</h2>
+                <span class="section-flower">✿</span>
+            </div>
+            <p class="gallery-subtitle">Entdeckt die gemütlichen Unterkünfte auf dem FarmInn.</p>
+            <div class="gallery-grid">
+                <div class="gallery-item" data-index="0">
+                    <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80" alt="Zimmer 1">
+                    <div class="gallery-overlay"><span>Wohnstube</span></div>
+                </div>
+                <div class="gallery-item" data-index="1">
+                    <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=600&q=80" alt="Zimmer 2">
+                    <div class="gallery-overlay"><span>Schlafzimmer</span></div>
+                </div>
+                <div class="gallery-item" data-index="2">
+                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&q=80" alt="Zimmer 3">
+                    <div class="gallery-overlay"><span>Badezimmer</span></div>
+                </div>
+                <div class="gallery-item" data-index="3">
+                    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" alt="Zimmer 4">
+                    <div class="gallery-overlay"><span>Restaurantsaal</span></div>
+                </div>
+                <div class="gallery-item" data-index="4">
+                    <img src="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=600&q=80" alt="Zimmer 5">
+                    <div class="gallery-overlay"><span>Familienzimmer</span></div>
+                </div>
+                <div class="gallery-item" data-index="5">
+                    <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80" alt="Zimmer 6">
+                    <div class="gallery-overlay"><span>Suiten-Balkon</span></div>
+                </div>
+            </div>
+
+            <!-- Lightbox -->
+            <div class="lightbox" id="lightbox">
+                <button class="lightbox-close" id="lightbox-close">&times;</button>
+                <button class="lightbox-prev" id="lightbox-prev">&#8249;</button>
+                <button class="lightbox-next" id="lightbox-next">&#8250;</button>
+                <img src="" alt="Vorschau" class="lightbox-img" id="lightbox-img">
+            </div>
+        </section>
+
+        <!-- Scratch-to-Reveal Rubbelkarte -->
+        <section class="scratch-section">
+            <div class="section-header">
+                <span class="section-flower">❁</span>
+                <h2>Rubbel-Spaß</h2>
+                <span class="section-flower">❁</span>
+            </div>
+            <p class="scratch-subtitle">Krault mit der Maus über die Karte, um die Überraschung zu enthüllen!</p>
+            <div class="scratch-wrapper">
+                <div class="scratch-card" id="scratch-card">
+                    <div class="scratch-reveal">
+                        <p class="scratch-date">30. Mai 2027</p>
+                        <p class="scratch-msg">Wir heiraten! 🌸</p>
+                    </div>
+                    <canvas class="scratch-canvas" id="scratch-canvas"></canvas>
+                </div>
+                <button class="scratch-reset" id="scratch-reset" style="display:none;">Nochmal rubbeln ✿</button>
+            </div>
+        </section>
+
         <!-- FAQ Section -->
         <section id="faq" class="faq-section">
             <div class="section-header">

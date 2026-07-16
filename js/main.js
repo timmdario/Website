@@ -270,6 +270,11 @@ function showWebsite() {
 
     // Scroll-Animationen initialisieren
     initScrollAnimations();
+
+    // Interaktive Features
+    initBASlider();
+    initGallery();
+    initScratch();
 }
 
 // ========================================
@@ -556,6 +561,195 @@ function initForm() {
             submitBtn.disabled = false;
         }
     });
+}
+
+// ========================================
+// BEFORE / AFTER SLIDER
+// ========================================
+function initBASlider() {
+    const slider = document.getElementById('ba-slider');
+    const handle = document.getElementById('ba-handle');
+    if (!slider || !handle) return;
+
+    let isDragging = false;
+
+    function getPosition(e) {
+        const rect = slider.getBoundingClientRect();
+        const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+        return Math.max(0, Math.min(x / rect.width, 1));
+    }
+
+    function updatePosition(pos) {
+        const pct = pos * 100;
+        slider.querySelector('.ba-before').style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+        handle.style.left = pct + '%';
+    }
+
+    function startDrag(e) {
+        isDragging = true;
+        updatePosition(getPosition(e));
+    }
+
+    function onDrag(e) {
+        if (!isDragging) return;
+        e.preventDefault();
+        updatePosition(getPosition(e));
+    }
+
+    function endDrag() {
+        isDragging = false;
+    }
+
+    slider.addEventListener('mousedown', startDrag);
+    slider.addEventListener('touchstart', startDrag, { passive: true });
+    document.addEventListener('mousemove', onDrag);
+    document.addEventListener('touchmove', onDrag, { passive: false });
+    document.addEventListener('mouseup', endDrag);
+    document.addEventListener('touchend', endDrag);
+}
+
+// ========================================
+// GALLERY LIGHTBOX
+// ========================================
+function initGallery() {
+    const items = document.querySelectorAll('.gallery-item');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const closeBtn = document.getElementById('lightbox-close');
+    const prevBtn = document.getElementById('lightbox-prev');
+    const nextBtn = document.getElementById('lightbox-next');
+    if (!lightbox) return;
+
+    let currentIndex = 0;
+    const images = Array.from(items).map(item => item.querySelector('img').src);
+
+    function showImage(index) {
+        currentIndex = index;
+        lightboxImg.src = images[currentIndex];
+    }
+
+    items.forEach((item, i) => {
+        item.addEventListener('click', () => {
+            showImage(i);
+            lightbox.classList.add('active');
+        });
+    });
+
+    closeBtn.addEventListener('click', () => lightbox.classList.remove('active'));
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) lightbox.classList.remove('active');
+    });
+
+    prevBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showImage((currentIndex - 1 + images.length) % images.length);
+    });
+
+    nextBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showImage((currentIndex + 1) % images.length);
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (!lightbox.classList.contains('active')) return;
+        if (e.key === 'Escape') lightbox.classList.remove('active');
+        if (e.key === 'ArrowLeft') showImage((currentIndex - 1 + images.length) % images.length);
+        if (e.key === 'ArrowRight') showImage((currentIndex + 1) % images.length);
+    });
+}
+
+// ========================================
+// SCRATCH-TO-REVEAL
+// ========================================
+function initScratch() {
+    const canvas = document.getElementById('scratch-canvas');
+    const card = document.getElementById('scratch-card');
+    const resetBtn = document.getElementById('scratch-reset');
+    if (!canvas || !card) return;
+
+    const ctx = canvas.getContext('2d');
+    let isScratching = false;
+
+    function resizeCanvas() {
+        canvas.width = card.offsetWidth;
+        canvas.height = card.offsetHeight;
+        drawOverlay();
+    }
+
+    function drawOverlay() {
+        const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+        grad.addColorStop(0, '#D4A574');
+        grad.addColorStop(0.3, '#C4A484');
+        grad.addColorStop(0.6, '#A8845F');
+        grad.addColorStop(1, '#8B7355');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Dotted pattern
+        ctx.fillStyle = 'rgba(255,255,255,0.15)';
+        for (let x = 0; x < canvas.width; x += 12) {
+            for (let y = 0; y < canvas.height; y += 12) {
+                ctx.beginPath();
+                ctx.arc(x, y, 1.5, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        // Text
+        ctx.fillStyle = 'rgba(255,255,255,0.6)';
+        ctx.font = 'italic 1.1rem Lora, serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('✦ Hier rubbeln ✦', canvas.width / 2, canvas.height / 2 + 6);
+    }
+
+    function scratch(e) {
+        if (!isScratching) return;
+        const rect = canvas.getBoundingClientRect();
+        const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+        const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.beginPath();
+        ctx.arc(x, y, 22, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    function startScratch(e) {
+        isScratching = true;
+        scratch(e);
+    }
+
+    function stopScratch() {
+        isScratching = false;
+        checkReveal();
+    }
+
+    function checkReveal() {
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        let transparent = 0;
+        for (let i = 3; i < imageData.data.length; i += 4) {
+            if (imageData.data[i] === 0) transparent++;
+        }
+        const pct = transparent / (imageData.data.length / 4);
+        if (pct > 0.45) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            resetBtn.style.display = 'inline-block';
+        }
+    }
+
+    canvas.addEventListener('mousedown', startScratch);
+    canvas.addEventListener('touchstart', startScratch, { passive: true });
+    canvas.addEventListener('mousemove', scratch);
+    canvas.addEventListener('touchmove', scratch, { passive: true });
+    canvas.addEventListener('mouseup', stopScratch);
+    canvas.addEventListener('touchend', stopScratch);
+
+    resetBtn.addEventListener('click', () => {
+        resizeCanvas();
+        resetBtn.style.display = 'none';
+    });
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
 }
 
 // ========================================
