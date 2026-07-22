@@ -281,8 +281,8 @@ function showWebsite() {
 // COUNTDOWN
 // ========================================
 function initCountdown() {
-    // 1. Mai 2027, 15:00 Uhr deutsche Zeit (MESZ = UTC+2)
-    const targetDate = new Date('2027-05-01T15:00:00+02:00').getTime();
+    // 1. Mai 2027, 14:00 Uhr deutsche Zeit (MESZ = UTC+2)
+    const targetDate = new Date('2027-05-01T14:00:00+02:00').getTime();
 
     function update() {
         const now = Date.now();
