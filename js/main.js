@@ -21,6 +21,18 @@ emailjs.init(EMAILJS_PUBLIC_KEY);
 gsap.registerPlugin(ScrollTrigger);
 
 // ========================================
+// COOKIE HILFSFUNKTIONEN
+// ========================================
+function setCookie(name, value, days) {
+    const expires = new Date(Date.now() + days * 864e5).toUTCString();
+    document.cookie = name + '=' + encodeURIComponent(value) + ';expires=' + expires + ';path=/;SameSite=Lax';
+}
+
+function getCookie(name) {
+    return document.cookie.split('; ').find(row => row.startsWith(name + '='))?.split('=')[1];
+}
+
+// ========================================
 // DOM ELEMENTE
 // ========================================
 const envelopeOverlay = document.getElementById('envelope-overlay');
@@ -251,6 +263,7 @@ function openEnvelope() {
 function showWebsite() {
     envelopeOverlay.style.display = 'none';
     websiteContent.classList.remove('hidden');
+    setCookie('envelope_opened', '1', 365);
 
     // Website Content einblenden
     gsap.fromTo(websiteContent,
@@ -989,17 +1002,33 @@ function initNavbarScroll() {
 // INITIALISIERUNG
 // ========================================
 document.addEventListener('DOMContentLoaded', () => {
-    // Briefumschlag Animation starten
-    initEnvelopeAnimation();
+    // Prüfen ob Briefumschlag bereits geöffnet wurde
+    if (getCookie('envelope_opened')) {
+        // Umschlag überspringen, Website direkt anzeigen
+        envelopeOverlay.style.display = 'none';
+        websiteContent.classList.remove('hidden');
+        websiteContent.style.opacity = '1';
 
-    // Klick auf Umschlag oder Siegel
-    envelopeOverlay.addEventListener('click', openEnvelope);
+        // Website initialisieren
+        initCountdown();
+        initScrollAnimations();
+        initBASlider();
+        initGallery();
+        initScratch();
+        initFotoGalerie();
+    } else {
+        // Briefumschlag Animation starten
+        initEnvelopeAnimation();
 
-    // Touch-Unterstützung für Mobile
-    envelopeOverlay.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        openEnvelope();
-    }, { passive: false });
+        // Klick auf Umschlag oder Siegel
+        envelopeOverlay.addEventListener('click', openEnvelope);
+
+        // Touch-Unterstützung für Mobile
+        envelopeOverlay.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            openEnvelope();
+        }, { passive: false });
+    }
 
     // FAQ initialisieren
     initFAQ();
