@@ -275,6 +275,7 @@ function showWebsite() {
     initBASlider();
     initGallery();
     initScratch();
+    initFotoGalerie();
 }
 
 // ========================================
@@ -432,6 +433,22 @@ function initScrollAnimations() {
             ease: 'power2.out',
             scrollTrigger: {
                 trigger: '.rsvp-form',
+                start: 'top 80%',
+                toggleActions: 'play none none none'
+            }
+        }
+    );
+
+    // Foto Galerie
+    gsap.fromTo('.foto-galerie-section',
+        { opacity: 0, y: 30 },
+        {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power2.out',
+            scrollTrigger: {
+                trigger: '.foto-galerie-section',
                 start: 'top 80%',
                 toggleActions: 'play none none none'
             }
@@ -750,6 +767,192 @@ function initScratch() {
 
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
+}
+
+// ========================================
+// FOTO-GALERIE (Cloudinary)
+// ========================================
+const CLOUDINARY_CLOUD_NAME = 'dx7sghhbu';
+const CLOUDINARY_UPLOAD_PRESET = 'wedding_uploads';
+const CLOUDINARY_FOLDER = 'wedding-photos';
+
+let cloudinaryWidget = null;
+let fotoGalleryImages = [];
+
+function initFotoGalerie() {
+    initCloudinaryWidget();
+    loadGalleryPhotos();
+    initFotoLightbox();
+}
+
+function initCloudinaryWidget() {
+    const uploadBtn = document.getElementById('upload-btn');
+    if (!uploadBtn || typeof cloudinary === 'undefined') return;
+
+    cloudinaryWidget = cloudinary.createUploadWidget({
+        cloudName: CLOUDINARY_CLOUD_NAME,
+        uploadPreset: CLOUDINARY_UPLOAD_PRESET,
+        folder: CLOUDINARY_FOLDER,
+        maxFiles: 10,
+        sources: ['local', 'camera'],
+        cropping: false,
+        multiple: true,
+        styles: {
+            palette: {
+                window: '#FFFDF9',
+                windowBorder: '#C4A484',
+                tabIcon: '#8B7355',
+                menuIcons: '#8B7355',
+                textDark: '#4A3F35',
+                textLight: '#FFFDF9',
+                link: '#A8845F',
+                action: '#C4A484',
+                inactiveTabIcon: '#D4A574',
+                error: '#D45B5B',
+                inProgress: '#D4A574',
+                complete: '#7CB97A'
+            }
+        }
+    }, (error, result) => {
+        if (!error && result && result.event === 'success') {
+            addPhotoToGallery(result.info);
+        }
+        if (!error && result && result.event === 'close') {
+            loadGalleryPhotos();
+        }
+    });
+
+    uploadBtn.addEventListener('click', () => {
+        cloudinaryWidget.open();
+    });
+}
+
+function addPhotoToGallery(info) {
+    const emptyMsg = document.getElementById('foto-galerie-empty');
+    if (emptyMsg) emptyMsg.style.display = 'none';
+
+    const grid = document.getElementById('foto-galerie-grid');
+    const item = document.createElement('div');
+    item.className = 'foto-galerie-item';
+
+    const imgUrl = info.secure_url
+        .replace('/upload/', '/upload/w_600,h_600,c_fill,q_auto,f_auto/')
+        + (info.format === 'webp' ? '' : '.jpg');
+
+    item.innerHTML = `
+        <img src="${imgUrl}" alt="Hochzeitsfoto" loading="lazy">
+        <div class="foto-galerie-overlay"><span>${info.original_filename || 'Foto'}</span></div>
+    `;
+
+    item.addEventListener('click', () => {
+        openFotoLightbox(imgUrl);
+    });
+
+    grid.appendChild(item);
+    fotoGalleryImages.push(imgUrl);
+}
+
+function loadGalleryPhotos() {
+    const grid = document.getElementById('foto-galerie-grid');
+    const emptyMsg = document.getElementById('foto-galerie-empty');
+    if (!grid) return;
+
+    const items = grid.querySelectorAll('.foto-galerie-item');
+    items.forEach(item => item.remove());
+
+    const listUrl = `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/list/${CLOUDINARY_FOLDER}.json`;
+
+    fetch(listUrl)
+        .then(res => {
+            if (!res.ok) throw new Error('No photos yet');
+            return res.json();
+        })
+        .then(data => {
+            if (!data.resources || data.resources.length === 0) {
+                if (emptyMsg) emptyMsg.style.display = 'block';
+                return;
+            }
+
+            if (emptyMsg) emptyMsg.style.display = 'none';
+            fotoGalleryImages = [];
+
+            const sorted = data.resources.sort((a, b) =>
+                new Date(b.created_at) - new Date(a.created_at)
+            );
+
+            sorted.forEach(resource => {
+                const imgUrl = resource.secure_url
+                    .replace('/upload/', '/upload/w_600,h_600,c_fill,q_auto,f_auto/');
+
+                const item = document.createElement('div');
+                item.className = 'foto-galerie-item';
+                item.innerHTML = `
+                    <img src="${imgUrl}" alt="Hochzeitsfoto" loading="lazy">
+                    <div class="foto-galerie-overlay"><span>${resource.public_id.split('/').pop()}</span></div>
+                `;
+
+                item.addEventListener('click', () => {
+                    openFotoLightbox(imgUrl);
+                });
+
+                grid.appendChild(item);
+                fotoGalleryImages.push(imgUrl);
+            });
+        })
+        .catch(() => {
+            if (emptyMsg) emptyMsg.style.display = 'block';
+        });
+}
+
+// ========================================
+// FOTO-GALERIE LIGHTBOX
+// ========================================
+let fotoLightboxIndex = 0;
+
+function initFotoLightbox() {
+    const lightbox = document.getElementById('foto-lightbox');
+    const closeBtn = document.getElementById('foto-lightbox-close');
+    const prevBtn = document.getElementById('foto-lightbox-prev');
+    const nextBtn = document.getElementById('foto-lightbox-next');
+    if (!lightbox) return;
+
+    closeBtn.addEventListener('click', () => lightbox.classList.remove('active'));
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) lightbox.classList.remove('active');
+    });
+
+    prevBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        fotoLightboxIndex = (fotoLightboxIndex - 1 + fotoGalleryImages.length) % fotoGalleryImages.length;
+        document.getElementById('foto-lightbox-img').src = fotoGalleryImages[fotoLightboxIndex];
+    });
+
+    nextBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        fotoLightboxIndex = (fotoLightboxIndex + 1) % fotoGalleryImages.length;
+        document.getElementById('foto-lightbox-img').src = fotoGalleryImages[fotoLightboxIndex];
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (!lightbox.classList.contains('active')) return;
+        if (e.key === 'Escape') lightbox.classList.remove('active');
+        if (e.key === 'ArrowLeft') {
+            fotoLightboxIndex = (fotoLightboxIndex - 1 + fotoGalleryImages.length) % fotoGalleryImages.length;
+            document.getElementById('foto-lightbox-img').src = fotoGalleryImages[fotoLightboxIndex];
+        }
+        if (e.key === 'ArrowRight') {
+            fotoLightboxIndex = (fotoLightboxIndex + 1) % fotoGalleryImages.length;
+            document.getElementById('foto-lightbox-img').src = fotoGalleryImages[fotoLightboxIndex];
+        }
+    });
+}
+
+function openFotoLightbox(imgUrl) {
+    const lightbox = document.getElementById('foto-lightbox');
+    const lightboxImg = document.getElementById('foto-lightbox-img');
+    fotoLightboxIndex = fotoGalleryImages.indexOf(imgUrl);
+    lightboxImg.src = imgUrl;
+    lightbox.classList.add('active');
 }
 
 // ========================================

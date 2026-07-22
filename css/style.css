@@ -1539,6 +1539,103 @@ body > * {
 }
 
 /* ========================================
+   FOTO-GALERIE (Cloudinary)
+   ======================================== */
+
+.foto-galerie-section {
+    padding: 5rem 2rem;
+    text-align: center;
+}
+
+.foto-galerie-subtitle {
+    font-family: var(--font-body);
+    font-style: italic;
+    color: var(--color-Text-hell);
+    margin-bottom: 2rem;
+}
+
+.foto-galerie-upload {
+    margin-bottom: 2.5rem;
+}
+
+.upload-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.9rem 2.2rem;
+    background: linear-gradient(135deg, var(--color-rost) 0%, var(--color-braun) 100%);
+    color: var(--color-weiss);
+    border: none;
+    border-radius: 50px;
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(139, 115, 85, 0.3);
+    transition: var(--transition-smooth);
+}
+
+.upload-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(139, 115, 85, 0.4);
+    background: linear-gradient(135deg, var(--color-braun) 0%, var(--color-rost-dark) 100%);
+}
+
+.upload-btn .btn-flower {
+    font-size: 1.1rem;
+}
+
+.foto-galerie-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.foto-galerie-empty {
+    grid-column: 1 / -1;
+    padding: 4rem 2rem;
+    color: var(--color-Text-hell);
+    font-style: italic;
+}
+
+.foto-galerie-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    cursor: pointer;
+    aspect-ratio: 1;
+}
+
+.foto-galerie-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.foto-galerie-item:hover img {
+    transform: scale(1.08);
+}
+
+.foto-galerie-item .foto-galerie-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.8rem;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.5));
+    color: white;
+    font-size: 0.85rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.foto-galerie-item:hover .foto-galerie-overlay {
+    opacity: 1;
+}
+
+/* ========================================
    RESPONSIVE DESIGN
    ======================================== */
 
@@ -1633,6 +1730,10 @@ body > * {
         grid-template-columns: repeat(2, 1fr);
     }
 
+    .foto-galerie-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
     .ba-img {
         height: 280px;
     }
@@ -1674,6 +1775,10 @@ body > * {
 
     .letter-date-text {
         font-size: 0.8rem;
+    }
+
+    .foto-galerie-grid {
+        grid-template-columns: 1fr;
     }
 }
 
