@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foto-Galerie - Malika & Dario</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .fotogalerie-page {
+            min-height: 100vh;
+            padding: 6rem 2rem 4rem;
+        }
+
+        .fotogalerie-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .fotogalerie-header h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            color: var(--color-braun-dunkel);
+            margin-bottom: 0.8rem;
+        }
+
+        .fotogalerie-header p {
+            font-family: var(--font-body);
+            font-style: italic;
+            color: var(--color-Text-hell);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .fotogalerie-header .section-flower {
+            color: var(--color-gold);
+            margin: 0 0.5rem;
+        }
+
+        .fotogalerie-upload {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .fotogalerie-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .fotogalerie-empty {
+            grid-column: 1 / -1;
+            padding: 4rem 2rem;
+            color: var(--color-Text-hell);
+            font-style: italic;
+            text-align: center;
+        }
+
+        .fotogalerie-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            cursor: pointer;
+            aspect-ratio: 1;
+        }
+
+        .fotogalerie-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .fotogalerie-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .fotogalerie-item .foto-galerie-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 0.8rem;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.5));
+            color: white;
+            font-size: 0.85rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .fotogalerie-item:hover .foto-galerie-overlay {
+            opacity: 1;
+        }
+
+        .fotogalerie-back {
+            display: inline-block;
+            margin-top: 3rem;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: var(--color-braun);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(139, 115, 85, 0.3);
+            transition: var(--transition-smooth);
+            text-align: center;
+            width: 100%;
+        }
+
+        .fotogalerie-back:hover {
+            color: var(--color-braun-dunkel);
+            border-bottom-color: var(--color-braun-dunkel);
+        }
+
+        @media (max-width: 768px) {
+            .fotogalerie-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .fotogalerie-page {
+                padding: 5rem 1rem 3rem;
+            }
+
+            .fotogalerie-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="fotogalerie-page">
+        <div class="fotogalerie-header">
+            <h1><span class="section-flower">✿</span> Foto-Galerie <span class="section-flower">✿</span></h1>
+            <p>Hier könnt ihr nach der Hochzeit Fotos ansehen und selbst hochladen</p>
+        </div>
+
+        <div class="fotogalerie-upload">
+            <button type="button" class="upload-btn" id="upload-btn">
+                <span>Foto hochladen</span>
+                <span class="btn-flower">✿</span>
+            </button>
+        </div>
+
+        <div class="fotogalerie-grid" id="foto-galerie-grid">
+            <div class="foto-galerie-empty" id="foto-galerie-empty">
+                <p>Noch keine Fotos vorhanden. Seid die Ersten!</p>
+            </div>
+        </div>
+
+        <!-- Lightbox -->
+        <div class="lightbox" id="foto-lightbox">
+            <button class="lightbox-close" id="foto-lightbox-close">&times;</button>
+            <button class="lightbox-prev" id="foto-lightbox-prev">&#8249;</button>
+            <button class="lightbox-next" id="foto-lightbox-next">&#8250;</button>
+            <img src="" alt="Vorschau" class="lightbox-img" id="foto-lightbox-img">
+        </div>
+
+        <a href="index.html" class="fotogalerie-back">&larr; Zurück zur Startseite</a>
+    </div>
+
+    <script src="https://widget.cloudinary.com/v2.0/all.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
