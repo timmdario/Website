@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zimmer - Malika & Dario</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .subpage {
+            min-height: 100vh;
+            padding: 6rem 2rem 4rem;
+        }
+
+        .subpage-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .subpage-header h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            color: var(--color-braun);
+            margin-bottom: 0.8rem;
+        }
+
+        .subpage-header p {
+            font-family: var(--font-body);
+            font-style: italic;
+            color: var(--color-Text-hell);
+            font-size: 1.1rem;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .subpage-header .section-flower {
+            color: var(--color-sage);
+            margin: 0 0.5rem;
+        }
+
+        .rooms-grid {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .room-card {
+            background: rgba(255, 253, 249, 0.85);
+            backdrop-filter: blur(6px);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(107, 67, 45, 0.08);
+            border: 1px solid rgba(188, 168, 151, 0.15);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .room-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(107, 67, 45, 0.12);
+        }
+
+        .room-card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .room-card-body {
+            padding: 1.5rem;
+        }
+
+        .room-card-body h2 {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            color: var(--color-braun);
+            margin-bottom: 0.5rem;
+        }
+
+        .room-card-body p {
+            color: var(--color-Text-hell);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .room-card-body .room-capacity {
+            display: inline-block;
+            margin-top: 0.8rem;
+            padding: 0.3rem 0.8rem;
+            background: var(--color-offwhite);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--color-sage);
+            border: 1px solid rgba(106, 116, 85, 0.2);
+        }
+
+        .room-note {
+            max-width: 700px;
+            margin: 2.5rem auto 0;
+            padding: 1.5rem;
+            background: rgba(255, 253, 249, 0.85);
+            border-radius: 12px;
+            border: 1px solid rgba(188, 168, 151, 0.15);
+            text-align: center;
+            color: var(--color-Text-hell);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .room-note strong {
+            color: var(--color-Text);
+        }
+
+        .subpage-back {
+            display: inline-block;
+            margin-top: 3rem;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: var(--color-braun);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(107, 67, 45, 0.3);
+            transition: var(--transition-smooth);
+            text-align: center;
+            width: 100%;
+        }
+
+        .subpage-back:hover {
+            color: var(--color-haselnuss);
+            border-bottom-color: var(--color-haselnuss);
+        }
+
+        @media (max-width: 768px) {
+            .rooms-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .subpage {
+                padding: 5rem 1rem 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="nav-logo"><img src="assets/logo.png" alt="Malika & Dario" class="nav-logo-img"></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Willkommen</a></li>
+            <li class="nav-dropdown">
+                <a href="index.html#details" class="active">Details</a>
+                <ul class="nav-dropdown-menu">
+                    <li><a href="ablauf.html">Ablauf</a></li>
+                    <li><a href="location.html">Location</a></li>
+                    <li><a href="zimmer.html" class="active">Zimmer</a></li>
+                </ul>
+            </li>
+            <li><a href="fotogalerie.html">Foto Galerie</a></li>
+            <li><a href="index.html#faq">FAQ</a></li>
+            <li><a href="index.html#rsvp">RSVP</a></li>
+            <li><a href="impressum.html">Impressum</a></li>
+        </ul>
+    </nav>
+
+    <div class="subpage">
+        <div class="subpage-header">
+            <h1><span class="section-flower">✿</span> Unsere Zimmer <span class="section-flower">✿</span></h1>
+            <p>Komfortable und stilvolle Unterkünfte direkt auf dem Gelände – für alle 71 Übernachtungsgäste</p>
+        </div>
+
+        <div class="rooms-grid">
+            <div class="room-card">
+                <img src="https://storage.googleapis.com/msgsndr/dK7adXxVzYoQPz1NrMF0/media/68fb7a959b2f63ad532258bc.webp" alt="GruppenGästehaus" class="room-card-img">
+                <div class="room-card-body">
+                    <h2>GruppenGästehaus</h2>
+                    <p>10 unterschiedliche Zimmer im liebevollen Landhausstil. Wie ein großes Ferienhaus – Bettwäsche und Handtücher inklusive.</p>
+                    <span class="room-capacity">2–12 Personen pro Zimmer</span>
+                </div>
+            </div>
+
+            <div class="room-card">
+                <img src="https://storage.googleapis.com/msgsndr/dK7adXxVzYoQPz1NrMF0/media/68fb7c7154fb6290bd6b4bc6.webp" alt="Honeymoon Suite" class="room-card-img">
+                <div class="room-card-body">
+                    <h2>Honeymoon Suite</h2>
+                    <p>Unsere helle und exklusive Suite mit eigenem Bad, Dusche und Badewanne – ideal fürs Getting Ready und zweisame Momente.</p>
+                    <span class="room-capacity">Brautpaar</span>
+                </div>
+            </div>
+
+            <div class="room-card">
+                <img src="https://assets.cdn.filesafe.space/dK7adXxVzYoQPz1NrMF0/media/69ca3ace027b1528c8eef1c8.jpg" alt="Appartement" class="room-card-img">
+                <div class="room-card-body">
+                    <h2>Appartements</h2>
+                    <p>2 geräumige Appartements mit Doppelbett, eigenem Duschbad und Pantry. Hunde sind gegen Aufpreis willkommen.</p>
+                    <span class="room-capacity">je 2 Personen</span>
+                </div>
+            </div>
+
+            <div class="room-card">
+                <img src="https://assets.cdn.filesafe.space/dK7adXxVzYoQPz1NrMF0/media/6947f1ca59a0a6fd29263460.jpg" alt="ScheunenHostel" class="room-card-img">
+                <div class="room-card-body">
+                    <h2>ScheunenHostel</h2>
+                    <p>2 Suiten mit eigenem Bad und 4 Zimmer mit Gemeinschaftsbädern. Jeder Raum ist exklusiv gestaltet.</p>
+                    <span class="room-capacity">21 Gäste</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="room-note">
+            <strong>Hinweis:</strong> Die Unterkünfte sind Teil des besonderen FarmInn-Erlebnisses und können nur in Kombination mit unserer Hochzeitsveranstaltung gebucht werden. Bettwäsche und Handtücher sind in allen Zimmern inklusive.
+        </div>
+
+        <a href="index.html#details" class="subpage-back">&larr; Zurück zu Details</a>
+    </div>
+</body>
+</html>

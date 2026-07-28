@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location - Malika & Dario</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .subpage {
+            min-height: 100vh;
+            padding: 6rem 2rem 4rem;
+        }
+
+        .subpage-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .subpage-header h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            color: var(--color-braun);
+            margin-bottom: 0.8rem;
+        }
+
+        .subpage-header p {
+            font-family: var(--font-body);
+            font-style: italic;
+            color: var(--color-Text-hell);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .subpage-header .section-flower {
+            color: var(--color-sage);
+            margin: 0 0.5rem;
+        }
+
+        .location-grid {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .location-card {
+            padding: 2rem;
+            background: rgba(255, 253, 249, 0.85);
+            backdrop-filter: blur(6px);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(107, 67, 45, 0.08);
+            border: 1px solid rgba(188, 168, 151, 0.15);
+        }
+
+        .location-card-icon {
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .location-card h2 {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            color: var(--color-braun);
+            margin-bottom: 0.8rem;
+        }
+
+        .location-card p {
+            color: var(--color-Text-hell);
+            line-height: 1.7;
+        }
+
+        .location-card strong {
+            color: var(--color-Text);
+        }
+
+        .location-map {
+            max-width: 800px;
+            margin: 2rem auto 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(107, 67, 45, 0.08);
+            border: 1px solid rgba(188, 168, 151, 0.15);
+        }
+
+        .location-map iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+        }
+
+        .subpage-back {
+            display: inline-block;
+            margin-top: 3rem;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: var(--color-braun);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(107, 67, 45, 0.3);
+            transition: var(--transition-smooth);
+            text-align: center;
+            width: 100%;
+        }
+
+        .subpage-back:hover {
+            color: var(--color-haselnuss);
+            border-bottom-color: var(--color-haselnuss);
+        }
+
+        @media (max-width: 480px) {
+            .subpage {
+                padding: 5rem 1rem 3rem;
+            }
+
+            .location-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="nav-logo"><img src="assets/logo.png" alt="Malika & Dario" class="nav-logo-img"></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Willkommen</a></li>
+            <li class="nav-dropdown">
+                <a href="index.html#details" class="active">Details</a>
+                <ul class="nav-dropdown-menu">
+                    <li><a href="ablauf.html">Ablauf</a></li>
+                    <li><a href="location.html" class="active">Location</a></li>
+                    <li><a href="zimmer.html">Zimmer</a></li>
+                </ul>
+            </li>
+            <li><a href="fotogalerie.html">Foto Galerie</a></li>
+            <li><a href="index.html#faq">FAQ</a></li>
+            <li><a href="index.html#rsvp">RSVP</a></li>
+            <li><a href="impressum.html">Impressum</a></li>
+        </ul>
+    </nav>
+
+    <div class="subpage">
+        <div class="subpage-header">
+            <h1><span class="section-flower">✿</span> Die Location <span class="section-flower">✿</span></h1>
+            <p>FarmInn – Kakerbeck bei Wittingen</p>
+        </div>
+
+        <div class="location-grid">
+            <div class="location-card">
+                <div class="location-card-icon">🏠</div>
+                <h2>Die Location</h2>
+                <p>Wir feiern unsere Hochzeit im <strong>FarmInn</strong> in Kakerbeck bei Wittingen. Die liebevoll restaurierte Hofanlage verbindet rustikalen Scheunencharme mit modernem Komfort. Die gesamte Anlage steht exklusiv unserer Hochzeitsgesellschaft zur Verfügung.</p>
+            </div>
+
+            <div class="location-card">
+                <div class="location-card-icon">🗓️</div>
+                <h2>Wochenendkonzept</h2>
+                <p><strong>Freitag:</strong> Anreise & gemeinsamer Abend<br>
+                <strong>Samstag:</strong> Trauung & Feier<br>
+                <strong>Sonntag:</strong> Frühstück & entspannter Ausklang</p>
+            </div>
+
+            <div class="location-card">
+                <div class="location-card-icon">🚗</div>
+                <h2>Anreise & Parken</h2>
+                <p>Kostenlose Parkplätze direkt auf dem Gelände (<strong>ca. 75 reguläre Plätze</strong> + 30 weitere Stellplätze). Zusätzlich gibt es Stellplätze für Camper.</p>
+            </div>
+
+            <div class="location-card">
+                <div class="location-card-icon">🐾</div>
+                <h2>Besonderheiten</h2>
+                <p>Auf FarmInn leben <strong>Alpakas und weitere Hoftiere</strong>. Die Alpakas können nach Absprache sogar für eure Hochzeitsfotos genutzt werden! Außerdem gibt es eine <strong>voll ausgestattete Gemeinschaftsküche</strong> und gemütliche Aufenthaltsräume.</p>
+            </div>
+        </div>
+
+        <div class="location-map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2442.5!2d10.75!3d52.6!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTLCsDM2JzAwLjAiTiAxMMKwNDUnMDAuMCJF!5e0!3m2!1sde!2sde!4v1" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+
+        <a href="index.html#details" class="subpage-back">&larr; Zurück zu Details</a>
+    </div>
+</body>
+</html>

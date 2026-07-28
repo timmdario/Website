@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ablauf - Malika & Dario</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .subpage {
+            min-height: 100vh;
+            padding: 6rem 2rem 4rem;
+        }
+
+        .subpage-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .subpage-header h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            color: var(--color-braun);
+            margin-bottom: 0.8rem;
+        }
+
+        .subpage-header p {
+            font-family: var(--font-body);
+            font-style: italic;
+            color: var(--color-Text-hell);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .subpage-header .section-flower {
+            color: var(--color-sage);
+            margin: 0 0.5rem;
+        }
+
+        .timeline {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--color-sage), var(--color-taupe), var(--color-sage));
+            opacity: 0.3;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: rgba(255, 253, 249, 0.85);
+            backdrop-filter: blur(6px);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(107, 67, 45, 0.08);
+            border: 1px solid rgba(188, 168, 151, 0.15);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.35rem;
+            top: 2.2rem;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--color-sage);
+            border: 3px solid var(--color-weiss);
+            box-shadow: 0 0 0 2px var(--color-sage);
+        }
+
+        .timeline-icon {
+            font-size: 2.2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .timeline-item h2 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--color-braun);
+            margin-bottom: 0.3rem;
+        }
+
+        .timeline-time {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            color: var(--color-sage);
+            margin-bottom: 0.8rem;
+        }
+
+        .timeline-item p {
+            color: var(--color-Text-hell);
+            line-height: 1.7;
+        }
+
+        .subpage-back {
+            display: inline-block;
+            margin-top: 3rem;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: var(--color-braun);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(107, 67, 45, 0.3);
+            transition: var(--transition-smooth);
+            text-align: center;
+            width: 100%;
+        }
+
+        .subpage-back:hover {
+            color: var(--color-haselnuss);
+            border-bottom-color: var(--color-haselnuss);
+        }
+
+        @media (max-width: 480px) {
+            .subpage {
+                padding: 5rem 1rem 3rem;
+            }
+
+            .timeline {
+                padding-left: 2rem;
+            }
+
+            .timeline-item::before {
+                left: -1.6rem;
+                width: 12px;
+                height: 12px;
+            }
+
+            .timeline-item {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="nav-logo"><img src="assets/logo.png" alt="Malika & Dario" class="nav-logo-img"></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Willkommen</a></li>
+            <li class="nav-dropdown">
+                <a href="index.html#details" class="active">Details</a>
+                <ul class="nav-dropdown-menu">
+                    <li><a href="ablauf.html" class="active">Ablauf</a></li>
+                    <li><a href="location.html">Location</a></li>
+                    <li><a href="zimmer.html">Zimmer</a></li>
+                </ul>
+            </li>
+            <li><a href="fotogalerie.html">Foto Galerie</a></li>
+            <li><a href="index.html#faq">FAQ</a></li>
+            <li><a href="index.html#rsvp">RSVP</a></li>
+            <li><a href="impressum.html">Impressum</a></li>
+        </ul>
+    </nav>
+
+    <div class="subpage">
+        <div class="subpage-header">
+            <h1><span class="section-flower">✿</span> Unser Tag <span class="section-flower">✿</span></h1>
+            <p>So wird unser Hochzeitstag ablaufen</p>
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-icon">💒</div>
+                <h2>Zeremonie</h2>
+                <div class="timeline-time">14:00 Uhr</div>
+                <p>Die feierliche Trauung findet im romantisch restaurierten Bullenstall statt – oder bei passendem Wetter im Garten von FarmInn. Hier sagen wir unser Jawort.</p>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-icon">🥂</div>
+                <h2>Empfang</h2>
+                <div class="timeline-time">Ab 16:00 Uhr</div>
+                <p>Nach der Zeremonie versammeln wir uns im Innenhof und Garten zum gemütlichen Empfang. Mit Getränken, canapés und guter Gesellschaft starten wir in den Abend.</p>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-icon">🎶</div>
+                <h2>Fest & Feier</h2>
+                <div class="timeline-time">Ab 18:00 Uhr</div>
+                <p>In der festlich geschmückten FeierScheune gibt es das Festmahl,Reden, Tanz und jede Menge Spaß – bis spät in die Nacht.</p>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-icon">🍳</div>
+                <h2>Frühstück</h2>
+                <div class="timeline-time">Sonntag, 09:00 Uhr</div>
+                <p>Am nächsten Morgen laden wir zum gemeinsamen Frühstück auf dem Hof ein. Ein entspannter Ausklang mit gutem Essen und Gesprächen. (20 € pro Person)</p>
+            </div>
+        </div>
+
+        <a href="index.html#details" class="subpage-back">&larr; Zurück zu Details</a>
+    </div>
+</body>
+</html>
