@@ -49,7 +49,7 @@ const faqItems = document.querySelectorAll('.faq-item');
 // ========================================
 function createPetals(count) {
     petalsContainer.innerHTML = '';
-    const colors = ['pink', 'gold', 'cream', 'rose'];
+    const colors = ['sage', 'olive', 'taupe', 'haselnuss'];
 
     for (let i = 0; i < count; i++) {
         const petal = document.createElement('div');
@@ -369,8 +369,8 @@ function initHeroAnimation() {
 
     // Hero Flowers
     heroTl.fromTo('.hero-flower',
-        { opacity: 0, scale: 0 },
-        { opacity: 0.15, scale: 1, duration: 0.8, stagger: 0.2, ease: 'back.out(1.7)' },
+        { opacity: 0, scale: 0.5 },
+        { opacity: 0.2, scale: 1, duration: 1, stagger: 0.3, ease: 'power2.out' },
         '-=0.4'
     );
 }
@@ -692,9 +692,9 @@ function initScratch() {
 
     function drawOverlay() {
         const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-        grad.addColorStop(0, '#D4A574');
-        grad.addColorStop(0.3, '#C4A484');
-        grad.addColorStop(0.6, '#A8845F');
+        grad.addColorStop(0, '#bca897');
+        grad.addColorStop(0.3, '#a89888');
+        grad.addColorStop(0.6, '#9b755c');
         grad.addColorStop(1, '#8B7355');
         ctx.fillStyle = grad;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -797,16 +797,16 @@ function initCloudinaryWidget() {
         styles: {
             palette: {
                 window: '#FFFDF9',
-                windowBorder: '#C4A484',
+                windowBorder: '#bca897',
                 tabIcon: '#8B7355',
                 menuIcons: '#8B7355',
                 textDark: '#4A3F35',
                 textLight: '#FFFDF9',
-                link: '#A8845F',
-                action: '#C4A484',
-                inactiveTabIcon: '#D4A574',
+                link: '#9b755c',
+                action: '#bca897',
+                inactiveTabIcon: '#bca897',
                 error: '#D45B5B',
-                inProgress: '#D4A574',
+                inProgress: '#bca897',
                 complete: '#7CB97A'
             }
         }
@@ -989,9 +989,9 @@ function initNavbarScroll() {
         const currentScroll = window.pageYOffset;
 
         if (currentScroll > 100) {
-            navbar.style.boxShadow = '0 4px 30px rgba(139, 115, 85, 0.15)';
+            navbar.style.boxShadow = '0 4px 30px rgba(107, 67, 45, 0.12)';
         } else {
-            navbar.style.boxShadow = '0 2px 20px rgba(139, 115, 85, 0.1)';
+            navbar.style.boxShadow = '0 2px 20px rgba(107, 67, 45, 0.08)';
         }
 
         lastScroll = currentScroll;
