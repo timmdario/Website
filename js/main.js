@@ -811,6 +811,10 @@ function initCloudinaryWidget() {
             }
         }
     }, (error, result) => {
+        if (error && error.status === 'presets_not_found') {
+            alert('Upload-Preset "wedding_uploads" nicht gefunden.\n\nBitte in Cloudinary Dashboard unter Settings → Upload ein "Unsigned Upload Preset" mit dem Namen "wedding_uploads" erstellen.');
+            return;
+        }
         if (!error && result && result.event === 'success') {
             addPhotoToGallery(result.info);
         }
@@ -1002,7 +1006,17 @@ function initNavbarScroll() {
 // INITIALISIERUNG
 // ========================================
 document.addEventListener('DOMContentLoaded', () => {
-    // Prüfen ob Briefumschlag bereits geöffnet wurde
+    const isSubpage = !document.getElementById('envelope-overlay');
+
+    if (isSubpage) {
+        // Unterseite: nur Foto-Galerie initialisieren (falls vorhanden)
+        if (document.getElementById('upload-btn')) {
+            initFotoGalerie();
+        }
+        return;
+    }
+
+    // Hauptseite: Prüfen ob Briefumschlag bereits geöffnet wurde
     if (getCookie('envelope_opened')) {
         // Umschlag überspringen, Website direkt anzeigen
         envelopeOverlay.style.display = 'none';
