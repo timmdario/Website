@@ -14,11 +14,15 @@ const EMAILJS_CONFIRM_TEMPLATE_ID = 'template_bestaetigung';
 // Google Sheets Web App URL (nach Deployment einfügen)
 const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycby3RfTSbQKhbHknWcXXNKOetq30jxkC_lPRUgXc__kjFyKqw3iu-pOT7NjHjZRf70zdhw/exec';
 
-// EmailJS initialisieren
-emailjs.init(EMAILJS_PUBLIC_KEY);
+// EmailJS initialisieren (nur wenn Library geladen)
+if (typeof emailjs !== 'undefined') {
+    emailjs.init(EMAILJS_PUBLIC_KEY);
+}
 
-// ScrollTrigger Plugin registrieren
-gsap.registerPlugin(ScrollTrigger);
+// ScrollTrigger Plugin registrieren (nur wenn Library geladen)
+if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+}
 
 // ========================================
 // COOKIE HILFSFUNKTIONEN
