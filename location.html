@@ -40,9 +40,25 @@
             margin: 0 0.5rem;
         }
 
-        .location-grid {
+        .location-section {
             max-width: 800px;
-            margin: 0 auto;
+            margin: 0 auto 3rem;
+        }
+
+        .location-section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.4rem, 3vw, 1.8rem);
+            color: var(--color-braun);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .location-section-title .section-flower {
+            color: var(--color-sage);
+            margin: 0 0.5rem;
+        }
+
+        .location-grid {
             display: flex;
             flex-direction: column;
             gap: 2rem;
@@ -57,11 +73,6 @@
             border: 1px solid rgba(188, 168, 151, 0.15);
         }
 
-        .location-card-icon {
-            font-size: 2rem;
-            margin-bottom: 0.8rem;
-        }
-
         .location-card h2 {
             font-family: var(--font-heading);
             font-size: 1.4rem;
@@ -72,10 +83,67 @@
         .location-card p {
             color: var(--color-Text-hell);
             line-height: 1.7;
+            margin-bottom: 0.8rem;
+        }
+
+        .location-card p:last-child {
+            margin-bottom: 0;
         }
 
         .location-card strong {
             color: var(--color-Text);
+        }
+
+        .location-card-list {
+            list-style: none;
+            padding: 0;
+            margin: 0.8rem 0 0;
+        }
+
+        .location-card-list li {
+            color: var(--color-Text-hell);
+            line-height: 1.7;
+            padding-left: 1.2rem;
+            position: relative;
+            margin-bottom: 0.3rem;
+        }
+
+        .location-card-list li::before {
+            content: '·';
+            position: absolute;
+            left: 0;
+            color: var(--color-sage);
+            font-weight: bold;
+            font-size: 1.3rem;
+            line-height: 1.5;
+        }
+
+        .location-feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .location-feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            font-size: 0.9rem;
+            color: var(--color-Text-hell);
+        }
+
+        .location-feature-icon {
+            flex-shrink: 0;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background: var(--color-offwhite);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            border: 1px solid rgba(188, 168, 151, 0.2);
         }
 
         .location-map {
@@ -119,6 +187,10 @@
             .location-card {
                 padding: 1.5rem;
             }
+
+            .location-feature-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -148,31 +220,124 @@
             <p>FarmInn – Kakerbeck bei Wittingen</p>
         </div>
 
-        <div class="location-grid">
-            <div class="location-card">
-                <div class="location-card-icon">🏠</div>
-                <h2>Die Location</h2>
-                <p>Wir feiern unsere Hochzeit im <strong>FarmInn</strong> in Kakerbeck bei Wittingen. Die liebevoll restaurierte Hofanlage verbindet rustikalen Scheunencharme mit modernem Komfort. Die gesamte Anlage steht exklusiv unserer Hochzeitsgesellschaft zur Verfügung.</p>
+        <div class="location-section">
+            <div class="location-grid">
+                <div class="location-card">
+                    <h2>FarmInn – Unsere Hochzeitslocation</h2>
+                    <p>Wir feiern unsere Hochzeit im <strong>FarmInn</strong> in Kakerbeck bei Wittingen. Die liebevoll restaurierte Hofanlage verbindet rustikalen Scheunencharme mit modernem Komfort.</p>
+                    <p>Die gesamte Anlage steht exklusiv unserer Hochzeitsgesellschaft zur Verfügung – <strong>an unserem Wochenende ist keine andere Hochzeit auf FarmInn</strong>.</p>
+                    <p><strong>Adresse:</strong> Kakerbeck 9, 29378 Wittingen</p>
+                </div>
             </div>
+        </div>
 
-            <div class="location-card">
-                <div class="location-card-icon">🗓️</div>
-                <h2>Wochenendkonzept</h2>
-                <p><strong>Freitag:</strong> Anreise & gemeinsamer Abend<br>
-                <strong>Samstag:</strong> Trauung & Feier<br>
-                <strong>Sonntag:</strong> Frühstück & entspannter Ausklang</p>
+        <div class="location-section">
+            <h2 class="location-section-title"><span class="section-flower">✿</span> Räumlichkeiten <span class="section-flower">✿</span></h2>
+            <div class="location-grid">
+                <div class="location-card">
+                    <h2>Die FeierScheune – Herzstück von FarmInn</h2>
+                    <p>Unsere <strong>FeierScheune</strong> ist das Herzstück auf FarmInn und bietet Platz für bis zu <strong>250 Personen</strong>. Mit ihrem Mix aus rustikalem Charme und moderner Ausstattung ist sie ideal für unsere Hochzeitsfeier.</p>
+                    <ul class="location-card-list">
+                        <li>Rustikales Scheunenflair kombiniert mit moderner Ausstattung</li>
+                        <li>Sound- & Lichtanlage inklusive</li>
+                        <li>Theken- und Zapfanlage, Getränkekühlung</li>
+                        <li>Eiswürfelmaschine</li>
+                        <li>Cateringküche mit Kühlraum</li>
+                        <li>GasKamin und Beheizung</li>
+                        <li>Freie Wahl bei Catering und Getränken</li>
+                    </ul>
+                </div>
+
+                <div class="location-card">
+                    <h2>Die TanzLounge</h2>
+                    <p>In der <strong>TanzLounge</strong> geht's richtig los – hier haben bis zu <strong>150 Gäste</strong> Platz, um das Tanzbein zu schwingen. Direkt an die FeierScheune angebunden.</p>
+                    <ul class="location-card-list">
+                        <li><strong>30 m² große Bühne</strong> für DJs und Bands</li>
+                        <li>Professionelle Licht- & Soundtechnik buchbar</li>
+                        <li>Frischluftanlage und Beheizung für jede Jahreszeit</li>
+                        <li>Eigene Bar mit Barhockern und Loungemöbeln</li>
+                        <li>Laute Musik bis in die Morgenstunden möglich</li>
+                    </ul>
+                </div>
+
+                <div class="location-card">
+                    <h2>Die ClubLounge</h2>
+                    <p>Ob gemütlicher Vorabend oder gesellige Runde. In der <strong>oberen Etage der TanzLounge</strong> erwartet Dich die ClubLounge mit Bar, GasKamin, chilligem Loungebereich sowie Billardtisch, Tischtennisplatte und GamingStationen.</p>
+                    <ul class="location-card-list">
+                        <li>Platz für ca. 60–80 Personen inkl. Bar und Sitzbereiche</li>
+                        <li>Ideal für PrePartys, kleinere Feiern oder Teamevents</li>
+                        <li>Billardtisch, Tischtennis und GamingStationen</li>
+                        <li>Kleine Küchenzeile und Kühlschrank</li>
+                    </ul>
+                </div>
+
+                <div class="location-card">
+                    <h2>Die RaucherLounge</h2>
+                    <p>Für Genießer: Unsere wettergeschützte Raucherlounge ist ausgestattet mit Bar, gemütlichen Couches und einem Holzofen. Ideal für Gin-, Whiskey- oder Shisha-Abende in privater Runde.</p>
+                    <ul class="location-card-list">
+                        <li>Wettergeschützter Bereich für bis zu 25 Personen</li>
+                        <li>Bar, gemütliche Couches und Holzofen</li>
+                        <li>Zutritt ab 18 Jahre</li>
+                    </ul>
+                </div>
+
+                <div class="location-card">
+                    <h2>Die WeddingArea – Trauungsort</h2>
+                    <p>Ein <strong>restaurierter Bullenstall</strong> mit rustikalem Flair – die perfekte Kulisse für unsere Trauung. Mit Platz für bis zu <strong>120 Stühlen</strong> bietet er romantische Atmosphäre ganz nah an der Natur.</p>
+                    <ul class="location-card-list">
+                        <li>Restaurierter Bullenstall – heute romantische Trauungslocation</li>
+                        <li>Platz für bis zu 120 Stühlen</li>
+                        <li>Freie oder kirchliche Trauungen möglich</li>
+                        <li>Auf Wunsch auch Zeremonien im Garten möglich</li>
+                    </ul>
+                </div>
             </div>
+        </div>
 
-            <div class="location-card">
-                <div class="location-card-icon">🚗</div>
-                <h2>Anreise & Parken</h2>
-                <p>Kostenlose Parkplätze direkt auf dem Gelände (<strong>ca. 75 reguläre Plätze</strong> + 30 weitere Stellplätze). Zusätzlich gibt es Stellplätze für Camper.</p>
+        <div class="location-section">
+            <h2 class="location-section-title"><span class="section-flower">✿</span> Draußen <span class="section-flower">✿</span></h2>
+            <div class="location-grid">
+                <div class="location-card">
+                    <h2>Innenhof & Garten</h2>
+                    <p><strong>Der Innenhof</strong> ist einladend und weitläufig – perfekt für OpenAirEvents oder zum Begrüßen Eurer Gäste mit einem stilvollen Sektempfang.</p>
+                    <p><strong>Der Garten</strong> bietet Natur und Ruhe – eine weitläufige Grünanlage, perfekt für freie Trauungen oder Fotoshootings.</p>
+                    <div class="location-feature-grid">
+                        <div class="location-feature-item">
+                            <div class="location-feature-icon">🐾</div>
+                            <span>Alpaka-Wiese & weitere Hoftiere</span>
+                        </div>
+                        <div class="location-feature-item">
+                            <div class="location-feature-icon">🌸</div>
+                            <span>Platz für bis zu 1000 Personen im Freien</span>
+                        </div>
+                        <div class="location-feature-item">
+                            <div class="location-feature-icon">📸</div>
+                            <span>Traumhafte Hintergründe für Fotos</span>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
 
-            <div class="location-card">
-                <div class="location-card-icon">🐾</div>
-                <h2>Besonderheiten</h2>
-                <p>Auf FarmInn leben <strong>Alpakas und weitere Hoftiere</strong>. Die Alpakas können nach Absprache sogar für eure Hochzeitsfotos genutzt werden! Außerdem gibt es eine <strong>voll ausgestattete Gemeinschaftsküche</strong> und gemütliche Aufenthaltsräume.</p>
+        <div class="location-section">
+            <h2 class="location-section-title"><span class="section-flower">✿</span> Anreise & Praktisches <span class="section-flower">✿</span></h2>
+            <div class="location-grid">
+                <div class="location-card">
+                    <h2>Parkplätze & Anreise</h2>
+                    <ul class="location-card-list">
+                        <li><strong>Ca. 75 reguläre Parkplätze</strong> + 30 weitere Stellplätze, alle kostenfrei</li>
+                        <li>4–5 Camperplätze direkt auf dem Gelände</li>
+                        <li>Alle Parkplätze exklusiv für FarmInn-Gäste</li>
+                        <li>Kostenfreies High-Speed WLAN in allen Räumen</li>
+                    </ul>
+                </div>
+
+                <div class="location-card">
+                    <h2>Wochenendkonzept</h2>
+                    <p><strong>Freitag:</strong> Anreise & gemeinsamer Abend<br>
+                    <strong>Samstag:</strong> Trauung & Feier<br>
+                    <strong>Sonntag:</strong> Frühstück & entspannter Ausklang</p>
+                </div>
             </div>
         </div>
 

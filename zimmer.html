@@ -40,9 +40,25 @@
             margin: 0 0.5rem;
         }
 
-        .rooms-grid {
+        .rooms-section {
             max-width: 900px;
-            margin: 0 auto;
+            margin: 0 auto 3rem;
+        }
+
+        .rooms-section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.4rem, 3vw, 1.8rem);
+            color: var(--color-braun);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .rooms-section-title .section-flower {
+            color: var(--color-sage);
+            margin: 0 0.5rem;
+        }
+
+        .rooms-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 1.5rem;
@@ -86,7 +102,32 @@
             line-height: 1.6;
         }
 
-        .room-card-body .room-capacity {
+        .room-card-list {
+            list-style: none;
+            padding: 0;
+            margin: 0.8rem 0 0;
+        }
+
+        .room-card-list li {
+            color: var(--color-Text-hell);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            padding-left: 1.2rem;
+            position: relative;
+            margin-bottom: 0.2rem;
+        }
+
+        .room-card-list li::before {
+            content: '·';
+            position: absolute;
+            left: 0;
+            color: var(--color-sage);
+            font-weight: bold;
+            font-size: 1.3rem;
+            line-height: 1.3;
+        }
+
+        .room-card .room-capacity {
             display: inline-block;
             margin-top: 0.8rem;
             padding: 0.3rem 0.8rem;
@@ -97,9 +138,24 @@
             border: 1px solid rgba(106, 116, 85, 0.2);
         }
 
+        .room-card-full {
+            grid-column: 1 / -1;
+        }
+
+        .room-card-full .room-card-inner {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .room-card-full .room-card-img {
+            width: 280px;
+            min-height: 200px;
+            flex-shrink: 0;
+        }
+
         .room-note {
             max-width: 700px;
-            margin: 2.5rem auto 0;
+            margin: 0 auto 0;
             padding: 1.5rem;
             background: rgba(255, 253, 249, 0.85);
             border-radius: 12px;
@@ -136,6 +192,14 @@
             .rooms-grid {
                 grid-template-columns: 1fr;
             }
+
+            .room-card-full .room-card-inner {
+                flex-direction: column;
+            }
+
+            .room-card-full .room-card-img {
+                width: 100%;
+            }
         }
 
         @media (max-width: 480px) {
@@ -168,49 +232,129 @@
     <div class="subpage">
         <div class="subpage-header">
             <h1><span class="section-flower">✿</span> Unsere Zimmer <span class="section-flower">✿</span></h1>
-            <p>Komfortable und stilvolle Unterkünfte direkt auf dem Gelände – für alle 71 Übernachtungsgäste</p>
+            <p>Komfortable und stilvolle Unterkünfte direkt auf dem Gelände – für alle 71 Übernachtungsgäste. Bettwäsche und Handtücher in allen Zimmern inklusive.</p>
         </div>
 
-        <div class="rooms-grid">
-            <div class="room-card">
-                <img src="https://storage.googleapis.com/msgsndr/dK7adXxVzYoQPz1NrMF0/media/68fb7a959b2f63ad532258bc.webp" alt="GruppenGästehaus" class="room-card-img">
-                <div class="room-card-body">
-                    <h2>GruppenGästehaus</h2>
-                    <p>10 unterschiedliche Zimmer im liebevollen Landhausstil. Wie ein großes Ferienhaus – Bettwäsche und Handtücher inklusive.</p>
-                    <span class="room-capacity">2–12 Personen pro Zimmer</span>
+        <!-- Honeymoon Suite – volle Breite -->
+        <div class="rooms-section">
+            <div class="rooms-grid">
+                <div class="room-card room-card-full">
+                    <div class="room-card-inner">
+                        <img src="https://storage.googleapis.com/msgsndr/dK7adXxVzYoQPz1NrMF0/media/68fb7c7154fb6290bd6b4bc6.webp" alt="Honeymoon Suite" class="room-card-img">
+                        <div class="room-card-body">
+                            <h2>Unsere Honeymoon Suite</h2>
+                            <p>Ihr als Brautpaar übernachtet in unserer hellen und exklusiven <strong>Honeymoon Suite</strong> im Gruppengästehaus. Diese bietet viel Platz für die Garderobe, das spätere Getting Ready und zweisame Momente.</p>
+                            <ul class="room-card-list">
+                                <li>Großes Zimmer mit viel Platz für Garderobe & Getting Ready</li>
+                                <li>Eigenes Bad mit WC, Dusche und Badewanne</li>
+                                <li>Historische Wandmalereien & romantisches Bad</li>
+                                <li>Traumhaft schön für das Getting Ready</li>
+                                <li>Großer Spiegel und Blick auf den Hof</li>
+                            </ul>
+                            <span class="room-capacity">Brautpaar</span>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <div class="room-card">
-                <img src="https://storage.googleapis.com/msgsndr/dK7adXxVzYoQPz1NrMF0/media/68fb7c7154fb6290bd6b4bc6.webp" alt="Honeymoon Suite" class="room-card-img">
-                <div class="room-card-body">
-                    <h2>Honeymoon Suite</h2>
-                    <p>Unsere helle und exklusive Suite mit eigenem Bad, Dusche und Badewanne – ideal fürs Getting Ready und zweisame Momente.</p>
-                    <span class="room-capacity">Brautpaar</span>
+        <!-- GruppenGästehaus & Appartements -->
+        <div class="rooms-section">
+            <h2 class="rooms-section-title"><span class="section-flower">✿</span> Gästezimmer <span class="section-flower">✿</span></h2>
+            <div class="rooms-grid">
+                <div class="room-card">
+                    <img src="https://storage.googleapis.com/msgsndr/dK7adXxVzYoQPz1NrMF0/media/68fb7a959b2f63ad532258bc.webp" alt="GruppenGästehaus" class="room-card-img">
+                    <div class="room-card-body">
+                        <h2>GruppenGästehaus</h2>
+                        <p>Die Zimmer des Gästehauses sind exklusiv eingerichtet und bieten Schlafplätze für zwei bis zwölf Personen, je nach Zimmerart und -größe. Jedes Zimmer hat seinen eigenen Charme im liebevollen Landhausstil. Das Gruppengästehaus ist wie ein großes Ferienhaus.</p>
+                        <ul class="room-card-list">
+                            <li>10 unterschiedliche Zimmer</li>
+                            <li>Schlafplätze für 2–12 Personen je Zimmer</li>
+                            <li>Rustikaler Charme gepaart mit moderner Ausstattung</li>
+                            <li>Bäder und WCs auf den jeweiligen Fluren</li>
+                            <li>Bettwäsche und Handtücher inklusive</li>
+                        </ul>
+                        <span class="room-capacity">ca. 46 Gäste</span>
+                    </div>
+                </div>
+
+                <div class="room-card">
+                    <img src="https://assets.cdn.filesafe.space/dK7adXxVzYoQPz1NrMF0/media/69ca3ace027b1528c8eef1c8.jpg" alt="Appartement" class="room-card-img">
+                    <div class="room-card-body">
+                        <h2>Appartements</h2>
+                        <p>Unsere beiden Appartements bieten jeweils Platz für bis zu 2 Personen und sind mit eigenem Bad, WC und Pantry ausgestattet.</p>
+                        <ul class="room-card-list">
+                            <li>2 Appartements mit Doppelbett</li>
+                            <li>Jeweils eigenes Duschbad</li>
+                            <li>Jeweils eigene Pantry</li>
+                            <li>Bettwäsche und Handtücher inklusive</li>
+                            <li>Hunde sind gegen Aufpreis herzlich willkommen</li>
+                        </ul>
+                        <span class="room-capacity">je 2 Personen</span>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <div class="room-card">
-                <img src="https://assets.cdn.filesafe.space/dK7adXxVzYoQPz1NrMF0/media/69ca3ace027b1528c8eef1c8.jpg" alt="Appartement" class="room-card-img">
-                <div class="room-card-body">
-                    <h2>Appartements</h2>
-                    <p>2 geräumige Appartements mit Doppelbett, eigenem Duschbad und Pantry. Hunde sind gegen Aufpreis willkommen.</p>
-                    <span class="room-capacity">je 2 Personen</span>
+        <!-- ScheunenHostel – volle Breite -->
+        <div class="rooms-section">
+            <div class="rooms-grid">
+                <div class="room-card room-card-full">
+                    <div class="room-card-inner">
+                        <img src="https://assets.cdn.filesafe.space/dK7adXxVzYoQPz1NrMF0/media/6947f1ca59a0a6fd29263460.jpg" alt="ScheunenHostel" class="room-card-img">
+                        <div class="room-card-body">
+                            <h2>Das ScheunenHostel</h2>
+                            <p>Unser ScheunenHostel bietet mit 2 Suiten und 4 Zimmern insgesamt Platz für 21 Gäste. Jeder Raum ist exklusiv gestaltet und bietet Platz für 2–4 Personen.</p>
+                            <ul class="room-card-list">
+                                <li>2 Suiten mit eigenem Bad</li>
+                                <li>4 Zimmer mit Nutzung der Gemeinschaftsbäder</li>
+                                <li>Jeder Raum exklusiv gestaltet, 2–4 Personen pro Raum</li>
+                                <li>Bettwäsche und Handtücher inklusive</li>
+                            </ul>
+                            <span class="room-capacity">21 Gäste</span>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <div class="room-card">
-                <img src="https://assets.cdn.filesafe.space/dK7adXxVzYoQPz1NrMF0/media/6947f1ca59a0a6fd29263460.jpg" alt="ScheunenHostel" class="room-card-img">
-                <div class="room-card-body">
-                    <h2>ScheunenHostel</h2>
-                    <p>2 Suiten mit eigenem Bad und 4 Zimmer mit Gemeinschaftsbädern. Jeder Raum ist exklusiv gestaltet.</p>
-                    <span class="room-capacity">21 Gäste</span>
+        <!-- Frühstück & Wellness -->
+        <div class="rooms-section">
+            <h2 class="rooms-section-title"><span class="section-flower">✿</span> Frühstück & Wellness <span class="section-flower">✿</span></h2>
+            <div class="rooms-grid">
+                <div class="room-card">
+                    <div class="room-card-body">
+                        <h2>Das Frühstück am Sonntag</h2>
+                        <p>Gemeinsam starten wir entspannt in den Sonntag mit einem reichhaltigen <strong>Frühstücksbuffet</strong> in unserem schönen Frühstückscafé.</p>
+                        <ul class="room-card-list">
+                            <li>Voll ausgestattete Frühstücksküche</li>
+                            <li>Frühstücksgeschirr für bis zu 50 Personen</li>
+                            <li>Im Frühstückscafé oder im Garten möglich</li>
+                            <li>Alternativ: Aufenthalts- und Essbereich im Gruppengästehaus</li>
+                        </ul>
+                        <span class="room-capacity">20 € pro Person</span>
+                    </div>
+                </div>
+
+                <div class="room-card">
+                    <div class="room-card-body">
+                        <h2>Wellness & Spa</h2>
+                        <p>Auf FarmInn gibt es auch die Möglichkeit zum Entspannen im <strong>PrivatSpa</strong> – exklusiv buchbar für unsere Gäste.</p>
+                        <ul class="room-card-list">
+                            <li>85° Sauna und 60° Sauna</li>
+                            <li>WhirlPool</li>
+                            <li>RuheOase</li>
+                            <li>Buchbar ab 5 Personen oder exklusiv</li>
+                            <li>Mögliche Zeiten: 10–13 Uhr, 14–17 Uhr, 18–21 Uhr</li>
+                        </ul>
+                        <span class="room-capacity">auf Anfrage</span>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="room-note">
-            <strong>Hinweis:</strong> Die Unterkünfte sind Teil des besonderen FarmInn-Erlebnisses und können nur in Kombination mit unserer Hochzeitsveranstaltung gebucht werden. Bettwäsche und Handtücher sind in allen Zimmern inklusive.
+            <strong>Hinweis:</strong> Unsere Unterkünfte sind Teil des besonderen FarmInn-Erlebnisses – sie können nur in Kombination mit unserer Hochzeitsveranstaltung gebucht werden. Bettwäsche und Handtücher sind in allen Zimmern inklusive.
         </div>
 
         <a href="index.html#details" class="subpage-back">&larr; Zurück zu Details</a>
