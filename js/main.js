@@ -1007,9 +1007,54 @@ function initNavbarScroll() {
 }
 
 // ========================================
+// HAMBURGER MENU
+// ========================================
+function initHamburgerMenu() {
+    const hamburger = document.querySelector('.nav-hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    if (!hamburger || !navLinks) return;
+
+    hamburger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('open');
+    });
+
+    // Dropdown-Toggle auf Mobile
+    document.querySelectorAll('.nav-dropdown > a').forEach(link => {
+        link.addEventListener('click', (e) => {
+            if (window.innerWidth > 768) return;
+            e.preventDefault();
+            e.stopPropagation();
+            link.parentElement.classList.toggle('open');
+        });
+    });
+
+    // Menü schließen bei Link-Klick
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.innerWidth > 768) return;
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('open');
+        });
+    });
+
+    // Menü schließen bei Klick außerhalb
+    document.addEventListener('click', (e) => {
+        if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('open');
+        }
+    });
+}
+
+// ========================================
 // INITIALISIERUNG
 // ========================================
 document.addEventListener('DOMContentLoaded', () => {
+    // Hamburger Menu (auf allen Seiten)
+    initHamburgerMenu();
+
     const isSubpage = !document.getElementById('envelope-overlay');
 
     if (isSubpage) {
