@@ -1185,12 +1185,13 @@ body > * {
 .radio-label {
     cursor: pointer;
     font-size: 0.95rem;
-    color: var(--color-Text);
-    padding: 0.4rem 1rem;
+    color: var(--color-braun);
+    padding: 0.4rem 1.2rem;
     border: 1.5px solid var(--color-taupe);
     border-radius: 20px;
     transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
     user-select: none;
+    background: var(--color-weiss);
 }
 
 .radio-label:hover {
@@ -1202,6 +1203,21 @@ body > * {
     background: var(--color-sage);
     color: var(--color-weiss);
     border-color: var(--color-sage);
+}
+
+.radio-label.negative {
+    color: #d4827a;
+}
+
+.radio-label.negative:hover {
+    border-color: #d4827a;
+    background: rgba(212, 130, 122, 0.08);
+}
+
+.radio-label.negative.active {
+    background: #d4827a;
+    color: white;
+    border-color: #d4827a;
 }
 
 .radio-label input[type="radio"],
