@@ -293,6 +293,7 @@ function showWebsite() {
     initGallery();
     initScratch();
     initFotoGalerie();
+    initForm();
 }
 
 // ========================================

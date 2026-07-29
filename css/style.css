@@ -1177,9 +1177,55 @@ body > * {
 /* Radio Buttons */
 .radio-group {
     display: flex;
-    gap: 2.5rem;
+    gap: 2rem;
     flex-wrap: wrap;
     margin-top: 0.25rem;
+}
+
+.radio-label {
+    display: inline-grid;
+    grid-template-columns: 1.25rem 1fr;
+    gap: 0.5rem;
+    align-items: center;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: var(--color-Text);
+    padding: 0.3rem 0;
+}
+
+.radio-label input[type="radio"] {
+    display: none;
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.radio-custom {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid var(--color-taupe);
+    border-radius: 50%;
+    position: relative;
+    transition: var(--transition-smooth);
+    flex-shrink: 0;
+    justify-self: center;
+}
+
+.radio-label input[type="radio"]:checked + .radio-custom {
+    border-color: var(--color-sage);
+}
+
+.radio-label input[type="radio"]:checked + .radio-custom::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+    background: var(--color-sage);
 }
 
 /* Overnight Details (conditional reveal) */
@@ -1189,11 +1235,11 @@ body > * {
     background: rgba(245, 241, 234, 0.6);
     border-radius: 8px;
     border: 1px solid rgba(188, 168, 151, 0.2);
-    display: none;
+    display: none !important;
 }
 
 .overnight-details.visible {
-    display: block;
+    display: block !important;
     animation: fadeSlideIn 0.35s ease forwards;
 }
 
