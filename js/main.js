@@ -491,6 +491,22 @@ function initFAQ() {
 // RSVP FORMULAR (EmailJS)
 // ========================================
 function initForm() {
+    // Overnight conditional toggle
+    const overnightRadios = document.querySelectorAll('input[name="overnight"]');
+    const overnightDetails = document.getElementById('overnight-details');
+
+    if (overnightRadios.length && overnightDetails) {
+        overnightRadios.forEach(radio => {
+            radio.addEventListener('change', () => {
+                if (radio.value === 'Ja') {
+                    overnightDetails.classList.add('visible');
+                } else {
+                    overnightDetails.classList.remove('visible');
+                }
+            });
+        });
+    }
+
     rsvpForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
@@ -510,9 +526,10 @@ function initForm() {
                 name: data.name,
                 email: data.email,
                 guests: data.guests,
+                overnight: data.overnight,
                 overnight_friday: data.overnight_friday,
                 overnight_saturday: data.overnight_saturday,
-                on_site: data.on_site,
+                overnight_prefs: data.overnight_prefs || 'Keine',
                 breakfast: data.breakfast,
                 dietary: data.dietary || 'Keine',
                 message: data.message || 'Keine Nachricht'
@@ -524,9 +541,10 @@ function initForm() {
                     name: data.name,
                     email: data.email,
                     guests: data.guests,
+                    overnight: data.overnight,
                     overnight_friday: data.overnight_friday,
                     overnight_saturday: data.overnight_saturday,
-                    on_site: data.on_site,
+                    overnight_prefs: data.overnight_prefs || 'Keine',
                     breakfast: data.breakfast,
                     dietary: data.dietary || 'Keine',
                     message: data.message || 'Keine Nachricht'
@@ -543,9 +561,10 @@ function initForm() {
                         name: data.name,
                         email: data.email,
                         guests: data.guests,
+                        overnight: data.overnight,
                         overnight_friday: data.overnight_friday,
                         overnight_saturday: data.overnight_saturday,
-                        on_site: data.on_site,
+                        overnight_prefs: data.overnight_prefs || 'Keine',
                         breakfast: data.breakfast,
                         dietary: data.dietary || 'Keine',
                         message: data.message || 'Keine Nachricht'

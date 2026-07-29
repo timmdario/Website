@@ -1182,6 +1182,61 @@ body > * {
     margin-top: 0.25rem;
 }
 
+/* Overnight Details (conditional reveal) */
+.overnight-details {
+    margin-top: 1rem;
+    padding: 1.25rem 1rem;
+    background: rgba(245, 241, 234, 0.6);
+    border-radius: 8px;
+    border: 1px solid rgba(188, 168, 151, 0.2);
+    display: none;
+}
+
+.overnight-details.visible {
+    display: block;
+    animation: fadeSlideIn 0.35s ease forwards;
+}
+
+.overnight-subgroup {
+    margin-bottom: 1rem;
+}
+
+.overnight-subgroup:last-of-type {
+    margin-bottom: 0;
+}
+
+.overnight-subgroup label {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--color-Text-hell);
+    margin-bottom: 0.3rem;
+}
+
+.overnight-details .form-group {
+    margin-top: 1rem;
+    margin-bottom: 0;
+}
+
+.overnight-details .form-group label {
+    font-size: 0.9rem;
+    color: var(--color-Text-hell);
+}
+
+.overnight-details .form-group textarea {
+    background: var(--color-weiss);
+}
+
+@keyframes fadeSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .radio-label {
     display: inline-flex;
     align-items: center;

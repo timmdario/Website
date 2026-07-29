@@ -411,50 +411,57 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Übernachtung Freitag, 30. April?</label>
+                    <label>Möchtet ihr auf dem Gelände übernachten? <span class="label-hint">(40–60 € pro Person)</span></label>
                     <div class="radio-group">
                         <label class="radio-label">
-                            <input type="radio" name="overnight_friday" value="Ja">
+                            <input type="radio" name="overnight" value="Ja">
                             <span class="radio-custom"></span>
-                            <span>Ja, gerne</span>
+                            <span>Ja</span>
                         </label>
                         <label class="radio-label">
-                            <input type="radio" name="overnight_friday" value="Nein" checked>
+                            <input type="radio" name="overnight" value="Nein" checked>
                             <span class="radio-custom"></span>
-                            <span>Nein, danke</span>
+                            <span>Nein</span>
                         </label>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label>Übernachtung Samstag, 1. Mai?</label>
-                    <div class="radio-group">
-                        <label class="radio-label">
-                            <input type="radio" name="overnight_saturday" value="Ja">
-                            <span class="radio-custom"></span>
-                            <span>Ja, gerne</span>
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="overnight_saturday" value="Nein" checked>
-                            <span class="radio-custom"></span>
-                            <span>Nein, danke</span>
-                        </label>
-                    </div>
-                </div>
+                    <div class="overnight-details" id="overnight-details">
+                        <div class="overnight-subgroup">
+                            <label>Übernachtung Freitag, 30. April?</label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="overnight_friday" value="Ja">
+                                    <span class="radio-custom"></span>
+                                    <span>Ja</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="overnight_friday" value="Nein" checked>
+                                    <span class="radio-custom"></span>
+                                    <span>Nein</span>
+                                </label>
+                            </div>
+                        </div>
 
-                <div class="form-group">
-                    <label>Übernachtung direkt auf dem Gelände?</label>
-                    <div class="radio-group">
-                        <label class="radio-label">
-                            <input type="radio" name="on_site" value="Ja">
-                            <span class="radio-custom"></span>
-                            <span>Ja, auf dem Gelände</span>
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="on_site" value="Nein" checked>
-                            <span class="radio-custom"></span>
-                            <span>Nein, woanders</span>
-                        </label>
+                        <div class="overnight-subgroup">
+                            <label>Übernachtung Samstag, 1. Mai?</label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="overnight_saturday" value="Ja">
+                                    <span class="radio-custom"></span>
+                                    <span>Ja</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="overnight_saturday" value="Nein" checked>
+                                    <span class="radio-custom"></span>
+                                    <span>Nein</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="overnight_prefs">Sonstige Wünsche / Präferenzen</label>
+                            <textarea id="overnight_prefs" name="overnight_prefs" rows="2" placeholder="Z. B. bestimmte Zimmerkategorie, Mitbewohner, Anreise mit Wohnmobil..."></textarea>
+                        </div>
                     </div>
                 </div>
 
