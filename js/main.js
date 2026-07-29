@@ -492,6 +492,28 @@ function initFAQ() {
 // RSVP FORMULAR (EmailJS)
 // ========================================
 function initForm() {
+    // Pill-Toggle für Radio-Buttons
+    document.querySelectorAll('.radio-group').forEach(group => {
+        // Initial active state from checked inputs
+        group.querySelectorAll('input[type="radio"]:checked').forEach(input => {
+            input.closest('.radio-label').classList.add('active');
+        });
+
+        group.addEventListener('click', (e) => {
+            const label = e.target.closest('.radio-label');
+            if (!label) return;
+
+            const input = label.querySelector('input[type="radio"]');
+            if (!input) return;
+
+            // Deactivate siblings, activate clicked
+            group.querySelectorAll('.radio-label').forEach(l => l.classList.remove('active'));
+            label.classList.add('active');
+            input.checked = true;
+            input.dispatchEvent(new Event('change', { bubbles: true }));
+        });
+    });
+
     // Overnight conditional toggle
     const overnightRadios = document.querySelectorAll('input[name="overnight"]');
     const overnightDetails = document.getElementById('overnight-details');
