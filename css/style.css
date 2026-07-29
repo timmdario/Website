@@ -644,7 +644,7 @@ body > * {
 }
 
 .nav-dropdown-menu {
-    display: none;
+    display: block;
     position: absolute;
     top: 100%;
     left: 50%;
@@ -658,6 +658,9 @@ body > * {
     margin-top: 0.8rem;
     border: 1px solid rgba(188, 168, 151, 0.2);
     z-index: 100;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease, visibility 0s 0.4s;
 }
 
 .nav-dropdown-menu::before {
@@ -671,8 +674,11 @@ body > * {
     border-bottom: 8px solid var(--color-weiss);
 }
 
-.nav-dropdown:hover .nav-dropdown-menu {
-    display: block;
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown-menu:hover {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.2s ease, visibility 0s 0s;
 }
 
 .nav-dropdown-menu li a {
