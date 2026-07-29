@@ -497,6 +497,12 @@ function initForm() {
     const overnightDetails = document.getElementById('overnight-details');
 
     if (overnightRadios.length && overnightDetails) {
+        // Initial state: show if "Ja" is checked
+        const checkedRadio = document.querySelector('input[name="overnight"]:checked');
+        if (checkedRadio && checkedRadio.value === 'Ja') {
+            overnightDetails.classList.add('visible');
+        }
+
         overnightRadios.forEach(radio => {
             radio.addEventListener('change', () => {
                 if (radio.value === 'Ja') {
