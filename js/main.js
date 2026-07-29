@@ -1072,6 +1072,12 @@ function initHamburgerMenu() {
 // INITIALISIERUNG
 // ========================================
 document.addEventListener('DOMContentLoaded', () => {
+    // Browser-Scroll-Position zurücksetzen
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+
     // Hamburger Menu (auf allen Seiten)
     initHamburgerMenu();
 
