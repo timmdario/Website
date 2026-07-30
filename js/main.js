@@ -547,6 +547,7 @@ function initForm() {
             await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
                 name: data.name,
                 email: data.email,
+                attending: data.attending,
                 guests: data.guests,
                 overnight: data.overnight,
                 overnight_friday: data.overnight_friday,
@@ -562,6 +563,7 @@ function initForm() {
                 emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_CONFIRM_TEMPLATE_ID, {
                     name: data.name,
                     email: data.email,
+                    attending: data.attending,
                     guests: data.guests,
                     overnight: data.overnight,
                     overnight_friday: data.overnight_friday,
@@ -582,6 +584,7 @@ function initForm() {
                     body: JSON.stringify({
                         name: data.name,
                         email: data.email,
+                        attending: data.attending,
                         guests: data.guests,
                         overnight: data.overnight,
                         overnight_friday: data.overnight_friday,
