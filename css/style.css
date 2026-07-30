@@ -1099,7 +1099,7 @@ body > * {
 }
 
 .faq-answer p {
-    padding: 0 1.5rem 1.5rem;
+    padding: 1rem 1.5rem 1.5rem;
     color: var(--color-Text-hell);
     line-height: 1.8;
 }
