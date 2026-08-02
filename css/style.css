@@ -1683,8 +1683,8 @@ body > * {
 
 .scratch-card {
     position: relative;
-    width: 360px;
-    height: 225px;
+    width: 420px;
+    height: 265px;
     border-radius: 14px;
     overflow: hidden;
     box-shadow: 0 6px 25px rgba(107, 87, 64, 0.25);
@@ -1709,7 +1709,7 @@ body > * {
 .scratch-reveal-img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     display: block;
 }
 
