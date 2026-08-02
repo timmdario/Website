@@ -1683,8 +1683,8 @@ body > * {
 
 .scratch-card {
     position: relative;
-    width: 420px;
-    height: 265px;
+    width: 520px;
+    height: 330px;
     border-radius: 14px;
     overflow: hidden;
     box-shadow: 0 6px 25px rgba(107, 87, 64, 0.25);
