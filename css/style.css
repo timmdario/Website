@@ -1192,12 +1192,15 @@ body > * {
     cursor: pointer;
     font-size: 0.95rem;
     color: var(--color-braun);
-    padding: 0.55rem 1.5rem;
+    padding: 0.8rem 2rem;
     border: 1.5px solid var(--color-taupe);
     border-radius: 24px;
     transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
     user-select: none;
     background: var(--color-weiss);
+    line-height: 1.4;
+    text-align: center;
+    min-width: 8rem;
 }
 
 .radio-label:hover {
