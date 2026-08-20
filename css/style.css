@@ -1686,8 +1686,9 @@ body > * {
 
 .scratch-card {
     position: relative;
-    width: 520px;
-    height: 330px;
+    width: 100%;
+    max-width: 520px;
+    aspect-ratio: 520 / 330;
     border-radius: 14px;
     overflow: hidden;
     box-shadow: 0 6px 25px rgba(107, 87, 64, 0.25);
@@ -1846,6 +1847,10 @@ body > * {
    ======================================== */
 
 @media (max-width: 768px) {
+    body {
+        background-attachment: scroll;
+    }
+
     .navbar {
         padding: 0.8rem 1.2rem;
     }
@@ -2001,6 +2006,14 @@ body > * {
     .ba-img {
         height: 280px;
     }
+
+    .scratch-section {
+        padding: 4rem 1rem;
+    }
+
+    .scratch-section .section-header h2 {
+        font-size: 1.6rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -2043,6 +2056,18 @@ body > * {
 
     .foto-galerie-grid {
         grid-template-columns: 1fr;
+    }
+
+    .scratch-section {
+        padding: 3rem 0.75rem;
+    }
+
+    .scratch-section .section-header h2 {
+        font-size: 1.3rem;
+    }
+
+    .scratch-subtitle {
+        font-size: 0.9rem;
     }
 }
 

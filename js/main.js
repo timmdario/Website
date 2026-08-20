@@ -766,6 +766,7 @@ function initScratch() {
 
     function scratch(e) {
         if (!isScratching) return;
+        if (e.touches) e.preventDefault();
         const rect = canvas.getBoundingClientRect();
         const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
         const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
@@ -799,10 +800,11 @@ function initScratch() {
     }
 
     canvas.addEventListener('mousedown', startScratch);
-    canvas.addEventListener('touchstart', startScratch, { passive: true });
+    canvas.addEventListener('touchstart', startScratch, { passive: false });
     canvas.addEventListener('mousemove', scratch);
-    canvas.addEventListener('touchmove', scratch, { passive: true });
+    canvas.addEventListener('touchmove', scratch, { passive: false });
     canvas.addEventListener('mouseup', stopScratch);
+    canvas.addEventListener('mouseleave', stopScratch);
     canvas.addEventListener('touchend', stopScratch);
 
     resetBtn.addEventListener('click', () => {
