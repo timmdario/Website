@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 120" width="640" height="120" fill="none" role="img" aria-label="Dekorative Ranke mit Blättern">
+    <g stroke="#7c7859" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.75">
+        <path d="M20 92 C 110 92, 170 40, 250 44" />
+        <path d="M250 44 C 330 48, 390 88, 470 86" />
+        <path d="M470 86 C 545 84, 590 58, 620 46" />
+        <path d="M96 78 C 104 60, 116 48, 132 42" />
+        <path d="M188 52 C 194 66, 206 78, 222 84" />
+        <path d="M330 62 C 340 48, 352 40, 366 36" />
+        <path d="M424 76 C 428 92, 436 104, 448 112" />
+        <path d="M540 66 C 544 82, 552 96, 562 106" />
+    </g>
+    <g fill="#6a7455" opacity="0.8">
+        <ellipse cx="132" cy="42" rx="15" ry="7" transform="rotate(-42 132 42)" />
+        <ellipse cx="222" cy="84" rx="14" ry="6.5" transform="rotate(38 222 84)" />
+        <ellipse cx="366" cy="36" rx="13" ry="6" transform="rotate(-18 366 36)" />
+        <ellipse cx="448" cy="112" rx="15" ry="7" transform="rotate(58 448 112)" />
+        <ellipse cx="562" cy="106" rx="12" ry="5.5" transform="rotate(62 562 106)" />
+        <ellipse cx="250" cy="44" rx="8" ry="5" transform="rotate(-8 250 44)" />
+    </g>
+    <g fill="#9b755c" opacity="0.7">
+        <circle cx="170" cy="66" r="4.5" />
+        <circle cx="318" cy="52" r="3.8" />
+        <circle cx="498" cy="80" r="4.2" />
+    </g>
+    <g fill="#bca897" opacity="0.85">
+        <circle cx="170" cy="66" r="1.8" />
+        <circle cx="318" cy="52" r="1.6" />
+        <circle cx="498" cy="80" r="1.7" />
+    </g>
+</svg>

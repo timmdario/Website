@@ -1278,6 +1278,22 @@ body > * {
     background: var(--color-weiss);
 }
 
+/* Guest Names (conditional reveal) */
+.guest-names-group {
+    display: none;
+}
+
+.guest-names-group.visible {
+    display: block;
+    animation: fadeSlideIn 0.35s ease forwards;
+}
+
+.guest-names-group .label-hint {
+    display: block;
+    font-size: 0.8rem;
+    margin-top: 0.4rem;
+}
+
 @keyframes fadeSlideIn {
     from {
         opacity: 0;
@@ -1415,10 +1431,12 @@ body > * {
     border-top: 1px solid rgba(237, 229, 216, 0.5);
 }
 
-.footer-flowers {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    letter-spacing: 0.5rem;
+.footer-vine {
+    display: block;
+    width: min(560px, 100%);
+    height: auto;
+    margin: 0 auto 1.25rem;
+    opacity: 0.85;
 }
 
 .footer-names {

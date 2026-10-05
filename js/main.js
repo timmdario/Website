@@ -529,6 +529,24 @@ function initForm() {
         });
     }
 
+    // Guest Names conditional reveal
+    const guestsInput = document.getElementById('guests');
+    const guestNamesGroup = document.getElementById('guest-names-group');
+
+    if (guestsInput && guestNamesGroup) {
+        const syncGuestNames = () => {
+            const count = parseInt(guestsInput.value, 10) || 1;
+            if (count > 1) {
+                guestNamesGroup.classList.add('visible');
+            } else {
+                guestNamesGroup.classList.remove('visible');
+            }
+        };
+        guestsInput.addEventListener('input', syncGuestNames);
+        guestsInput.addEventListener('change', syncGuestNames);
+        syncGuestNames();
+    }
+
     rsvpForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
@@ -549,6 +567,7 @@ function initForm() {
                 email: data.email,
                 attending: data.attending,
                 guests: data.guests,
+                guest_names: data.guest_names || 'Keine',
                 overnight: data.overnight,
                 overnight_friday: data.overnight_friday,
                 overnight_saturday: data.overnight_saturday,
@@ -565,6 +584,7 @@ function initForm() {
                     email: data.email,
                     attending: data.attending,
                     guests: data.guests,
+                    guest_names: data.guest_names || 'Keine',
                     overnight: data.overnight,
                     overnight_friday: data.overnight_friday,
                     overnight_saturday: data.overnight_saturday,
@@ -586,6 +606,7 @@ function initForm() {
                         email: data.email,
                         attending: data.attending,
                         guests: data.guests,
+                        guest_names: data.guest_names || 'Keine',
                         overnight: data.overnight,
                         overnight_friday: data.overnight_friday,
                         overnight_saturday: data.overnight_saturday,

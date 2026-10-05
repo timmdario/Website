@@ -6,16 +6,19 @@ function doPost(e) {
     var data = JSON.parse(e.postData.contents);
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
     
-    // Spalten: Zeitstempel, Name, E-Mail, Anzahl Gäste, Übernachtung Freitag, Übernachtung Samstag,
-    //           Auf dem Gelände, Frühstück Sonntag, Ernährungswünsche, Nachricht
+    // Spalten: Zeitstempel, Name, E-Mail, Anzahl Gäste, Namen der weiteren Gäste,
+    //           Auf dem Gelände, Übernachtung Freitag, Übernachtung Samstag,
+    //           Übernachtungs-Wünsche, Frühstück Sonntag, Ernährungswünsche, Nachricht
     sheet.appendRow([
       new Date(),
       data.name || '',
       data.email || '',
       data.guests || '',
+      data.guest_names || '',
+      data.overnight || '',
       data.overnight_friday || '',
       data.overnight_saturday || '',
-      data.on_site || '',
+      data.overnight_prefs || '',
       data.breakfast || '',
       data.dietary || '',
       data.message || ''

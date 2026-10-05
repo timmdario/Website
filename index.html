@@ -239,14 +239,14 @@
             </div>
         </section>
 
-        <!-- Zimmer-Galerie -->
+        <!-- Einblicke FarmInn -->
         <section class="gallery-section">
             <div class="section-header">
                 <span class="section-flower">✿</span>
-                <h2>Unsere Zimmer</h2>
+                <h2>Einblicke vom FarmInn</h2>
                 <span class="section-flower">✿</span>
             </div>
-            <p class="gallery-subtitle">Entdeckt die gemütlichen Unterkünfte auf dem FarmInn.</p>
+            <p class="gallery-subtitle">Einige Impressionen der Hofanlage und ihrer Räumlichkeiten.</p>
             <div class="gallery-grid">
                 <div class="gallery-item" data-index="0">
                     <img src="https://storage.googleapis.com/msgsndr/dK7adXxVzYoQPz1NrMF0/media/68fb7a959b2f63ad532258bc.webp" alt="GruppenGästehaus">
@@ -287,14 +287,14 @@
         <section class="scratch-section">
             <div class="section-header">
                 <span class="section-flower">❁</span>
-                <h2>Rubbeln um unseren spezial Gast zu enthüllen</h2>
+                <h2>Rubbeln um unseren Spezialgast zu enthüllen</h2>
                 <span class="section-flower">❁</span>
             </div>
-            <p class="scratch-subtitle">Krault mit der Maus über die Karte, um die Überraschung zu enthüllen!</p>
+            <p class="scratch-subtitle">Krault mit dem Finger über die Karte, um die Überraschung zu enthüllen!</p>
             <div class="scratch-wrapper">
                 <div class="scratch-card" id="scratch-card">
                     <div class="scratch-reveal">
-                        <img src="assets/Rubbel_Hani.png" alt="Unser spezial Gast" class="scratch-reveal-img">
+                        <img src="assets/Rubbel_Hani.png" alt="Unser Spezialgast" class="scratch-reveal-img">
                     </div>
                     <canvas class="scratch-canvas" id="scratch-canvas"></canvas>
                 </div>
@@ -404,6 +404,12 @@
                 <div class="form-group">
                     <label for="guests">Anzahl Gäste (inkl. dir) *</label>
                     <input type="number" id="guests" name="guests" min="1" max="10" value="1" required>
+                </div>
+
+                <div class="form-group" id="guest-names-group">
+                    <label for="guest_names">Namen der weiteren Gäste</label>
+                    <textarea id="guest_names" name="guest_names" rows="2" placeholder="Bitte Namen der Begleitung eintragen, z. B. Max Mustermann, Anna Beispiel"></textarea>
+                    <span class="label-hint">Damit wir die Schlafplätze und Sitzordnung planen können.</span>
                 </div>
 
                 <div class="form-group">
@@ -517,7 +523,7 @@
 
         <!-- Footer -->
         <footer class="footer">
-            <div class="footer-flowers">🌸 ✿ ❁ 🌺</div>
+            <img src="assets/footer-vine.svg" alt="" class="footer-vine" aria-hidden="true">
             <p class="footer-names">Malika & Dario</p>
             <p class="footer-date">01.05.2027</p>
             <div class="footer-links">
