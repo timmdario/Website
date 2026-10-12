@@ -1,7 +1,7 @@
 // ========================================
 // EASTER EGG - Hani's Rundgang
 // 2D Pixel-Art Minispiel: Der Hund Hani zeigt Gäste über das FarmInn
-// Basierend auf farminn_lageplan.json (§ hidden page /easteregg.html)
+// Basierend auf farminn_minigame_map_v2.json (§ hidden page /easteregg.html)
 // ========================================
 (function () {
     'use strict';
@@ -12,29 +12,29 @@
     // Legendennummer -> Orte (Koordinaten normalisiert, aus lageplan.json)
     const FEATURES = [
         { n: 1, id: 'marker-1-1', name: 'Einfahrt', x: 0.21667, y: 0.17778, d: 'Hier beginnt alles – die Einfahrt von der K18 führt direkt auf den Hof. Los, folgt mir!' },
-        { n: 2, id: 'marker-2-2', name: 'Parkplatz (PKW)', x: 0.4375, y: 0.17889, d: 'Bis zu 75 Autos finden hier ein Plätzchen. Parken ist auf dem ganzen Hof kostenlos.' },
-        { n: 2, id: 'marker-2-3', name: 'Parkplatz (PKW)', x: 0.3375, y: 0.29, d: 'Noch mehr Stellplätze für Autos, hier westlich an der Tierweide.' },
-        { n: 2, id: 'marker-2-4', name: 'Parkplatz (PKW)', x: 0.52167, y: 0.27889, d: 'Ein weiterer Parkbereich gleich hinter dem Eingang.' },
-        { n: 3, id: 'marker-3-5', name: 'Wohnmobil-Stellplätze', x: 0.65667, y: 0.24778, d: 'Fünf eigene Plätze für Camper und Wohnmobile – direkt auf dem Gelände.' },
-        { n: 4, id: 'marker-4-6', name: 'Reisebus-Parkplatz', x: 0.1925, y: 0.34111, d: 'Platz für einen Reisebus am westlichen Rand des Hauptgebäudes.' },
+        { n: 2, id: 'marker-2-2', name: 'Parkplatz PKW (75)', x: 0.4375, y: 0.17889, d: 'Bis zu 75 Autos finden hier ein Plätzchen. Parken ist auf dem ganzen Hof kostenlos.' },
+        { n: 2, id: 'marker-2-3', name: 'Parkplatz PKW (75)', x: 0.3375, y: 0.29, d: 'Noch mehr Stellplätze für Autos, hier westlich an der Tierweide.' },
+        { n: 2, id: 'marker-2-4', name: 'Parkplatz PKW (75)', x: 0.52167, y: 0.27889, d: 'Ein weiterer Parkbereich gleich hinter dem Eingang.' },
+        { n: 3, id: 'marker-3-5', name: 'Parkplatz Wohnmobil (5)', x: 0.65667, y: 0.24778, d: 'Fünf eigene Plätze für Camper und Wohnmobile – direkt auf dem Gelände.' },
+        { n: 4, id: 'marker-4-6', name: 'Parkplatz Reisebus (1)', x: 0.1925, y: 0.34111, d: 'Platz für einen Reisebus am westlichen Rand des Hauptgebäudes.' },
         { n: 5, id: 'marker-5-7', name: 'Zeltplatz', x: 0.19167, y: 0.39889, d: 'Wer mag, schlägt hier sein Zelt auf. Abenteuer-Feeling inklusive!' },
         { n: 6, id: 'marker-6-8', name: 'Eingang FarmInn', x: 0.45083, y: 0.46667, d: 'Herzlich willkommen im FarmInn! Hier geht es auf den Innenhof.' },
-        { n: 7, id: 'marker-7-9', name: 'WeddingArea', x: 0.35083, y: 0.41778, d: 'Die WeddingArea im alten, restaurierten Bullenstall – hier geben Malika und Dario sich das Ja-Wort. Kirchlich oder frei, ganz wie es das Paar träumt.' },
+        { n: 7, id: 'marker-7-9', name: 'WeddingArea (EG)', x: 0.35083, y: 0.41778, d: 'Die WeddingArea im alten, restaurierten Bullenstall – hier geben Malika und Dario sich das Ja-Wort. Kirchlich oder frei, ganz wie es das Paar träumt.' },
         { n: 8, id: 'marker-8-10', name: 'Genusshütten', x: 0.27167, y: 0.48111, d: 'In den Genusshütten gibt es Leckereien. Da schnüffel ich besonders gern!' },
         { n: 8, id: 'marker-8-11', name: 'Genusshütten', x: 0.55917, y: 0.68778, d: 'Noch eine Genusshütte – hier duftet es köstlich.' },
         { n: 8, id: 'marker-8-12', name: 'Genusshütten', x: 0.46583, y: 0.74222, d: 'Und noch eine kleine Genusshütte im unteren Hofbereich.' },
-        { n: 9, id: 'marker-9-13', name: 'Terrasse Farmos', x: 0.4575, y: 0.57111, d: 'Die Terrasse vom Café Farmos – perfekt für Kaffee und Kuchen zwischendurch.' },
-        { n: 10, id: 'marker-10-14', name: 'Café Farmos', x: 0.48667, y: 0.59556, d: 'Das Café Farmos – das gemütliche Herz des Hofes.' },
-        { n: 11, id: 'marker-11-15', name: 'Taverne', x: 0.55917, y: 0.68778, d: 'Die Taverne – hier trifft man sich abends in geselliger Runde.' },
-        { n: 12, id: 'marker-12-16', name: 'ScheunenHostel', x: 0.59917, y: 0.59, d: 'Im ScheunenHostel im 1. OG (Zimmer 13–18) könnt ihr wunderbar übernachten.' },
-        { n: 13, id: 'marker-13-17', name: 'Appartments', x: 0.5675, y: 0.53222, d: 'Die Appartments (Zimmer 11–12) – gemütlich und ebenerdig.' },
-        { n: 14, id: 'marker-14-18', name: 'GruppenGästehaus', x: 0.70167, y: 0.50222, d: 'Im GruppenGästehaus, den Appartements und dem ScheunenHostel übernachten insgesamt 71 Gäste – ganz exklusiv nur für die Hochzeitsgesellschaft.' },
-        { n: 15, id: 'marker-15-19', name: 'HoneymoonSuite', x: 0.77417, y: 0.53778, d: 'Die exklusive HoneymoonSuite mit historischen Wandmalereien und romantischem Bad – für Malika und Dario reserviert. Psst, nur schauen!' },
-        { n: 16, id: 'marker-16-20', name: 'FeierScheune', x: 0.80833, y: 0.70889, d: 'Die FeierScheune – hier steigt die große Hochzeitsparty bis tief in die Nacht!' },
-        { n: 17, id: 'marker-17-21', name: 'TanzLounge', x: 0.80917, y: 0.61, d: 'Die TanzLounge mit riesiger Bühne – hier wackeln alle Pfoten!' },
-        { n: 18, id: 'marker-18-22', name: 'ClubLounge', x: 0.84417, y: 0.60667, d: 'Die ClubLounge oben drüber: Billard, Tischtennis und Chillen.' },
-        { n: 19, id: 'marker-19-23', name: 'RaucherLounge', x: 0.84, y: 0.54333, d: 'Die wettergeschützte RaucherLounge mit Bar und Holzofen.' },
-        { n: 20, id: 'marker-20-24', name: 'Wellnessbereich', x: 0.65833, y: 0.67, d: 'Der Wellnessbereich mit Sauna zum Entspannen nach dem Fest. Herrlich – und die Alpakas stehen sogar kostenlos für Hochzeitsfotos bereit!' }
+        { n: 9, id: 'marker-9-13', name: 'Terrasse Farmos (EG)', x: 0.4575, y: 0.57111, d: 'Die Terrasse vom Café Farmos – perfekt für Kaffee und Kuchen zwischendurch.' },
+        { n: 10, id: 'marker-10-14', name: 'Café Farmos (EG)', x: 0.48667, y: 0.59556, d: 'Das Café Farmos – das gemütliche Herz des Hofes.' },
+        { n: 11, id: 'marker-11-15', name: 'Taverne (EG)', x: 0.55917, y: 0.68778, d: 'Die Taverne – hier trifft man sich abends in geselliger Runde.' },
+        { n: 12, id: 'marker-12-16', name: 'ScheunenHostel (Zi. 13–18)', x: 0.59917, y: 0.59, d: 'Im ScheunenHostel im 1. OG (Zimmer 13–18) könnt ihr wunderbar übernachten.' },
+        { n: 13, id: 'marker-13-17', name: 'Appartments (Zi. 11–12)', x: 0.5675, y: 0.53222, d: 'Die Appartments (Zimmer 11–12) – gemütlich und ebenerdig.' },
+        { n: 14, id: 'marker-14-18', name: 'GruppenGästehaus', x: 0.70167, y: 0.50222, d: 'Im GruppenGästehaus (Zi. 1–10), den Appartements und dem ScheunenHostel übernachten insgesamt 71 Gäste – ganz exklusiv nur für die Hochzeitsgesellschaft.' },
+        { n: 15, id: 'marker-15-19', name: 'HoneymoonSuite (EG)', x: 0.77417, y: 0.53778, d: 'Die exklusive HoneymoonSuite mit historischen Wandmalereien und romantischem Bad – für Malika und Dario reserviert. Psst, nur schauen!' },
+        { n: 16, id: 'marker-16-20', name: 'FeierScheune (EG)', x: 0.80833, y: 0.70889, d: 'Die FeierScheune – hier steigt die große Hochzeitsparty bis tief in die Nacht!' },
+        { n: 17, id: 'marker-17-21', name: 'TanzLounge (EG)', x: 0.80917, y: 0.61, d: 'Die TanzLounge mit riesiger Bühne – hier wackeln alle Pfoten!' },
+        { n: 18, id: 'marker-18-22', name: 'ClubLounge (1. OG)', x: 0.84417, y: 0.60667, d: 'Die ClubLounge oben drüber: Billard, Tischtennis und Chillen.' },
+        { n: 19, id: 'marker-19-23', name: 'RaucherLounge (EG)', x: 0.84, y: 0.54333, d: 'Die wettergeschützte RaucherLounge mit Bar und Holzofen.' },
+        { n: 20, id: 'marker-20-24', name: 'Wellnessbereich (EG)', x: 0.65833, y: 0.67, d: 'Der Wellnessbereich mit Sauna zum Entspannen nach dem Fest. Herrlich – und die Alpakas stehen sogar kostenlos für Hochzeitsfotos bereit!' }
     ];
 
     const TOTAL = 20;
@@ -57,6 +57,18 @@
         { x: 212, y: 262 },
         { x: 286, y: 268 }
     ];
+
+    // Spielwelt-Flächen (normalisiert, aus game_scene_features der Karte) -> Weltkoordinaten
+    const SCENE_RAW = {
+        tierweide: [[0.44583, 0.33667], [0.5625, 0.33667], [0.58333, 0.43], [0.46667, 0.44667]],
+        zeltbereich: [[0.17333, 0.36778], [0.22833, 0.36778], [0.22833, 0.45667], [0.17333, 0.45667]],
+        camper: [[0.64167, 0.20889], [0.715, 0.20889], [0.715, 0.31778], [0.64167, 0.31778]],
+        hofplatz: [[0.60833, 0.57222], [0.86167, 0.57222], [0.86167, 0.80778], [0.60833, 0.80778]]
+    };
+    const SCENE = {};
+    Object.keys(SCENE_RAW).forEach(k => {
+        SCENE[k] = SCENE_RAW[k].map(c => [c[0] * CANVAS_W, c[1] * CANVAS_H]);
+    });
 
     // Palette
     const C = {
@@ -237,16 +249,33 @@
         rect(x + 5, y - 7, 2, 2, '#3a3a3a');
     }
 
-    function drawGarden() {
-        const x = 40, y = 268, w = 62, h = 46;
-        rect(x, y, w, h, '#7a9852');
-        // Zaun
-        rect(x, y, w, 2, C.fence);
-        rect(x, y + h - 2, w, 2, C.fence);
-        rect(x, y, 2, h, C.fence);
-        rect(x + w - 2, y, 2, h, C.fence);
-        drawAlpaca(x + 12, y + 12);
-        drawAlpaca(x + 36, y + 24);
+    function poly(pts, color) {
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        pts.forEach((p, i) => i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]));
+        ctx.closePath();
+        ctx.fill();
+    }
+
+    function drawFencedPoly(pts, fill, edge) {
+        poly(pts, fill);
+        ctx.strokeStyle = edge;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        pts.forEach((p, i) => i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]));
+        ctx.closePath();
+        ctx.stroke();
+    }
+
+    function drawPasture() {
+        const pts = SCENE.tierweide;
+        drawFencedPoly(pts, '#7f9b54', C.fence);
+        drawAlpaca(pts[0][0] + 24, pts[0][1] + 18);
+        drawAlpaca(pts[0][0] + 46, pts[0][1] + 30);
+    }
+
+    function drawHofplatz() {
+        poly(SCENE.hofplatz, C.road);
     }
 
     function drawBuilding(b) {
@@ -371,19 +400,21 @@
         ctx.clearRect(0, 0, CANVAS_W, CANVAS_H);
         drawGrass();
         drawRoads();
-        drawGarden();
+        drawHofplatz();
+        drawPasture();
         drawPond();
 
         // Parkplätze (an den Marker-Positionen)
         drawParking(210, 66, 4);
         drawParking(162, 104, 4);
         drawParking(250, 100, 4);
-        drawParking(315, 90, 2); // Wohnmobile
+        drawParking(325, 95, 2); // Wohnmobile (SCENE.camper)
         drawParking(92, 123, 1); // Bus
 
-        // Zeltplatz
-        drawTent(84, 140);
+        // Zeltplatz (SCENE.zeltbereich)
+        drawTent(86, 138);
         drawTent(100, 146);
+        drawTent(90, 156);
 
         // Gebäude + Hütten
         BUILDINGS.forEach(drawBuilding);
