@@ -1,7 +1,8 @@
 // ========================================
 // EASTER EGG - Hani's Rundgang
 // 2D Pixel-Art Minispiel: Der Hund Hani zeigt Gäste über das FarmInn
-// Basierend auf farminn_minigame_map_v2.json (§ hidden page /easteregg.html)
+// Kartendaten kommen aus easteregg/map.json (Fallback: js/easteregg-map.js).
+// Gestalten lässt sich die Karte über easteregg/editor.html.
 // ========================================
 (function () {
     'use strict';
@@ -9,66 +10,7 @@
     const CANVAS_W = 480;
     const CANVAS_H = 360;
 
-    // Legendennummer -> Orte (Koordinaten normalisiert, aus lageplan.json)
-    const FEATURES = [
-        { n: 1, id: 'marker-1-1', name: 'Einfahrt', x: 0.21667, y: 0.17778, d: 'Hier beginnt alles – die Einfahrt von der K18 führt direkt auf den Hof. Los, folgt mir!' },
-        { n: 2, id: 'marker-2-2', name: 'Parkplatz PKW (75)', x: 0.4375, y: 0.17889, d: 'Bis zu 75 Autos finden hier ein Plätzchen. Parken ist auf dem ganzen Hof kostenlos.' },
-        { n: 2, id: 'marker-2-3', name: 'Parkplatz PKW (75)', x: 0.3375, y: 0.29, d: 'Noch mehr Stellplätze für Autos, hier westlich an der Tierweide.' },
-        { n: 2, id: 'marker-2-4', name: 'Parkplatz PKW (75)', x: 0.52167, y: 0.27889, d: 'Ein weiterer Parkbereich gleich hinter dem Eingang.' },
-        { n: 3, id: 'marker-3-5', name: 'Parkplatz Wohnmobil (5)', x: 0.65667, y: 0.24778, d: 'Fünf eigene Plätze für Camper und Wohnmobile – direkt auf dem Gelände.' },
-        { n: 4, id: 'marker-4-6', name: 'Parkplatz Reisebus (1)', x: 0.1925, y: 0.34111, d: 'Platz für einen Reisebus am westlichen Rand des Hauptgebäudes.' },
-        { n: 5, id: 'marker-5-7', name: 'Zeltplatz', x: 0.19167, y: 0.39889, d: 'Wer mag, schlägt hier sein Zelt auf. Abenteuer-Feeling inklusive!' },
-        { n: 6, id: 'marker-6-8', name: 'Eingang FarmInn', x: 0.45083, y: 0.46667, d: 'Herzlich willkommen im FarmInn! Hier geht es auf den Innenhof.' },
-        { n: 7, id: 'marker-7-9', name: 'WeddingArea (EG)', x: 0.35083, y: 0.41778, d: 'Die WeddingArea im alten, restaurierten Bullenstall – hier geben Malika und Dario sich das Ja-Wort. Kirchlich oder frei, ganz wie es das Paar träumt.' },
-        { n: 8, id: 'marker-8-10', name: 'Genusshütten', x: 0.27167, y: 0.48111, d: 'In den Genusshütten gibt es Leckereien. Da schnüffel ich besonders gern!' },
-        { n: 8, id: 'marker-8-11', name: 'Genusshütten', x: 0.55917, y: 0.68778, d: 'Noch eine Genusshütte – hier duftet es köstlich.' },
-        { n: 8, id: 'marker-8-12', name: 'Genusshütten', x: 0.46583, y: 0.74222, d: 'Und noch eine kleine Genusshütte im unteren Hofbereich.' },
-        { n: 9, id: 'marker-9-13', name: 'Terrasse Farmos (EG)', x: 0.4575, y: 0.57111, d: 'Die Terrasse vom Café Farmos – perfekt für Kaffee und Kuchen zwischendurch.' },
-        { n: 10, id: 'marker-10-14', name: 'Café Farmos (EG)', x: 0.48667, y: 0.59556, d: 'Das Café Farmos – das gemütliche Herz des Hofes.' },
-        { n: 11, id: 'marker-11-15', name: 'Taverne (EG)', x: 0.55917, y: 0.68778, d: 'Die Taverne – hier trifft man sich abends in geselliger Runde.' },
-        { n: 12, id: 'marker-12-16', name: 'ScheunenHostel (Zi. 13–18)', x: 0.59917, y: 0.59, d: 'Im ScheunenHostel im 1. OG (Zimmer 13–18) könnt ihr wunderbar übernachten.' },
-        { n: 13, id: 'marker-13-17', name: 'Appartments (Zi. 11–12)', x: 0.5675, y: 0.53222, d: 'Die Appartments (Zimmer 11–12) – gemütlich und ebenerdig.' },
-        { n: 14, id: 'marker-14-18', name: 'GruppenGästehaus', x: 0.70167, y: 0.50222, d: 'Im GruppenGästehaus (Zi. 1–10), den Appartements und dem ScheunenHostel übernachten insgesamt 71 Gäste – ganz exklusiv nur für die Hochzeitsgesellschaft.' },
-        { n: 15, id: 'marker-15-19', name: 'HoneymoonSuite (EG)', x: 0.77417, y: 0.53778, d: 'Die exklusive HoneymoonSuite mit historischen Wandmalereien und romantischem Bad – für Malika und Dario reserviert. Psst, nur schauen!' },
-        { n: 16, id: 'marker-16-20', name: 'FeierScheune (EG)', x: 0.80833, y: 0.70889, d: 'Die FeierScheune – hier steigt die große Hochzeitsparty bis tief in die Nacht!' },
-        { n: 17, id: 'marker-17-21', name: 'TanzLounge (EG)', x: 0.80917, y: 0.61, d: 'Die TanzLounge mit riesiger Bühne – hier wackeln alle Pfoten!' },
-        { n: 18, id: 'marker-18-22', name: 'ClubLounge (1. OG)', x: 0.84417, y: 0.60667, d: 'Die ClubLounge oben drüber: Billard, Tischtennis und Chillen.' },
-        { n: 19, id: 'marker-19-23', name: 'RaucherLounge (EG)', x: 0.84, y: 0.54333, d: 'Die wettergeschützte RaucherLounge mit Bar und Holzofen.' },
-        { n: 20, id: 'marker-20-24', name: 'Wellnessbereich (EG)', x: 0.65833, y: 0.67, d: 'Der Wellnessbereich mit Sauna zum Entspannen nach dem Fest. Herrlich – und die Alpakas stehen sogar kostenlos für Hochzeitsfotos bereit!' }
-    ];
-
-    const TOTAL = 20;
-
-    // Gebäude (Weltkoordinaten) – stilisiert, abgeleitet aus den Markern
-    const BUILDINGS = [
-        { x: 136, y: 140, w: 68, h: 20, roof: '#8a4b3a' }, // WeddingArea / Bullenstall
-        { x: 207, y: 162, w: 18, h: 13, roof: '#a5573f' }, // Eingang
-        { x: 222, y: 205, w: 32, h: 20, roof: '#a5573f' }, // Café Farmos
-        { x: 248, y: 238, w: 44, h: 20, roof: '#8a4b3a' }, // Taverne
-        { x: 300, y: 232, w: 34, h: 20, roof: '#a5573f' }, // Wellness
-        { x: 250, y: 184, w: 64, h: 30, roof: '#a5573f' }, // Appartments / ScheunenHostel
-        { x: 310, y: 164, w: 58, h: 32, roof: '#8a4b3a' }, // GruppenGästehaus
-        { x: 362, y: 178, w: 40, h: 28, roof: '#a5573f' }, // HoneymoonSuite
-        { x: 362, y: 204, w: 82, h: 70, roof: '#7d4636' }  // FeierScheune / Lounges
-    ];
-
-    const HUTS = [
-        { x: 120, y: 166 },
-        { x: 212, y: 262 },
-        { x: 286, y: 268 }
-    ];
-
-    // Spielwelt-Flächen (normalisiert, aus game_scene_features der Karte) -> Weltkoordinaten
-    const SCENE_RAW = {
-        tierweide: [[0.44583, 0.33667], [0.5625, 0.33667], [0.58333, 0.43], [0.46667, 0.44667]],
-        zeltbereich: [[0.17333, 0.36778], [0.22833, 0.36778], [0.22833, 0.45667], [0.17333, 0.45667]],
-        camper: [[0.64167, 0.20889], [0.715, 0.20889], [0.715, 0.31778], [0.64167, 0.31778]],
-        hofplatz: [[0.60833, 0.57222], [0.86167, 0.57222], [0.86167, 0.80778], [0.60833, 0.80778]]
-    };
-    const SCENE = {};
-    Object.keys(SCENE_RAW).forEach(k => {
-        SCENE[k] = SCENE_RAW[k].map(c => [c[0] * CANVAS_W, c[1] * CANVAS_H]);
-    });
+    const DEFAULT_MAP = window.FARMINN_DEFAULT_MAP || { features: [], buildings: [], huts: [], areas: [] };
 
     // Palette
     const C = {
@@ -99,42 +41,18 @@
     const legendList = document.getElementById('egg-legend-list');
     const resetBtn = document.getElementById('egg-reset');
 
-    // Punkt-Koordinaten in Weltkoordinaten
-    const POINTS = FEATURES.map(f => ({
-        id: f.id,
-        n: f.n,
-        name: f.name,
-        d: f.d,
-        px: f.x * CANVAS_W,
-        py: f.y * CANVAS_H,
-        r: 30,
-        dupe: false
-    }));
-
-    // Marker 8 & 11 liegen exakt übereinander -> leicht versetzen, damit sichtbar
-    for (let i = 0; i < POINTS.length; i++) {
-        for (let j = i + 1; j < POINTS.length; j++) {
-            if (Math.abs(POINTS[i].px - POINTS[j].px) < 3 && Math.abs(POINTS[i].py - POINTS[j].py) < 3) {
-                POINTS[j].px += 14;
-                POINTS[j].py -= 10;
-                POINTS[j].dupe = true;
-            }
-        }
-    }
-
-    // Radius je Ort: Ansagen auslösen, auch wenn der Ort in einem Gebäude liegt.
-    // -> Abstand zur nächsten Gebäudekante + Puffer
-    POINTS.forEach(p => {
-        let margin = Infinity;
-        BUILDINGS.forEach(b => {
-            const inside = p.px > b.x && p.px < b.x + b.w && p.py > b.y && p.py < b.y + b.h;
-            if (inside) {
-                const m = Math.min(p.px - b.x, b.x + b.w - p.px, p.py - b.y, b.y + b.h - p.py);
-                margin = Math.min(margin, m);
-            }
-        });
-        p.r = isFinite(margin) ? margin + 30 : 30;
-    });
+    // ---- Weltzustand (aus der Karte befüllt) ----
+    let FEATURES = [];
+    let BUILDINGS = [];
+    let HUTS = [];
+    let AREAS = [];
+    let ROADS = [];
+    let PONDS = [];
+    let TREES = [];
+    let PARKINGS = [];
+    let POINTS = [];
+    let TOTAL = 0;
+    let START = { x: 122, y: 80 };
 
     const dog = {
         x: 122,
@@ -144,8 +62,6 @@
         moving: false,
         faceLeft: false
     };
-
-    const START = { x: 122, y: 80 };
 
     const input = { up: false, down: false, left: false, right: false };
     let target = null;
@@ -175,10 +91,6 @@
     for (let i = 0; i < 140; i++) {
         tufts.push({ x: Math.floor(rand() * CANVAS_W), y: Math.floor(rand() * CANVAS_H) });
     }
-    const trees = [];
-    const treeSpots = [[20, 30], [58, 220], [440, 60], [455, 150], [30, 250], [360, 45], [430, 330], [60, 330], [455, 285], [90, 30]];
-    treeSpots.forEach(p => trees.push({ x: p[0], y: p[1] }));
-
     // ---- Zeichnen ----
     function drawGrass() {
         rect(0, 0, CANVAS_W, CANVAS_H, C.grass);
@@ -193,27 +105,17 @@
         tufts.forEach(t => rect(t.x, t.y, 2, 3, C.grassTuft));
     }
 
-    function drawRoads() {
-        // obere Zufahrt
-        rect(52, 48, 168, 14, C.road);
-        rect(52, 60, 168, 2, C.roadDark);
-        // Verbindung nach unten zum Hof
-        rect(210, 48, 14, 138, C.road);
-        rect(222, 48, 2, 138, C.roadDark);
-        // Innenhof
-        rect(146, 182, 214, 90, C.road);
-        rect(146, 182, 214, 3, C.roadDark);
-        rect(146, 269, 214, 3, C.roadDark);
-        // Weg zum rechten Gebäudekomplex
-        rect(300, 210, 66, 12, C.road);
+    function drawRoad(r) {
+        rect(r.x, r.y, r.w, r.h, C.road);
+        rect(r.x, r.y + r.h - 2, r.w, 2, C.roadDark);
     }
 
-    function drawPond() {
+    function drawPond(p) {
         ctx.fillStyle = C.water;
         ctx.beginPath();
-        ctx.ellipse(436, 320, 22, 12, 0, 0, Math.PI * 2);
+        ctx.ellipse(p.x, p.y, p.rx, p.ry, 0, 0, Math.PI * 2);
         ctx.fill();
-        rect(430, 313, 10, 3, C.waterHi);
+        rect(p.x - 6, p.y - 7, 10, 3, C.waterHi);
     }
 
     function drawParking(cx, cy, cols) {
@@ -232,6 +134,13 @@
         rect(x + 1, y + 4, 8, 2, C.tent);
         rect(x + 3, y + 2, 4, 2, '#e08a72');
         rect(x + 4, y + 6, 3, 4, '#7d4636');
+    }
+
+    function drawCamper(x, y) {
+        rect(x, y + 4, 16, 8, '#f4f1ea');
+        rect(x + 1, y + 5, 6, 4, C.window);
+        rect(x, y, 16, 5, '#e7e2d6');
+        rect(x + 11, y + 1, 4, 3, '#cfc8b8');
     }
 
     function drawTree(x, y) {
@@ -267,15 +176,38 @@
         ctx.stroke();
     }
 
-    function drawPasture() {
-        const pts = SCENE.tierweide;
-        drawFencedPoly(pts, '#7f9b54', C.fence);
-        drawAlpaca(pts[0][0] + 24, pts[0][1] + 18);
-        drawAlpaca(pts[0][0] + 46, pts[0][1] + 30);
+    function areaWorldPts(a) {
+        return a.points.map(c => [c[0] * CANVAS_W, c[1] * CANVAS_H]);
     }
 
-    function drawHofplatz() {
-        poly(SCENE.hofplatz, C.road);
+    function bbox(pts) {
+        const xs = pts.map(p => p[0]);
+        const ys = pts.map(p => p[1]);
+        return { x0: Math.min.apply(null, xs), y0: Math.min.apply(null, ys), x1: Math.max.apply(null, xs), y1: Math.max.apply(null, ys) };
+    }
+
+    function drawAreas() {
+        AREAS.forEach(a => {
+            if (!a.points || !a.points.length) return;
+            const pts = areaWorldPts(a);
+            const b = bbox(pts);
+            if (a.kind === 'pasture') {
+                drawFencedPoly(pts, '#7f9b54', C.fence);
+                drawAlpaca(b.x0 + 24, b.y0 + 18);
+                drawAlpaca(b.x0 + 46, b.y0 + 30);
+            } else if (a.kind === 'plaza') {
+                poly(pts, C.road);
+            } else if (a.kind === 'parking') {
+                poly(pts, C.asph);
+                const cy = (b.y0 + b.y1) / 2 - 6;
+                drawCamper(b.x0 + 6, cy);
+                drawCamper(b.x0 + 26, cy);
+            } else if (a.kind === 'tents') {
+                drawTent(b.x0 + 4, b.y0 + 6);
+                drawTent(b.x0 + 18, b.y0 + 15);
+                drawTent(b.x0 + 8, b.y0 + 25);
+            }
+        });
     }
 
     function drawBuilding(b) {
@@ -289,7 +221,7 @@
         // Giebeldach (Treppenform)
         for (let i = 0; i < 8; i++) {
             const inset = 7 - i;
-            const col = i < 2 ? '#c96a4e' : b.roof;
+            const col = i < 2 ? '#c96a4e' : (b.roof || '#8a4b3a');
             rect(x + inset, y + i, w - inset * 2, 1, col);
         }
         // Fenster
@@ -399,29 +331,17 @@
     function render() {
         ctx.clearRect(0, 0, CANVAS_W, CANVAS_H);
         drawGrass();
-        drawRoads();
-        drawHofplatz();
-        drawPasture();
-        drawPond();
-
-        // Parkplätze (an den Marker-Positionen)
-        drawParking(210, 66, 4);
-        drawParking(162, 104, 4);
-        drawParking(250, 100, 4);
-        drawParking(325, 95, 2); // Wohnmobile (SCENE.camper)
-        drawParking(92, 123, 1); // Bus
-
-        // Zeltplatz (SCENE.zeltbereich)
-        drawTent(86, 138);
-        drawTent(100, 146);
-        drawTent(90, 156);
+        ROADS.forEach(drawRoad);
+        drawAreas();
+        PONDS.forEach(drawPond);
+        PARKINGS.forEach(p => drawParking(p.x, p.y, p.cols));
 
         // Gebäude + Hütten
         BUILDINGS.forEach(drawBuilding);
         HUTS.forEach(drawHut);
 
         // Bäume
-        trees.forEach(t => drawTree(t.x, t.y));
+        TREES.forEach(t => drawTree(t.x, t.y));
 
         // Marker/Badges
         drawBadges();
@@ -673,7 +593,74 @@
         requestAnimationFrame(loop);
     }
 
-    buildLegend();
-    updateProgress();
-    requestAnimationFrame(loop);
+    // ---- Welt aus Kartendaten aufbauen ----
+    function buildWorld(map) {
+        FEATURES = (map.features || []).slice();
+        BUILDINGS = (map.buildings || []).slice();
+        HUTS = (map.huts || []).slice();
+        AREAS = (map.areas || []).slice();
+        ROADS = (map.roads || []).slice();
+        PONDS = (map.ponds || []).slice();
+        TREES = (map.trees || []).slice();
+        PARKINGS = (map.parkings || []).slice();
+
+        const ds = map.dogStart || { x: 122, y: 80 };
+        START = { x: ds.x, y: ds.y };
+        dog.x = START.x;
+        dog.y = START.y;
+
+        TOTAL = new Set(FEATURES.map(f => f.n)).size;
+
+        POINTS = FEATURES.map(f => ({
+            id: f.id,
+            n: f.n,
+            name: f.name,
+            d: f.d,
+            px: f.x * CANVAS_W,
+            py: f.y * CANVAS_H,
+            r: 30,
+            dupe: false
+        }));
+
+        // Marker, die exakt übereinander liegen -> leicht versetzen, damit sichtbar
+        for (let i = 0; i < POINTS.length; i++) {
+            for (let j = i + 1; j < POINTS.length; j++) {
+                if (Math.abs(POINTS[i].px - POINTS[j].px) < 3 && Math.abs(POINTS[i].py - POINTS[j].py) < 3) {
+                    POINTS[j].px += 14;
+                    POINTS[j].py -= 10;
+                    POINTS[j].dupe = true;
+                }
+            }
+        }
+
+        // Radius je Ort: Ansagen auslösen, auch wenn der Ort in einem Gebäude liegt.
+        POINTS.forEach(p => {
+            let margin = Infinity;
+            BUILDINGS.forEach(b => {
+                const inside = p.px > b.x && p.px < b.x + b.w && p.py > b.y && p.py < b.y + b.h;
+                if (inside) {
+                    const m = Math.min(p.px - b.x, b.x + b.w - p.px, p.py - b.y, b.y + b.h - p.py);
+                    margin = Math.min(margin, m);
+                }
+            });
+            p.r = isFinite(margin) ? margin + 30 : 30;
+        });
+    }
+
+    function boot(map) {
+        buildWorld(map);
+        buildLegend();
+        updateProgress();
+        requestAnimationFrame(loop);
+    }
+
+    // Kartendaten laden (map.json). Bei Fehler (z. B. file://) Fallback nutzen.
+    if (typeof fetch === 'function') {
+        fetch('map.json', { cache: 'no-store' })
+            .then(r => (r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status))))
+            .then(map => boot(map))
+            .catch(() => boot(DEFAULT_MAP));
+    } else {
+        boot(DEFAULT_MAP);
+    }
 })();
