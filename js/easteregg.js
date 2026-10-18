@@ -11,8 +11,13 @@
     const CANVAS_W = 480;
     const CANVAS_H = 360;
     const SCALE = 2.5;
+    const ZOOM = 1.8; // Karten-Zoom; die Kamera folgt dem Hund
     const OUT_W = Math.round(CANVAS_W * SCALE);
     const OUT_H = Math.round(CANVAS_H * SCALE);
+    const VIEW_W = CANVAS_W / ZOOM; // sichtbarer Welt-Ausschnitt in Welteinheiten
+    const VIEW_H = CANVAS_H / ZOOM;
+    let camLeft = 0;
+    let camTop = 0;
 
     const DEFAULT_MAP = window.FARMINN_DEFAULT_MAP || { features: [], buildings: [], huts: [], areas: [] };
 
@@ -708,37 +713,37 @@
     }
 
     // ---- Marker ----
-    function drawBadges() {
+    function drawBadges(cl, ct) {
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.font = "bold 8px 'Press Start 2P', monospace";
         POINTS.forEach(p => {
             const found = discovered.has(p.n);
-            const bx = Math.round(p.px) - 8;
-            const by = Math.round(p.py) - 8;
+            const sx = (p.px - cl) * ZOOM;
+            const sy = (p.py - ct) * ZOOM;
             if (currentFeature === p) {
                 ctx.strokeStyle = 'rgba(214,96,12,0.95)';
                 ctx.lineWidth = 2;
                 ctx.beginPath();
-                ctx.arc(p.px, p.py, 13 + Math.sin(dog.t * 6) * 2, 0, Math.PI * 2);
+                ctx.arc(sx, sy, 13 + Math.sin(dog.t * 6) * 2, 0, Math.PI * 2);
                 ctx.stroke();
             }
             ctx.fillStyle = found ? '#6f8048' : C.roof;
             ctx.beginPath();
-            ctx.arc(p.px, p.py, 9, 0, Math.PI * 2);
+            ctx.arc(sx, sy, 9, 0, Math.PI * 2);
             ctx.fill();
             ctx.strokeStyle = 'rgba(255,255,255,0.85)';
             ctx.lineWidth = 1.5;
             ctx.stroke();
             ctx.fillStyle = '#fff';
-            ctx.fillText(String(p.n), p.px, p.py + 1);
+            ctx.fillText(String(p.n), sx, sy + 1);
         });
     }
 
     // ---- Hund ----
-    function drawDog() {
-        const cx = Math.round(dog.x);
-        const cy = Math.round(dog.y);
+    function drawDog(dx, dy) {
+        const cx = Math.round(dx);
+        const cy = Math.round(dy);
         const bob = dog.moving ? (Math.floor(dog.frame) % 2) : 0;
         const by = cy - 16 - bob;
 
@@ -782,9 +787,19 @@
 
     // ---- Render ----
     function render() {
-        ctx.setTransform(SCALE, 0, 0, SCALE, 0, 0);
+        const eff = SCALE * ZOOM;
+
+        camLeft = dog.x - VIEW_W / 2;
+        camTop = dog.y - VIEW_H / 2;
+        camLeft = Math.max(0, Math.min(CANVAS_W - VIEW_W, camLeft));
+        camTop = Math.max(0, Math.min(CANVAS_H - VIEW_H, camTop));
+
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.clearRect(0, 0, OUT_W, OUT_H);
+
+        // Welt (Kamera folgt, gezoomt)
+        ctx.setTransform(eff, 0, 0, eff, -camLeft * eff, -camTop * eff);
         ctx.imageSmoothingEnabled = false;
-        ctx.clearRect(0, 0, CANVAS_W, CANVAS_H);
 
         drawGrass();
         ROADS.forEach(drawRoad);
@@ -800,8 +815,13 @@
         PONDS.forEach(drawPond);
 
         drawGadgets();
-        drawBadges();
-        drawDog();
+
+        // Bildschirmfeste Ebene: Marker & Hund bleiben gleich groß
+        ctx.setTransform(SCALE, 0, 0, SCALE, 0, 0);
+        ctx.imageSmoothingEnabled = false;
+
+        drawBadges(camLeft, camTop);
+        drawDog((dog.x - camLeft) * ZOOM, (dog.y - camTop) * ZOOM);
     }
 
     // ---- Kollision ----
@@ -930,7 +950,10 @@
 
     function canvasToWorld(clientX, clientY) {
         const r = ctx.canvas.getBoundingClientRect();
-        return { x: (clientX - r.left) / r.width * CANVAS_W, y: (clientY - r.top) / r.height * CANVAS_H };
+        return {
+            x: camLeft + (clientX - r.left) / r.width * VIEW_W,
+            y: camTop + (clientY - r.top) / r.height * VIEW_H
+        };
     }
     ctx.canvas.addEventListener('pointerdown', (e) => {
         e.preventDefault();
