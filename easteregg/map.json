@@ -1,7 +1,7 @@
 {
-  "version": 4,
+  "version": 5,
   "canvas": { "w": 480, "h": 360 },
-  "dogStart": { "x": 118, "y": 74 },
+  "dogStart": { "x": 112, "y": 70 },
   "features": [
     { "n": 1, "id": "marker-1-1", "name": "Einfahrt", "x": 0.21667, "y": 0.17778, "d": "Hier beginnt alles – die Einfahrt von der K18 führt direkt auf den Hof. Los, folgt mir!" },
     { "n": 2, "id": "marker-2-2", "name": "Parkplatz PKW (75)", "x": 0.4375, "y": 0.17889, "d": "Bis zu 75 Autos finden hier ein Plätzchen. Parken ist auf dem ganzen Hof kostenlos." },
@@ -29,49 +29,48 @@
     { "n": 20, "id": "marker-20-24", "name": "Wellnessbereich (EG)", "x": 0.65833, "y": 0.67, "d": "Der Wellnessbereich mit Sauna zum Entspannen nach dem Fest. Herrlich – und die Alpakas stehen sogar kostenlos für Hochzeitsfotos bereit!" }
   ],
   "buildings": [
-    { "x": 136, "y": 140, "w": 68, "h": 20, "roof": "#8a4b3a", "rot": 0, "label": "WeddingArea" },
-    { "x": 205, "y": 162, "w": 20, "h": 14, "roof": "#a5573f", "rot": -8, "label": "Eingang" },
-    { "x": 222, "y": 205, "w": 32, "h": 20, "roof": "#a5573f", "rot": 6, "label": "Café Farmos" },
-    { "x": 248, "y": 238, "w": 44, "h": 20, "roof": "#8a4b3a", "rot": 0, "label": "Taverne" },
-    { "x": 300, "y": 232, "w": 34, "h": 20, "roof": "#a5573f", "rot": -6, "label": "Wellness" },
-    { "x": 250, "y": 184, "w": 64, "h": 30, "roof": "#a5573f", "rot": 0, "timber": true, "label": "Appartments / ScheunenHostel" },
-    { "x": 310, "y": 164, "w": 58, "h": 32, "roof": "#8a4b3a", "rot": 0, "timber": true, "label": "GruppenGästehaus" },
-    { "x": 362, "y": 178, "w": 40, "h": 28, "roof": "#a5573f", "rot": 5, "label": "HoneymoonSuite" },
-    { "x": 362, "y": 204, "w": 82, "h": 70, "roof": "#7d4636", "rot": 0, "timber": true, "label": "FeierScheune / Lounges" }
+    { "x": 100, "y": 128, "w": 88, "h": 22, "rot": 39, "roof": "#6f3c18", "timber": true, "label": "WeddingArea / Bullenstall" },
+    { "x": 206, "y": 140, "w": 26, "h": 28, "roof": "#cf5a06", "label": "Eingang FarmInn" },
+    { "x": 206, "y": 196, "w": 48, "h": 26, "roof": "#d2600c", "timber": true, "label": "Café Farmos / Terrasse" },
+    { "x": 252, "y": 176, "w": 56, "h": 44, "roof": "#d2600c", "timber": true, "label": "Appartments / ScheunenHostel" },
+    { "x": 250, "y": 230, "w": 44, "h": 26, "roof": "#cf5a06", "label": "Taverne" },
+    { "x": 296, "y": 228, "w": 36, "h": 24, "roof": "#cf5a06", "label": "Wellnessbereich" },
+    { "x": 300, "y": 148, "w": 70, "h": 40, "roof": "#d2600c", "timber": true, "label": "GruppenGästehaus" },
+    { "x": 358, "y": 184, "w": 26, "h": 26, "roof": "#cf5a06", "timber": true, "label": "HoneymoonSuite" },
+    { "x": 372, "y": 184, "w": 42, "h": 130, "roof": "#b8562f", "timber": true, "label": "FeierScheune / Lounges" },
+    { "x": 392, "y": 172, "w": 24, "h": 20, "roof": "#a84e2b", "label": "RaucherLounge" }
   ],
   "huts": [
-    { "x": 120, "y": 166, "label": "Genusshütte" },
-    { "x": 212, "y": 262, "label": "Genusshütte" },
-    { "x": 286, "y": 268, "label": "Genusshütte" }
+    { "x": 120, "y": 176, "label": "Genusshütte" },
+    { "x": 218, "y": 274, "label": "Genusshütte" },
+    { "x": 262, "y": 252, "label": "Genusshütte" }
   ],
   "areas": [
-    { "id": "tierweide", "label": "Tierweide (Alpakas)", "kind": "pasture", "points": [[0.44583, 0.33667], [0.5625, 0.33667], [0.58333, 0.43], [0.46667, 0.44667]] },
-    { "id": "zeltbereich", "label": "Zeltplatz", "kind": "tents", "points": [[0.17333, 0.36778], [0.22833, 0.36778], [0.22833, 0.45667], [0.17333, 0.45667]] },
-    { "id": "camper", "label": "Wohnmobil-Stellplätze", "kind": "parking", "points": [[0.64167, 0.20889], [0.715, 0.20889], [0.715, 0.31778], [0.64167, 0.31778]] },
-    { "id": "hofplatz", "label": "Hofplatz / Feierbereich", "kind": "plaza", "points": [[0.60833, 0.57222], [0.86167, 0.57222], [0.86167, 0.80778], [0.60833, 0.80778]] }
+    { "id": "tierweide", "label": "Tierweide (Alpakas)", "kind": "pasture", "points": [[0.497, 0.296], [0.64, 0.30], [0.638, 0.46], [0.5, 0.452]] },
+    { "id": "zeltbereich", "label": "Zeltplatz", "kind": "tents", "points": [[0.128, 0.40], [0.185, 0.40], [0.185, 0.492], [0.128, 0.492]] },
+    { "id": "camper", "label": "Wohnmobil-Stellplätze", "kind": "parking", "points": [[0.635, 0.212], [0.735, 0.212], [0.735, 0.365], [0.635, 0.365]] },
+    { "id": "hofplatz", "label": "Hofplatz / Feierbereich", "kind": "plaza", "points": [[0.628, 0.575], [0.812, 0.575], [0.812, 0.87], [0.628, 0.87]] }
   ],
   "roads": [
-    { "label": "K18 Norden", "w": 26, "points": [[-14, 42], [502, 42]] },
-    { "label": "K18 Osten", "w": 30, "points": [[440, -14], [440, 374]] },
-    { "label": "Einfahrt", "w": 14, "points": [[104, 44], [140, 52], [180, 60], [214, 72], [244, 88], [262, 110], [266, 138]] },
-    { "label": "Weg zum Eingang", "w": 10, "points": [[216, 132], [215, 152]] },
-    { "label": "Weg zu den Hütten", "w": 10, "points": [[176, 196], [178, 244], [200, 258]] },
-    { "label": "Weg zum Komplex", "w": 10, "points": [[268, 214], [300, 212], [352, 214]] },
-    { "label": "Innenhof", "x": 148, "y": 176, "w": 212, "h": 100 }
+    { "label": "K 18", "w": 30, "points": [[-16, 38], [504, 38]] },
+    { "label": "K 18", "w": 34, "points": [[444, -16], [444, 376]] },
+    { "label": "Zufahrt", "w": 26, "points": [[150, 42], [200, 48], [250, 66], [292, 96], [318, 138], [332, 190], [340, 250], [342, 312]] },
+    { "label": "Weg zum Stall", "w": 14, "points": [[150, 42], [150, 96], [140, 150], [132, 190]] },
+    { "label": "Hofweg", "w": 16, "points": [[242, 250], [260, 268], [300, 276], [340, 268]] }
   ],
-  "ponds": [
-    { "x": 436, "y": 320, "rx": 22, "ry": 12, "label": "Teich" }
-  ],
+  "ponds": [],
   "trees": [
-    { "x": 20, "y": 34, "v": 1 }, { "x": 52, "y": 24 }, { "x": 92, "y": 26, "v": 1 }, { "x": 400, "y": 26 }, { "x": 452, "y": 40, "v": 1 },
-    { "x": 16, "y": 120, "v": 1 }, { "x": 34, "y": 200 }, { "x": 22, "y": 284 }, { "x": 58, "y": 322, "v": 1 },
-    { "x": 452, "y": 120 }, { "x": 464, "y": 210, "v": 1 }, { "x": 440, "y": 296 }, { "x": 402, "y": 330 },
-    { "x": 120, "y": 330 }, { "x": 88, "y": 342, "v": 1 }, { "x": 340, "y": 348 }, { "x": 250, "y": 344, "v": 1 }, { "x": 170, "y": 346 }
+    { "x": 22, "y": 26, "v": 1 }, { "x": 60, "y": 20 }, { "x": 300, "y": 18, "v": 1 }, { "x": 350, "y": 22 },
+    { "x": 400, "y": 18, "v": 1 }, { "x": 455, "y": 30 }, { "x": 470, "y": 60, "v": 1 },
+    { "x": 60, "y": 120, "v": 1 }, { "x": 22, "y": 200 }, { "x": 250, "y": 350, "v": 1 }, { "x": 320, "y": 346 },
+    { "x": 400, "y": 340, "v": 1 }, { "x": 448, "y": 320 }, { "x": 470, "y": 250, "v": 1 },
+    { "x": 250, "y": 120, "v": 1 }, { "x": 350, "y": 120 }, { "x": 250, "y": 336, "v": 1 },
+    { "x": 200, "y": 322 }, { "x": 60, "y": 210 }
   ],
   "parkings": [
-    { "x": 210, "y": 66, "cols": 4, "label": "Parkplatz PKW" },
+    { "x": 210, "y": 70, "cols": 4, "label": "Parkplatz PKW" },
     { "x": 162, "y": 104, "cols": 4, "label": "Parkplatz PKW" },
     { "x": 250, "y": 100, "cols": 4, "label": "Parkplatz PKW" },
-    { "x": 92, "y": 123, "cols": 1, "label": "Reisebus" }
+    { "x": 78, "y": 128, "cols": 1, "label": "Reisebus" }
   ]
 }
