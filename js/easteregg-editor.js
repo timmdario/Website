@@ -35,6 +35,18 @@
         { v: 'tents', t: 'Zeltplatz' }
     ];
 
+    const BUILDING_TONES = [
+        { v: 'orange', t: 'Ziegeldach (orange)' },
+        { v: 'brown', t: 'Braunes Dach' },
+        { v: 'red', t: 'Rotes Dach' }
+    ];
+    function toneColor(b) {
+        if (b.tone === 'brown') return '#8d6039';
+        if (b.tone === 'red') return '#ad5a40';
+        if (b.roof) return b.roof;
+        return '#d97a3a';
+    }
+
     // ---- Helpers ----
     function clone(o) { return JSON.parse(JSON.stringify(o)); }
     function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
@@ -204,7 +216,7 @@
             rect(X, Y + 6, b.w, b.h - 6, '#ecdcbb');
             for (let k = 0; k < 8; k++) {
                 const inset = 7 - k;
-                rect(X + inset, Y + k, b.w - inset * 2, 1, k < 2 ? '#c96a4e' : (b.roof || '#8a4b3a'));
+                rect(X + inset, Y + k, b.w - inset * 2, 1, k < 2 ? '#c96a4e' : toneColor(b));
             }
             if (selected('building', i)) {
                 ctx.strokeStyle = '#fff';
@@ -476,7 +488,8 @@
             html += row('Breite', numInput('w', b.w));
             html += row('Höhe', numInput('h', b.h));
             html += row('Drehung (°)', numInput('rot', b.rot || 0));
-            html += row('Dachfarbe', '<input type="color" data-key="roof" value="' + (b.roof || '#8a4b3a') + '">');
+            const toneOpts = BUILDING_TONES.map(t => '<option value="' + t.v + '"' + ((b.tone || 'orange') === t.v ? ' selected' : '') + '>' + t.t + '</option>').join('');
+            html += row('Dach', '<select data-key="tone">' + toneOpts + '</select>');
             html += '<label class="ed-check" style="margin-top:.3rem"><input type="checkbox" data-key="timber"' + (b.timber ? ' checked' : '') + '> Fachwerk/Holz</label>';
         } else if (sel.type === 'hut') {
             const h = map.huts[sel.idx];
@@ -593,6 +606,7 @@
             else if (key === 'w') b.w = clamp(parseFloat(v) || 0, 4, W);
             else if (key === 'h') b.h = clamp(parseFloat(v) || 0, 4, H);
             else if (key === 'roof') b.roof = v;
+            else if (key === 'tone') b.tone = v;
             else if (key === 'rot') b.rot = parseFloat(v) || 0;
             else if (key === 'timber') b.timber = inp.checked;
         } else if (sel.type === 'hut') {
