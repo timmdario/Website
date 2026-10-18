@@ -56,6 +56,15 @@
         return inside;
     }
 
+    function distToSeg(p, a, b) {
+        const dx = b[0] - a[0];
+        const dy = b[1] - a[1];
+        const len2 = dx * dx + dy * dy;
+        let t = len2 ? ((p.x - a[0]) * dx + (p.y - a[1]) * dy) / len2 : 0;
+        t = Math.max(0, Math.min(1, t));
+        return Math.hypot(p.x - (a[0] + t * dx), p.y - (a[1] + t * dy));
+    }
+
     function status(msg) { el.status.textContent = msg || ''; }
 
     function normalizeMap() {
@@ -127,9 +136,34 @@
 
         // Straßen
         map.roads.forEach((r, i) => {
-            rect(r.x, r.y, r.w, r.h, 'rgba(205,176,131,0.85)');
-            rect(r.x, r.y + r.h - 2, r.w, 2, 'rgba(189,159,114,0.9)');
-            if (selected('road', i)) outlineRect(r.x, r.y, r.w, r.h, '#fff');
+            if (r.points && r.points.length) {
+                ctx.save();
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+                ctx.beginPath();
+                r.points.forEach((p, k) => k ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]));
+                ctx.strokeStyle = 'rgba(205,176,131,0.9)';
+                ctx.lineWidth = r.w || 14;
+                ctx.stroke();
+                ctx.restore();
+                if (selected('road', i)) {
+                    ctx.save();
+                    ctx.strokeStyle = '#fff';
+                    ctx.lineWidth = 1;
+                    ctx.setLineDash([4, 3]);
+                    ctx.beginPath();
+                    r.points.forEach((p, k) => k ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]));
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                    r.points.forEach(p => rect(p[0] - 3, p[1] - 3, 6, 6, '#fff'));
+                    r.points.forEach(p => { ctx.strokeStyle = '#6b432d'; ctx.lineWidth = 1; ctx.strokeRect(p[0] - 3.5, p[1] - 3.5, 7, 7); });
+                    ctx.restore();
+                }
+            } else {
+                rect(r.x, r.y, r.w, r.h, 'rgba(205,176,131,0.85)');
+                rect(r.x, r.y + r.h - 2, r.w, 2, 'rgba(189,159,114,0.9)');
+                if (selected('road', i)) outlineRect(r.x, r.y, r.w, r.h, '#fff');
+            }
         });
         // Teiche
         map.ponds.forEach((p, i) => {
@@ -162,11 +196,22 @@
 
         // Gebäude
         map.buildings.forEach((b, i) => {
-            rect(b.x, b.y + 6, b.w, b.h - 6, '#ecdcbb');
+            ctx.save();
+            ctx.translate(b.x + b.w / 2, b.y + b.h / 2);
+            ctx.rotate((b.rot || 0) * Math.PI / 180);
+            const X = -b.w / 2;
+            const Y = -b.h / 2;
+            rect(X, Y + 6, b.w, b.h - 6, '#ecdcbb');
             for (let k = 0; k < 8; k++) {
                 const inset = 7 - k;
-                rect(b.x + inset, b.y + k, b.w - inset * 2, 1, k < 2 ? '#c96a4e' : (b.roof || '#8a4b3a'));
+                rect(X + inset, Y + k, b.w - inset * 2, 1, k < 2 ? '#c96a4e' : (b.roof || '#8a4b3a'));
             }
+            if (selected('building', i)) {
+                ctx.strokeStyle = '#fff';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(X - 1, Y - 1, b.w + 2, b.h + 2);
+            }
+            ctx.restore();
             if (b.label && b.w > 30) {
                 ctx.fillStyle = 'rgba(43,43,43,0.75)';
                 ctx.font = '7px sans-serif';
@@ -174,7 +219,6 @@
                 ctx.textBaseline = 'top';
                 ctx.fillText(b.label, b.x + b.w / 2, b.y + b.h + 2, b.w + 40);
             }
-            if (selected('building', i)) outlineRect(b.x, b.y, b.w, b.h, '#fff');
         });
 
         // Hütten
@@ -189,10 +233,17 @@
 
         // Bäume
         map.trees.forEach((t, i) => {
-            rect(t.x - 6, t.y - 8, 13, 9, 'rgba(95,122,63,0.95)');
-            rect(t.x - 4, t.y - 11, 9, 4, 'rgba(111,138,74,0.95)');
-            rect(t.x - 1, t.y, 3, 7, 'rgba(107,67,45,0.95)');
-            if (selected('tree', i)) outlineRect(t.x - 7, t.y - 10, 15, 18, '#fff');
+            if (t.v === 1) {
+                rect(t.x - 1, t.y + 2, 3, 5, 'rgba(107,67,45,0.95)');
+                rect(t.x - 5, t.y - 3, 11, 6, 'rgba(63,92,51,0.95)');
+                rect(t.x - 4, t.y - 7, 9, 5, 'rgba(63,92,51,0.95)');
+                rect(t.x - 3, t.y - 10, 7, 4, 'rgba(79,112,64,0.95)');
+            } else {
+                rect(t.x - 6, t.y - 8, 13, 9, 'rgba(95,122,63,0.95)');
+                rect(t.x - 4, t.y - 11, 9, 4, 'rgba(111,138,74,0.95)');
+                rect(t.x - 1, t.y, 3, 7, 'rgba(107,67,45,0.95)');
+            }
+            if (selected('tree', i)) outlineRect(t.x - 7, t.y - 11, 15, 19, '#fff');
         });
 
         // Hundestart
@@ -252,7 +303,22 @@
         }
         for (let i = map.roads.length - 1; i >= 0; i--) {
             const r = map.roads[i];
-            if (p.x >= r.x && p.x <= r.x + r.w && p.y >= r.y && p.y <= r.y + r.h) return { sel: { type: 'road', idx: i }, dragType: 'move' };
+            if (r.points && r.points.length) {
+                if (sel && sel.type === 'road' && sel.idx === i) {
+                    for (let k = 0; k < r.points.length; k++) {
+                        if (Math.hypot(p.x - r.points[k][0], p.y - r.points[k][1]) < 8) {
+                            return { sel: { type: 'road', idx: i }, dragType: 'vertex', vidx: k };
+                        }
+                    }
+                }
+                let bestd = Infinity;
+                for (let k = 0; k < r.points.length - 1; k++) {
+                    bestd = Math.min(bestd, distToSeg(p, r.points[k], r.points[k + 1]));
+                }
+                if (bestd < 8) return { sel: { type: 'road', idx: i }, dragType: 'moveRoad' };
+            } else if (p.x >= r.x && p.x <= r.x + r.w && p.y >= r.y && p.y <= r.y + r.h) {
+                return { sel: { type: 'road', idx: i }, dragType: 'move' };
+            }
         }
         for (let i = map.areas.length - 1; i >= 0; i--) {
             if (pointInPoly(p, worldPoints(map.areas[i]))) return { sel: { type: 'area', idx: i }, dragType: 'moveArea' };
@@ -266,7 +332,14 @@
         if (s.type === 'dog') return { x: map.dogStart.x, y: map.dogStart.y };
         if (s.type === 'hut') { const h = map.huts[s.idx]; return { x: h.x, y: h.y }; }
         if (s.type === 'building') { const b = map.buildings[s.idx]; return { x: b.x, y: b.y }; }
-        if (s.type === 'road') { const r = map.roads[s.idx]; return { x: r.x, y: r.y }; }
+        if (s.type === 'road') {
+            const r = map.roads[s.idx];
+            if (r.points) {
+                if (hit.dragType === 'vertex') return { px: r.points[hit.vidx][0], py: r.points[hit.vidx][1] };
+                return { points: r.points.map(c => [c[0], c[1]]) };
+            }
+            return { x: r.x, y: r.y };
+        }
         if (s.type === 'pond') { const q = map.ponds[s.idx]; return { x: q.x, y: q.y }; }
         if (s.type === 'tree') { const t = map.trees[s.idx]; return { x: t.x, y: t.y }; }
         if (s.type === 'parking') { const q = map.parkings[s.idx]; return { x: q.x, y: q.y }; }
@@ -299,8 +372,16 @@
             b.y = clamp(snapv(drag.orig.y + dy), 0, H - b.h);
         } else if (s.type === 'road') {
             const r = map.roads[s.idx];
-            r.x = clamp(snapv(drag.orig.x + dx), 0, W - r.w);
-            r.y = clamp(snapv(drag.orig.y + dy), 0, H - r.h);
+            if (r.points) {
+                if (drag.hit.dragType === 'vertex') {
+                    r.points[drag.hit.vidx] = [clamp(snapv(drag.orig.px + dx), 0, W), clamp(snapv(drag.orig.py + dy), 0, H)];
+                } else {
+                    r.points = drag.orig.points.map(c => [clamp(snapv(c[0] + dx), 0, W), clamp(snapv(c[1] + dy), 0, H)]);
+                }
+            } else {
+                r.x = clamp(snapv(drag.orig.x + dx), 0, W - r.w);
+                r.y = clamp(snapv(drag.orig.y + dy), 0, H - r.h);
+            }
         } else if (s.type === 'pond') {
             const q = map.ponds[s.idx];
             q.x = clamp(snapv(drag.orig.x + dx), 0, W);
@@ -394,7 +475,9 @@
             html += row('Y', numInput('y', b.y));
             html += row('Breite', numInput('w', b.w));
             html += row('Höhe', numInput('h', b.h));
+            html += row('Drehung (°)', numInput('rot', b.rot || 0));
             html += row('Dachfarbe', '<input type="color" data-key="roof" value="' + (b.roof || '#8a4b3a') + '">');
+            html += '<label class="ed-check" style="margin-top:.3rem"><input type="checkbox" data-key="timber"' + (b.timber ? ' checked' : '') + '> Fachwerk/Holz</label>';
         } else if (sel.type === 'hut') {
             const h = map.huts[sel.idx];
             html += row('Bezeichnung', textInput('label', h.label || ''));
@@ -406,10 +489,21 @@
         } else if (sel.type === 'road') {
             const r = map.roads[sel.idx];
             html += row('Bezeichnung', textInput('label', r.label || ''));
-            html += row('X', numInput('x', r.x));
-            html += row('Y', numInput('y', r.y));
-            html += row('Breite', numInput('w', r.w));
-            html += row('Höhe', numInput('h', r.h));
+            html += row('Breite', numInput('w', r.w || 14));
+            if (r.points && r.points.length) {
+                html += '<div style="margin:.4rem 0 .2rem;font-size:.78rem;color:var(--color-Text-hell)">Verlauf (Pixel)</div>';
+                r.points.forEach((pt, vi) => {
+                    html += '<div class="ed-vertex"><span>Punkt ' + (vi + 1) + '</span>' +
+                        '<input type="number" data-vidx="' + vi + '" data-axis="0" value="' + Math.round(pt[0]) + '">' +
+                        '<input type="number" data-vidx="' + vi + '" data-axis="1" value="' + Math.round(pt[1]) + '">' +
+                        '<button class="ed-btn" data-remove-road-vertex="' + vi + '" title="Punkt entfernen">−</button></div>';
+                });
+                html += '<button class="ed-btn" data-add-road-vertex="1" style="margin-top:.3rem">+ Punkt</button>';
+            } else {
+                html += row('X', numInput('x', r.x));
+                html += row('Y', numInput('y', r.y));
+                html += row('Höhe', numInput('h', r.h));
+            }
         } else if (sel.type === 'pond') {
             const q = map.ponds[sel.idx];
             html += row('Bezeichnung', textInput('label', q.label || ''));
@@ -418,8 +512,10 @@
             html += row('Breite (rx)', numInput('rx', q.rx));
             html += row('Höhe (ry)', numInput('ry', q.ry));
         } else if (sel.type === 'tree') {
-            html += row('X', numInput('x', Math.round(map.trees[sel.idx].x)));
-            html += row('Y', numInput('y', Math.round(map.trees[sel.idx].y)));
+            const t = map.trees[sel.idx];
+            html += row('X', numInput('x', Math.round(t.x)));
+            html += row('Y', numInput('y', Math.round(t.y)));
+            html += row('Art', '<select data-key="v"><option value="0"' + (t.v !== 1 ? ' selected' : '') + '>Laubbaum</option><option value="1"' + (t.v === 1 ? ' selected' : '') + '>Nadelbaum</option></select>');
         } else if (sel.type === 'parking') {
             const q = map.parkings[sel.idx];
             html += row('Bezeichnung', textInput('label', q.label || ''));
@@ -459,6 +555,23 @@
             a.points.push([norm2(clamp(last[0] + 0.05, 0, 1)), last[1]]);
             render(); refreshProps();
         });
+
+        box.querySelectorAll('[data-remove-road-vertex]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const r = map.roads[sel.idx];
+                if (r.points && r.points.length > 2) {
+                    r.points.splice(parseInt(btn.dataset.removeRoadVertex, 10), 1);
+                    render(); refreshProps();
+                }
+            });
+        });
+        const addRV = box.querySelector('[data-add-road-vertex]');
+        if (addRV) addRV.addEventListener('click', () => {
+            const r = map.roads[sel.idx];
+            const last = r.points[r.points.length - 1];
+            r.points.push([clamp(last[0] + 12, 0, W), clamp(last[1], 0, H)]);
+            render(); refreshProps();
+        });
     }
 
     function onProp(inp) {
@@ -480,6 +593,8 @@
             else if (key === 'w') b.w = clamp(parseFloat(v) || 0, 4, W);
             else if (key === 'h') b.h = clamp(parseFloat(v) || 0, 4, H);
             else if (key === 'roof') b.roof = v;
+            else if (key === 'rot') b.rot = parseFloat(v) || 0;
+            else if (key === 'timber') b.timber = inp.checked;
         } else if (sel.type === 'hut') {
             const h = map.huts[sel.idx];
             if (key === 'label') h.label = v;
@@ -493,8 +608,14 @@
             if (key === 'label') r.label = v;
             else if (key === 'x') r.x = clamp(parseFloat(v) || 0, 0, W);
             else if (key === 'y') r.y = clamp(parseFloat(v) || 0, 0, H);
-            else if (key === 'w') r.w = clamp(parseFloat(v) || 0, 4, W);
+            else if (key === 'w') r.w = clamp(parseFloat(v) || 0, 2, W);
             else if (key === 'h') r.h = clamp(parseFloat(v) || 0, 2, H);
+            if (r.points && inp.dataset.vidx !== undefined) {
+                const vi = parseInt(inp.dataset.vidx, 10);
+                const axis = parseInt(inp.dataset.axis, 10);
+                const max = axis ? H : W;
+                r.points[vi][axis] = clamp(parseFloat(v) || 0, 0, max);
+            }
         } else if (sel.type === 'pond') {
             const q = map.ponds[sel.idx];
             if (key === 'label') q.label = v;
@@ -506,6 +627,7 @@
             const t = map.trees[sel.idx];
             if (key === 'x') t.x = clamp(parseFloat(v) || 0, 0, W);
             else if (key === 'y') t.y = clamp(parseFloat(v) || 0, 0, H);
+            else if (key === 'v') t.v = parseInt(v, 10) === 1 ? 1 : 0;
         } else if (sel.type === 'parking') {
             const q = map.parkings[sel.idx];
             if (key === 'label') q.label = v;
@@ -548,7 +670,10 @@
         html += '<li class="ed-group">Flächen (' + map.areas.length + ')</li>';
         map.areas.forEach((a, i) => { html += item('area', i, a.label || a.id || ('Fläche ' + (i + 1)), a.kind); });
         html += '<li class="ed-group">Straßen (' + map.roads.length + ')</li>';
-        map.roads.forEach((r, i) => { html += item('road', i, r.label || ('Straße ' + (i + 1)), r.w + '×' + r.h); });
+        map.roads.forEach((r, i) => {
+            const sub = r.points ? ((r.w || 14) + ' px · ' + r.points.length + ' Pkt') : (r.w + '×' + r.h);
+            html += item('road', i, r.label || ('Straße ' + (i + 1)), sub);
+        });
         html += '<li class="ed-group">Parkplätze (' + map.parkings.length + ')</li>';
         map.parkings.forEach((p, i) => { html += item('parking', i, p.label || ('Parkplatz ' + (i + 1)), p.cols + ' Plätze'); });
         html += '<li class="ed-group">Teiche (' + map.ponds.length + ')</li>';
@@ -603,7 +728,7 @@
                 map.areas.push({ id: 'flaeche-' + Date.now(), label: 'Neue Fläche', kind: 'plaza', points: [[0.4, 0.4], [0.6, 0.4], [0.6, 0.6], [0.4, 0.6]] });
                 sel = { type: 'area', idx: map.areas.length - 1 };
             } else if (t === 'road') {
-                map.roads.push({ x: 200, y: 200, w: 60, h: 12, label: 'Neue Straße' });
+                map.roads.push({ w: 12, label: 'Neue Straße', points: [[200, 200], [260, 200], [300, 230]] });
                 sel = { type: 'road', idx: map.roads.length - 1 };
             } else if (t === 'pond') {
                 map.ponds.push({ x: 240, y: 300, rx: 16, ry: 10, label: 'Teich' });
@@ -665,7 +790,11 @@
             b.x += dx; b.y += dy;
         } else if (sel.type === 'road') {
             const r = map.roads[sel.idx];
-            r.x += dx; r.y += dy;
+            if (r.points) {
+                r.points = r.points.map(c => [clamp(c[0] + dx, 0, W), clamp(c[1] + dy, 0, H)]);
+            } else {
+                r.x += dx; r.y += dy;
+            }
         } else if (sel.type === 'pond') {
             const q = map.ponds[sel.idx];
             q.x += dx; q.y += dy;
