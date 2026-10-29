@@ -683,7 +683,7 @@ function initBASlider() {
         isDragging = false;
     }
 
-    updatePosition(1);
+    updatePosition(0);
     slider.addEventListener('mousedown', startDrag);
     slider.addEventListener('touchstart', startDrag, { passive: true });
     document.addEventListener('mousemove', onDrag);
