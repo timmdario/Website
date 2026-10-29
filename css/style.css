@@ -570,6 +570,107 @@ body > * {
 }
 
 /* ========================================
+   GÄSTE-CODE (Briefumschlag)
+   ======================================== */
+
+.guest-code-form {
+    margin-top: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    z-index: 3;
+}
+
+.guest-code-form label {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--color-Text-hell);
+}
+
+.guest-code-row {
+    display: flex;
+    gap: 8px;
+}
+
+.guest-code-form input {
+    width: 130px;
+    padding: 8px 10px;
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    letter-spacing: 4px;
+    text-align: center;
+    color: var(--color-braun);
+    background: var(--color-offwhite);
+    border: 1px solid var(--color-taupe);
+    border-radius: 8px;
+}
+
+.guest-code-form button[type="submit"] {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    padding: 8px 14px;
+    color: #FFFDF9;
+    background: var(--color-braun);
+    border: 1px solid var(--color-braun);
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.guest-code-error {
+    min-height: 1em;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    color: #a33;
+}
+
+.guest-skip {
+    background: none;
+    border: none;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    color: var(--color-Text-hell);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.letter-greeting {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    color: var(--color-braun);
+    margin: 2px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.letter-personal {
+    max-width: 260px;
+    margin-top: 6px;
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    color: var(--color-Text-hell);
+    position: relative;
+    z-index: 1;
+}
+
+.letter-greeting:empty,
+.letter-personal:empty {
+    display: none;
+}
+
+.letter-paper.has-guest .letter-ornament-top,
+.letter-paper.has-guest .letter-ornament-bottom {
+    display: none;
+}
+
+.letter-paper.has-guest .letter-couple-names {
+    font-size: 1.4rem;
+}
+
+/* ========================================
    NAVIGATION
    ======================================== */
 

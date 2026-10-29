@@ -1117,6 +1117,80 @@ function initHamburgerMenu() {
 }
 
 // ========================================
+// GÄSTE-CODE (Briefumschlag)
+// ========================================
+const GUEST_COOKIE = 'guest_code';
+
+function lookupGuest(code) {
+    const url = GOOGLE_SHEETS_URL + '?action=lookup&code=' + encodeURIComponent(code);
+    return fetch(url).then(r => {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+    });
+}
+
+function prefillRsvpName(guest) {
+    const nameInput = document.getElementById('name');
+    if (nameInput && !nameInput.value) {
+        nameInput.value = guest.firstName + ' ' + guest.lastName;
+    }
+}
+
+function fillGuestLetter(guest) {
+    const paper = document.querySelector('.letter-paper');
+    document.getElementById('letter-greeting').textContent = 'Hallo ' + guest.firstName + ' ' + guest.lastName + ',';
+    document.querySelector('.letter-invite-text').textContent = 'Du bist herzlich zu unserer Hochzeit eingeladen.';
+    document.getElementById('letter-personal').textContent = guest.message || '';
+    paper.classList.add('has-guest');
+}
+
+function initGuestCode() {
+    const form = document.getElementById('guest-code-form');
+    const input = document.getElementById('guest-code');
+    const errorEl = document.getElementById('guest-code-error');
+    const skipBtn = document.getElementById('guest-skip');
+    if (!form) return;
+
+    ['click', 'mousedown', 'touchstart'].forEach(evt => {
+        form.addEventListener(evt, e => e.stopPropagation(), { passive: true });
+    });
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const code = input.value.trim();
+        if (!/^\d{6}$/.test(code)) {
+            errorEl.textContent = 'Bitte gib die 6 Ziffern aus deinem Brief ein.';
+            return;
+        }
+        errorEl.textContent = '';
+        try {
+            const guest = await lookupGuest(code);
+            if (!guest.found) {
+                errorEl.textContent = 'Diesen Code kennen wir nicht. Bitte prüfe ihn oder stöbere ohne Code weiter.';
+                return;
+            }
+            setCookie(GUEST_COOKIE, code, 365);
+            prefillRsvpName(guest);
+            fillGuestLetter(guest);
+            openEnvelope();
+        } catch (err) {
+            console.warn('Gäste-Code:', err);
+            errorEl.textContent = 'Gerade klappt die Prüfung nicht. Versuch es später nochmal oder stöbere ohne Code weiter.';
+        }
+    });
+
+    skipBtn.addEventListener('click', () => openEnvelope());
+}
+
+function restoreGuest() {
+    const code = getCookie(GUEST_COOKIE);
+    if (!code) return;
+    lookupGuest(code)
+        .then(guest => { if (guest.found) prefillRsvpName(guest); })
+        .catch(err => console.warn('Gäste-Code:', err));
+}
+
+// ========================================
 // INITIALISIERUNG
 // ========================================
 document.addEventListener('DOMContentLoaded', () => {
@@ -1153,9 +1227,11 @@ document.addEventListener('DOMContentLoaded', () => {
         initGallery();
         initScratch();
         initFotoGalerie();
+        restoreGuest();
     } else {
         // Briefumschlag Animation starten
         initEnvelopeAnimation();
+        initGuestCode();
 
         // Klick auf Umschlag oder Siegel
         envelopeOverlay.addEventListener('click', openEnvelope);

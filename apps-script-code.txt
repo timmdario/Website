@@ -1,10 +1,18 @@
 // Google Apps Script - In ein Google Sheet einfügen unter Erweiterungen → Apps Script
 // Dann deployen als Web App (Zugriff: "Jeder")
+// Nach Änderungen: Bereitstellen → Bereitstellungen verwalten → Stift-Symbol → Neue Version
+
+// Tab mit den RSVP-Antworten (Spalten siehe unten). Falls nicht vorhanden, wird der erste Tab genutzt.
+var RSVP_SHEET_NAME = 'Antworten';
+// Tab mit den Gästen für den Briefumschlag. Spalten: Code | Vorname | Nachname | Nachricht
+// Die Code-Spalte im Tab auf "Nur Text" formatieren, damit führende Nullen erhalten bleiben.
+var GUEST_SHEET_NAME = 'Gäste';
 
 function doPost(e) {
   try {
     var data = JSON.parse(e.postData.contents);
-    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = ss.getSheetByName(RSVP_SHEET_NAME) || ss.getSheets()[0];
     
     // Spalten: Zeitstempel, Name, E-Mail, Anzahl Gäste, Namen der weiteren Gäste,
     //           Auf dem Gelände, Übernachtung Freitag, Übernachtung Samstag,
@@ -24,19 +32,47 @@ function doPost(e) {
       data.message || ''
     ]);
     
-    return ContentService.createTextOutput(
-      JSON.stringify({ success: true })
-    ).setMimeType(ContentService.MimeType.JSON);
+    return jsonOutput({ success: true });
     
   } catch (error) {
-    return ContentService.createTextOutput(
-      JSON.stringify({ success: false, error: error.toString() })
-    ).setMimeType(ContentService.MimeType.JSON);
+    return jsonOutput({ success: false, error: error.toString() });
   }
 }
 
 function doGet(e) {
+  var params = (e && e.parameter) || {};
+  if (params.action === 'lookup') {
+    return lookupGuest(String(params.code || '').trim());
+  }
+  return jsonOutput({ status: 'ok' });
+}
+
+function lookupGuest(code) {
+  if (!/^\d{6}$/.test(code)) {
+    return jsonOutput({ found: false });
+  }
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(GUEST_SHEET_NAME);
+  if (!sheet) {
+    return jsonOutput({ found: false, error: 'Gäste-Tab nicht gefunden' });
+  }
+  var rows = sheet.getDataRange().getValues();
+  for (var i = 1; i < rows.length; i++) {
+    var rowCode = String(rows[i][0]).trim();
+    if (!rowCode) continue;
+    if (rowCode.padStart(6, '0') === code) {
+      return jsonOutput({
+        found: true,
+        firstName: String(rows[i][1] || ''),
+        lastName: String(rows[i][2] || ''),
+        message: String(rows[i][3] || '')
+      });
+    }
+  }
+  return jsonOutput({ found: false });
+}
+
+function jsonOutput(obj) {
   return ContentService.createTextOutput(
-    JSON.stringify({ status: 'ok' })
+    JSON.stringify(obj)
   ).setMimeType(ContentService.MimeType.JSON);
 }
