@@ -106,6 +106,42 @@
             line-height: 1.7;
         }
 
+        .schedule-note {
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-style: italic;
+            color: var(--color-Text-hell);
+            margin-bottom: 1rem;
+        }
+
+        .schedule {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: var(--font-body);
+        }
+
+        .schedule td {
+            padding: 0.6rem 0.4rem;
+            border-bottom: 1px solid rgba(188, 168, 151, 0.35);
+            vertical-align: top;
+            color: var(--color-Text-hell);
+            line-height: 1.5;
+        }
+
+        .schedule td:first-child {
+            width: 1%;
+            white-space: nowrap;
+            padding-right: 1.2rem;
+            font-family: var(--font-heading);
+            color: var(--color-sage);
+        }
+
+        .schedule small {
+            display: block;
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
         .subpage-back {
             display: inline-block;
             margin-top: 3rem;
@@ -175,23 +211,28 @@
         <div class="timeline">
             <div class="timeline-item">
                 <div class="timeline-icon">💒</div>
-                <h2>Zeremonie</h2>
-                <div class="timeline-time">14:00 Uhr</div>
-                <p>Die feierliche Trauung findet im romantisch restaurierten Bullenstall statt – oder bei passendem Wetter im Garten von FarmInn. Hier sagen wir unser Jawort.</p>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-icon">🥂</div>
-                <h2>Empfang</h2>
-                <div class="timeline-time">Ab 16:00 Uhr</div>
-                <p>Nach der Zeremonie versammeln wir uns im Innenhof und Garten zum gemütlichen Empfang. Mit Getränken, canapés und guter Gesellschaft starten wir in den Abend.</p>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-icon">🎶</div>
-                <h2>Fest & Feier</h2>
-                <div class="timeline-time">Ab 18:00 Uhr</div>
-                <p>In der festlich geschmückten FeierScheune gibt es das Festmahl,Reden, Tanz und jede Menge Spaß – bis spät in die Nacht.</p>
+                <h2>Samstag, 1. Mai 2027</h2>
+                <p class="schedule-note">Vorläufiger Ablaufplan – Änderungen vorbehalten.</p>
+                <table class="schedule">
+                    <tbody>
+                        <tr><td>13:00</td><td>Ankunft der Gäste</td></tr>
+                        <tr><td>13:00–13:45</td><td>Welcome Drink &amp; lockeres Ankommen</td></tr>
+                        <tr><td>14:00–14:40</td><td>Freie Trauung</td></tr>
+                        <tr><td>14:45–15:15</td><td>Gratulationen &amp; Sekt</td></tr>
+                        <tr><td>15:15–16:00</td><td>Gruppenfotos</td></tr>
+                        <tr><td>16:00–17:00</td><td>Kaffee, Kuchen &amp; Hochzeitstorte</td></tr>
+                        <tr><td>16:30–17:30</td><td>Paarfotos <small>(während die Gäste Kaffee trinken)</small></td></tr>
+                        <tr><td>17:30–18:00</td><td>Zeit zum Entspannen, Gäste unterhalten sich, evtl. kleine Spiele/Gästebuch</td></tr>
+                        <tr><td>18:00</td><td>Eröffnung der Festscheune &amp; Willkommensrede <small>(Platz für kurze Reden, falls geplant)</small></td></tr>
+                        <tr><td>18:30–19:45</td><td>Abendessen</td></tr>
+                        <tr><td>20:00</td><td>Kurze Reden / Programm <small>(falls geplant)</small></td></tr>
+                        <tr><td>20:30</td><td>Hochzeitstanz</td></tr>
+                        <tr><td>20:40</td><td>Tanzfläche eröffnet</td></tr>
+                        <tr><td>21:00</td><td>Abendprogramm <small>(Beiträge der Gäste, Fotobox, Spiele – falls gewünscht)</small></td></tr>
+                        <tr><td>22:00</td><td>Mitternachtssnack oder Candybar eröffnet</td></tr>
+                        <tr><td>22:30–Open End</td><td>Party 🎉</td></tr>
+                    </tbody>
+                </table>
             </div>
 
             <div class="timeline-item">
