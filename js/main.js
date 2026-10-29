@@ -1155,14 +1155,21 @@ function initGuestCode() {
         form.addEventListener(evt, e => e.stopPropagation(), { passive: true });
     });
 
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
+    let busy = false;
+    async function openWithCode() {
+        if (busy || isEnvelopeOpen) return;
         const code = input.value.trim();
+        if (!code) {
+            errorEl.textContent = 'Bitte gib zuerst den Code aus deinem Brief ein – oder stöbere ohne Code weiter.';
+            input.focus();
+            return;
+        }
         if (!/^\d{6}$/.test(code)) {
-            errorEl.textContent = 'Bitte gib die 6 Ziffern aus deinem Brief ein.';
+            errorEl.textContent = 'Der Code besteht aus 6 Ziffern.';
             return;
         }
         errorEl.textContent = '';
+        busy = true;
         try {
             const guest = await lookupGuest(code);
             if (!guest.found) {
@@ -1176,8 +1183,21 @@ function initGuestCode() {
         } catch (err) {
             console.warn('Gäste-Code:', err);
             errorEl.textContent = 'Gerade klappt die Prüfung nicht. Versuch es später nochmal oder stöbere ohne Code weiter.';
+        } finally {
+            busy = false;
         }
+    }
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        openWithCode();
     });
+
+    envelopeOverlay.addEventListener('click', openWithCode);
+    envelopeOverlay.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        openWithCode();
+    }, { passive: false });
 
     skipBtn.addEventListener('click', () => openEnvelope());
 }
@@ -1232,15 +1252,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Briefumschlag Animation starten
         initEnvelopeAnimation();
         initGuestCode();
-
-        // Klick auf Umschlag oder Siegel
-        envelopeOverlay.addEventListener('click', openEnvelope);
-
-        // Touch-Unterstützung für Mobile
-        envelopeOverlay.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            openEnvelope();
-        }, { passive: false });
     }
 
     // FAQ initialisieren
