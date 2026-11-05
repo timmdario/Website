@@ -1201,17 +1201,13 @@ function initGuestCode() {
 }
 
 function requireGuestOnSubpage() {
-    document.body.style.visibility = 'hidden';
     const toStart = () => {
         window.location.replace(location.pathname.includes('/easteregg/') ? '../index.html' : 'index.html');
     };
     const code = getCookie(GUEST_COOKIE);
     if (!code) return toStart();
     lookupGuest(code)
-        .then(guest => {
-            if (guest.found) document.body.style.visibility = '';
-            else toStart();
-        })
+        .then(guest => { if (!guest.found) toStart(); })
         .catch(toStart);
 }
 
