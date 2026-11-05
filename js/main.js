@@ -1302,13 +1302,3 @@ document.addEventListener('DOMContentLoaded', () => {
     initNavbarScroll();
 });
 
-// ========================================
-// TASTATUR-UNTERSTÜTZUNG
-// ========================================
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-        if (!isEnvelopeOpen) {
-            openEnvelope();
-        }
-    }
-});
