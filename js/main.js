@@ -1142,6 +1142,7 @@ function fillGuestLetter(guest) {
     document.querySelector('.letter-invite-text').textContent = 'Du bist herzlich zu unserer Hochzeit eingeladen.';
     document.getElementById('letter-personal').textContent = guest.message || '';
     paper.classList.add('has-guest');
+    document.getElementById('envelope-letter').classList.add('has-guest');
 }
 
 function initGuestCode() {
@@ -1271,6 +1272,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const storedCode = getCookie(GUEST_COOKIE);
     if (storedCode) {
+        envelopeOverlay.classList.add('is-checking');
         lookupGuest(storedCode)
             .then(guest => {
                 if (guest.found) {
@@ -1278,9 +1280,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     showWebsite();
                 } else {
                     setCookie(GUEST_COOKIE, '', -1);
+                    envelopeOverlay.classList.remove('is-checking');
                 }
             })
-            .catch(err => console.warn('Gäste-Code:', err));
+            .catch(err => {
+                console.warn('Gäste-Code:', err);
+                envelopeOverlay.classList.remove('is-checking');
+            });
     }
 
     // FAQ initialisieren

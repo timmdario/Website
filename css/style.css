@@ -670,6 +670,20 @@ body > .parallax-bg {
     font-size: 1.4rem;
 }
 
+.envelope-letter.has-guest {
+    height: 280px;
+}
+
+.letter-paper.has-guest {
+    justify-content: flex-start;
+    padding-top: 20px;
+}
+
+#envelope-overlay.is-checking .guest-code-form,
+#envelope-overlay.is-checking .envelope-hint-new {
+    visibility: hidden;
+}
+
 /* ========================================
    NAVIGATION
    ======================================== */
