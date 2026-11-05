@@ -1211,6 +1211,31 @@ function restoreGuest() {
 }
 
 // ========================================
+// PARALLAX-HINTERGRUND
+// ========================================
+function initParallax() {
+    const layer = document.createElement('div');
+    layer.className = 'parallax-bg';
+    layer.setAttribute('aria-hidden', 'true');
+    document.body.prepend(layer);
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let ticking = false;
+    const update = () => {
+        layer.style.backgroundPositionY = (-window.scrollY * 0.3).toFixed(1) + 'px';
+        ticking = false;
+    };
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(update);
+            ticking = true;
+        }
+    }, { passive: true });
+    update();
+}
+
+// ========================================
 // INITIALISIERUNG
 // ========================================
 document.addEventListener('DOMContentLoaded', () => {
@@ -1222,6 +1247,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Hamburger Menu (auf allen Seiten)
     initHamburgerMenu();
+    initParallax();
 
     const isSubpage = !document.getElementById('envelope-overlay');
 

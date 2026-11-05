@@ -43,16 +43,25 @@ body {
     line-height: 1.7;
     overflow-x: hidden;
     position: relative;
-    background-image: url('../assets/botanical-bg.svg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
 }
 
 body > * {
     position: relative;
     z-index: 1;
+}
+
+body > .parallax-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: url('../assets/background-with-white-space-greenery-leaves/botanical-Aquarell.png');
+    background-size: 100% auto;
+    background-position: center top;
+    background-repeat: repeat-y;
 }
 
 .hidden {
