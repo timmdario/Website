@@ -62,6 +62,8 @@ body > .parallax-bg {
     background-size: 100% auto;
     background-position: center top;
     background-repeat: repeat-y;
+    filter: saturate(0.55);
+    opacity: 0.8;
 }
 
 .hidden {
