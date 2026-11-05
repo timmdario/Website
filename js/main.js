@@ -1148,7 +1148,6 @@ function initGuestCode() {
     const form = document.getElementById('guest-code-form');
     const input = document.getElementById('guest-code');
     const errorEl = document.getElementById('guest-code-error');
-    const skipBtn = document.getElementById('guest-skip');
     if (!form) return;
 
     ['click', 'mousedown', 'touchstart'].forEach(evt => {
@@ -1160,7 +1159,7 @@ function initGuestCode() {
         if (busy || isEnvelopeOpen) return;
         const code = input.value.trim();
         if (!code) {
-            errorEl.textContent = 'Bitte gib zuerst den Code aus deinem Brief ein – oder stöbere ohne Code weiter.';
+            errorEl.textContent = 'Bitte gib zuerst den Code aus deinem Brief ein.';
             input.focus();
             return;
         }
@@ -1173,7 +1172,7 @@ function initGuestCode() {
         try {
             const guest = await lookupGuest(code);
             if (!guest.found) {
-                errorEl.textContent = 'Diesen Code kennen wir nicht. Bitte prüfe ihn oder stöbere ohne Code weiter.';
+                errorEl.textContent = 'Diesen Code kennen wir nicht. Bitte prüfe ihn noch einmal.';
                 return;
             }
             setCookie(GUEST_COOKIE, code, 365);
@@ -1182,7 +1181,7 @@ function initGuestCode() {
             openEnvelope();
         } catch (err) {
             console.warn('Gäste-Code:', err);
-            errorEl.textContent = 'Gerade klappt die Prüfung nicht. Versuch es später nochmal oder stöbere ohne Code weiter.';
+            errorEl.textContent = 'Gerade klappt die Prüfung nicht. Versuch es später nochmal.';
         } finally {
             busy = false;
         }
@@ -1198,16 +1197,21 @@ function initGuestCode() {
         e.preventDefault();
         openWithCode();
     }, { passive: false });
-
-    skipBtn.addEventListener('click', () => openEnvelope());
 }
 
-function restoreGuest() {
+function requireGuestOnSubpage() {
+    document.body.style.visibility = 'hidden';
+    const toStart = () => {
+        window.location.replace(location.pathname.includes('/easteregg/') ? '../index.html' : 'index.html');
+    };
     const code = getCookie(GUEST_COOKIE);
-    if (!code) return;
+    if (!code) return toStart();
     lookupGuest(code)
-        .then(guest => { if (guest.found) prefillRsvpName(guest); })
-        .catch(err => console.warn('Gäste-Code:', err));
+        .then(guest => {
+            if (guest.found) document.body.style.visibility = '';
+            else toStart();
+        })
+        .catch(toStart);
 }
 
 // ========================================
@@ -1252,6 +1256,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const isSubpage = !document.getElementById('envelope-overlay');
 
     if (isSubpage) {
+        // Unterseite: nur mit gültigem Gäste-Code sichtbar
+        requireGuestOnSubpage();
         // Unterseite: nur Foto-Galerie initialisieren (falls vorhanden)
         if (document.getElementById('upload-btn')) {
             initFotoGalerie();
@@ -1259,25 +1265,22 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // Hauptseite: Prüfen ob Briefumschlag bereits geöffnet wurde
-    if (getCookie('envelope_opened')) {
-        // Umschlag überspringen, Website direkt anzeigen
-        envelopeOverlay.style.display = 'none';
-        websiteContent.classList.remove('hidden');
-        websiteContent.style.opacity = '1';
+    // Hauptseite: Brief bleibt bis zu einem gültigen Gäste-Code sichtbar
+    initEnvelopeAnimation();
+    initGuestCode();
 
-        // Website initialisieren
-        initCountdown();
-        initScrollAnimations();
-        initBASlider();
-        initGallery();
-        initScratch();
-        initFotoGalerie();
-        restoreGuest();
-    } else {
-        // Briefumschlag Animation starten
-        initEnvelopeAnimation();
-        initGuestCode();
+    const storedCode = getCookie(GUEST_COOKIE);
+    if (storedCode) {
+        lookupGuest(storedCode)
+            .then(guest => {
+                if (guest.found) {
+                    prefillRsvpName(guest);
+                    showWebsite();
+                } else {
+                    setCookie(GUEST_COOKIE, '', -1);
+                }
+            })
+            .catch(err => console.warn('Gäste-Code:', err));
     }
 
     // FAQ initialisieren
