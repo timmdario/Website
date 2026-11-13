@@ -861,6 +861,17 @@ body > .parallax-bg {
     overflow: hidden;
 }
 
+.hero-guest {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    color: var(--color-braun);
+    margin: 0.4rem 0 0.2rem;
+}
+
+.hero-guest:empty {
+    display: none;
+}
+
 .hero-content {
     text-align: center;
     padding: 2rem;
