@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20261051">
+    <link rel="stylesheet" href="css/style.css?v=20261052">
     <style>
         .story {
             max-width: 720px;
@@ -44,35 +44,29 @@
             border-radius: 14px;
             box-shadow: 0 10px 30px rgba(107, 67, 45, 0.15);
             display: block;
-            opacity: 0;
-            transition: transform 1.3s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 1s ease;
+            opacity: var(--p, 0);
+            transform:
+                translate(calc((1 - var(--p, 0)) * var(--dx, 0px)), calc((1 - var(--p, 0)) * var(--dy, 0px)))
+                rotate(calc((1 - var(--p, 0)) * var(--r, 0deg)))
+                scale(calc(var(--s, 1) + (1 - var(--s, 1)) * var(--p, 0)));
+            will-change: transform, opacity;
         }
 
-        .story-item[data-from="left"] .story-photo { transform: translate(-130vw, 60px) rotate(-12deg); }
-        .story-item[data-from="right"] .story-photo { transform: translate(130vw, -40px) rotate(10deg); }
-        .story-item[data-from="bottom"] .story-photo { transform: translateY(100vh) scale(0.9); }
-        .story-item[data-from="top"] .story-photo { transform: translateY(-100vh) rotate(6deg); }
-        .story-item[data-from="zoom"] .story-photo { transform: scale(0.25) rotate(-8deg); }
+        .story-item[data-from="left"] { --dx: -120vw; --dy: 60px; --r: -12deg; --s: 1; }
+        .story-item[data-from="right"] { --dx: 120vw; --dy: -40px; --r: 10deg; --s: 1; }
+        .story-item[data-from="bottom"] { --dx: 0px; --dy: 90vh; --r: 0deg; --s: 0.9; }
+        .story-item[data-from="top"] { --dx: 0px; --dy: -90vh; --r: 6deg; --s: 1; }
+        .story-item[data-from="zoom"] { --dx: 0px; --dy: 0px; --r: -8deg; --s: 0.25; }
 
-        .story-item.is-visible .story-photo {
-            opacity: 1;
-            transform: none;
+        .story-item .story-year {
+            opacity: var(--p, 0);
+            transform: translateX(calc((1 - var(--p, 0)) * -30px));
         }
 
-        .story-item .story-year,
         .story-item .story-text {
-            opacity: 0;
-            transition: opacity 1s ease 0.6s, transform 1s ease 0.6s, filter 1s ease 0.6s;
-        }
-
-        .story-item .story-year { transform: translateX(-30px); }
-        .story-item .story-text { transform: translateY(30px); filter: blur(4px); }
-
-        .story-item.is-visible .story-year,
-        .story-item.is-visible .story-text {
-            opacity: 1;
-            transform: none;
-            filter: none;
+            opacity: var(--p, 0);
+            transform: translateY(calc((1 - var(--p, 0)) * 40px));
+            filter: blur(calc((1 - var(--p, 0)) * 4px));
         }
 
         .story-year {
@@ -221,6 +215,6 @@
         <a href="index.html#details" class="story-back">&larr; Zurück zur Startseite</a>
     </main>
 
-    <script src="js/main.js?v=20261051"></script>
+    <script src="js/main.js?v=20261052"></script>
 </body>
 </html>

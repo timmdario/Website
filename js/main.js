@@ -1258,19 +1258,30 @@ function initStoryReveal() {
     if (!items.length) return;
     const directions = ['left', 'right', 'bottom', 'zoom', 'top', 'right', 'left', 'bottom'];
     items.forEach((el, i) => { el.dataset.from = directions[i % directions.length]; });
-    if (!('IntersectionObserver' in window)) {
-        items.forEach(el => el.classList.add('is-visible'));
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        items.forEach(el => el.style.setProperty('--p', 1));
         return;
     }
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                observer.unobserve(entry.target);
-            }
+    let ticking = false;
+    const update = () => {
+        const vh = window.innerHeight;
+        items.forEach(el => {
+            const top = el.getBoundingClientRect().top;
+            const t = Math.min(1, Math.max(0, (vh - top) / (vh * 0.7)));
+            const p = t * t * (3 - 2 * t);
+            el.style.setProperty('--p', p.toFixed(3));
         });
-    }, { threshold: 0.25, rootMargin: '0px 0px -60px 0px' });
-    items.forEach(el => observer.observe(el));
+        ticking = false;
+    };
+    const requestUpdate = () => {
+        if (!ticking) {
+            requestAnimationFrame(update);
+            ticking = true;
+        }
+    };
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', requestUpdate);
+    update();
 }
 
 // ========================================
