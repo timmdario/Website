@@ -1256,7 +1256,7 @@ function initKarussel() {
 function initStoryReveal() {
     const items = document.querySelectorAll('.story-item');
     if (!items.length) return;
-    const directions = ['left', 'right', 'bottom', 'zoom', 'top', 'right', 'left', 'bottom'];
+    const directions = ['left', 'right', 'bottom', 'zoom', 'left', 'right', 'bottom', 'zoom'];
     items.forEach((el, i) => { el.dataset.from = directions[i % directions.length]; });
     const targets = document.querySelectorAll('.story-photo, .story-year, .story-text');
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
