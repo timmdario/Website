@@ -1614,6 +1614,85 @@ body > .parallax-bg {
    BEFORE / AFTER SLIDER
    ======================================== */
 
+.karussel-wrap {
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.karussel {
+    display: flex;
+    gap: 1.25rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 0.5rem 0.25rem 1rem;
+    scrollbar-width: none;
+}
+
+.karussel::-webkit-scrollbar {
+    display: none;
+}
+
+.karussel-item {
+    flex: 0 0 min(260px, 72vw);
+    margin: 0;
+    scroll-snap-align: center;
+    text-align: center;
+}
+
+.karussel-item img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(107, 67, 45, 0.15);
+}
+
+.karussel-item figcaption {
+    margin-top: 0.5rem;
+    font-family: var(--font-heading);
+    color: var(--color-sage);
+    letter-spacing: 2px;
+}
+
+.karussel-arrow {
+    position: absolute;
+    top: 45%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid var(--color-taupe);
+    background: rgba(255, 253, 249, 0.92);
+    color: var(--color-braun);
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.karussel-prev { left: -8px; }
+.karussel-next { right: -8px; }
+
+.story-button {
+    display: block;
+    width: fit-content;
+    margin: 2rem auto 0;
+    padding: 0.8rem 1.6rem;
+    font-family: var(--font-body);
+    color: #FFFDF9;
+    background: var(--color-braun);
+    border-radius: 999px;
+    text-decoration: none;
+    transition: var(--transition-smooth);
+}
+
+.story-button:hover {
+    background: var(--color-haselnuss);
+}
+
 .ba-section {
     padding: 5rem 2rem;
     text-align: center;

@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20261048">
+    <link rel="stylesheet" href="css/style.css?v=20261049">
 </head>
 <body>
     <!-- Envelope Animation Overlay -->
@@ -236,25 +236,33 @@
             </div>
         </section>
 
-        <!-- Before / After Slider -->
+        <!-- Karussell: Unsere Geschichte -->
         <section class="ba-section">
             <div class="section-header">
                 <span class="section-flower">❀</span>
-                <h2>Vorher & Nachher</h2>
+                <h2>Unsere Geschichte</h2>
                 <span class="section-flower">❀</span>
             </div>
             <p class="ba-subtitle">Vom ersten Urlaub auf Kos zu heute</p>
-            <div class="ba-slider" id="ba-slider">
-                <img src="assets/Nachher.jpg" alt="Nachher" class="ba-img ba-before">
-                <img src="assets/Vorher.JPG" alt="Vorher" class="ba-img ba-after">
-                <div class="ba-handle" id="ba-handle">
-                    <div class="ba-handle-line"></div>
-                    <div class="ba-handle-circle">
-                        <span>◄ ►</span>
-                    </div>
-                    <div class="ba-handle-line"></div>
+            <div class="karussel-wrap">
+                <button type="button" class="karussel-arrow karussel-prev" id="karussel-prev" aria-label="Zurück">&#8249;</button>
+                <div class="karussel" id="karussel">
+                    <figure class="karussel-item"><img src="assets/WebsiteKaruselBilder/web/2023.jpeg" alt="2023" loading="lazy"><figcaption>2023</figcaption></figure>
+                    <figure class="karussel-item"><img src="assets/WebsiteKaruselBilder/web/2023(2).jpeg" alt="2023" loading="lazy"><figcaption>2023</figcaption></figure>
+                    <figure class="karussel-item"><img src="assets/WebsiteKaruselBilder/web/2023(3).jpeg" alt="2023" loading="lazy"><figcaption>2023</figcaption></figure>
+                    <figure class="karussel-item"><img src="assets/WebsiteKaruselBilder/web/2024.jpeg" alt="2024" loading="lazy"><figcaption>2024</figcaption></figure>
+                    <figure class="karussel-item"><img src="assets/WebsiteKaruselBilder/web/2024(1).jpeg" alt="2024" loading="lazy"><figcaption>2024</figcaption></figure>
+                    <figure class="karussel-item"><img src="assets/WebsiteKaruselBilder/web/2024(2).jpeg" alt="2024" loading="lazy"><figcaption>2024</figcaption></figure>
+                    <figure class="karussel-item"><img src="assets/WebsiteKaruselBilder/web/2025.jpeg" alt="2025" loading="lazy"><figcaption>2025</figcaption></figure>
+                    <figure class="karussel-item"><img src="assets/WebsiteKaruselBilder/web/2025(1).jpeg" alt="2025" loading="lazy"><figcaption>2025</figcaption></figure>
+                    <figure class="karussel-item"><img src="assets/WebsiteKaruselBilder/web/2025(2).jpeg" alt="2025" loading="lazy"><figcaption>2025</figcaption></figure>
+                    <figure class="karussel-item"><img src="assets/WebsiteKaruselBilder/web/2026.jpeg" alt="2026" loading="lazy"><figcaption>2026</figcaption></figure>
+                    <figure class="karussel-item"><img src="assets/WebsiteKaruselBilder/web/2026(1).jpeg" alt="2026" loading="lazy"><figcaption>2026</figcaption></figure>
+                    <figure class="karussel-item"><img src="assets/WebsiteKaruselBilder/web/2026(2).jpeg" alt="2026" loading="lazy"><figcaption>2026</figcaption></figure>
                 </div>
+                <button type="button" class="karussel-arrow karussel-next" id="karussel-next" aria-label="Weiter">&#8250;</button>
             </div>
+            <a href="geschichte.html" class="story-button">Unsere Geschichte erleben</a>
         </section>
 
         <!-- Einblicke FarmInn -->
@@ -575,6 +583,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script src="js/main.js?v=20261046"></script>
+    <script src="js/main.js?v=20261049"></script>
 </body>
 </html>

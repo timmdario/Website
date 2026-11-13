@@ -1238,6 +1238,39 @@ function initParallax() {
     update();
 }
 
+// KARUSSELL & SCROLL-GESCHICHTE
+// ========================================
+function initKarussel() {
+    const track = document.getElementById('karussel');
+    const prev = document.getElementById('karussel-prev');
+    const next = document.getElementById('karussel-next');
+    if (!track || !prev || !next) return;
+    const step = () => {
+        const item = track.querySelector('.karussel-item');
+        return item ? item.getBoundingClientRect().width + 20 : 280;
+    };
+    prev.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
+    next.addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));
+}
+
+function initStoryReveal() {
+    const items = document.querySelectorAll('.story-item');
+    if (!items.length) return;
+    if (!('IntersectionObserver' in window)) {
+        items.forEach(el => el.classList.add('is-visible'));
+        return;
+    }
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    items.forEach(el => observer.observe(el));
+}
+
 // ========================================
 // INITIALISIERUNG
 // ========================================
@@ -1251,6 +1284,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Hamburger Menu (auf allen Seiten)
     initHamburgerMenu();
     initParallax();
+    initKarussel();
+    initStoryReveal();
 
     const isSubpage = !document.getElementById('envelope-overlay');
 
