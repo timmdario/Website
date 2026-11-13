@@ -1131,7 +1131,7 @@ function lookupGuest(code) {
 
 function prefillRsvpName(guest) {
     const heroGuest = document.getElementById('hero-guest');
-    if (heroGuest) heroGuest.textContent = guest.firstName + ' ' + guest.lastName;
+    if (heroGuest) heroGuest.textContent = guest.firstName;
     const nameInput = document.getElementById('name');
     if (nameInput && !nameInput.value) {
         nameInput.value = guest.firstName + ' ' + guest.lastName;
