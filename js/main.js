@@ -1256,6 +1256,8 @@ function initKarussel() {
 function initStoryReveal() {
     const items = document.querySelectorAll('.story-item');
     if (!items.length) return;
+    const directions = ['left', 'right', 'bottom', 'zoom', 'top', 'right', 'left', 'bottom'];
+    items.forEach((el, i) => { el.dataset.from = directions[i % directions.length]; });
     if (!('IntersectionObserver' in window)) {
         items.forEach(el => el.classList.add('is-visible'));
         return;
@@ -1267,7 +1269,7 @@ function initStoryReveal() {
                 observer.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.25, rootMargin: '0px 0px -60px 0px' });
     items.forEach(el => observer.observe(el));
 }
 
