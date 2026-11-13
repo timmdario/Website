@@ -1268,7 +1268,8 @@ function initStoryReveal() {
         const vh = window.innerHeight;
         targets.forEach(el => {
             const top = el.getBoundingClientRect().top;
-            const t = Math.min(1, Math.max(0, (vh - top) / (vh * 0.5)));
+            const range = el.classList.contains('story-photo') ? vh * 1.0 : vh * 0.5;
+            const t = Math.min(1, Math.max(0, (vh - top) / range));
             const p = t * t * (3 - 2 * t);
             el.style.setProperty('--p', p.toFixed(3));
         });
