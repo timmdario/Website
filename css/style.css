@@ -856,16 +856,9 @@ body > .parallax-bg {
     justify-content: center;
     position: relative;
     background:
-        url('../assets/background-with-white-space-greenery-leaves/hochzeitsheader_pastell.gif') center / cover no-repeat;
+        linear-gradient(180deg, rgba(248, 244, 238, 0.6) 0%, rgba(245, 240, 232, 0.8) 100%),
+        url('../assets/background-with-white-space-greenery-leaves/Background_top.jpg') center / cover no-repeat;
     overflow: hidden;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .hero-section {
-        background:
-            linear-gradient(180deg, rgba(248, 244, 238, 0.6) 0%, rgba(245, 240, 232, 0.8) 100%),
-            url('../assets/background-with-white-space-greenery-leaves/Background_top.jpg') center / cover no-repeat;
-    }
 }
 
 .hero-content {
