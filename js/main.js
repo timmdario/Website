@@ -268,6 +268,7 @@ function showWebsite() {
     envelopeOverlay.style.display = 'none';
     websiteContent.classList.remove('hidden');
     setCookie('envelope_opened', '1', 365);
+    showGuestMessage(currentGuest);
 
     // Website Content einblenden
     gsap.fromTo(websiteContent,
@@ -1129,7 +1130,35 @@ function lookupGuest(code) {
     });
 }
 
+let currentGuest = null;
+
+function showGuestMessage(guest) {
+    if (!guest || !guest.message || document.getElementById('guest-dog-wrap')) return;
+    const wrap = document.createElement('div');
+    wrap.id = 'guest-dog-wrap';
+    wrap.className = 'guest-dog-wrap';
+    wrap.innerHTML = '<div class="guest-bubble">Wuff! Du hast eine persönliche Nachricht von uns bekommen. Klick mich!</div>' +
+        '<button type="button" class="guest-dog" aria-label="Persönliche Nachricht öffnen"></button>';
+    document.body.appendChild(wrap);
+
+    const panel = document.createElement('div');
+    panel.className = 'guest-note-overlay';
+    panel.hidden = true;
+    panel.innerHTML = '<div class="guest-note" role="dialog" aria-modal="true"><h3></h3><p></p><button type="button" class="guest-note-close">Schließen</button></div>';
+    panel.querySelector('h3').textContent = 'Für dich, ' + guest.firstName;
+    panel.querySelector('p').textContent = guest.message;
+    document.body.appendChild(panel);
+
+    const open = () => { panel.hidden = false; };
+    const close = () => { panel.hidden = true; };
+    wrap.querySelector('.guest-dog').addEventListener('click', open);
+    wrap.querySelector('.guest-bubble').addEventListener('click', open);
+    panel.querySelector('.guest-note-close').addEventListener('click', close);
+    panel.addEventListener('click', (e) => { if (e.target === panel) close(); });
+}
+
 function prefillRsvpName(guest) {
+    currentGuest = guest;
     const greeting = document.getElementById('nav-greeting');
     if (greeting) greeting.textContent = 'Hallo ' + guest.firstName;
     const nameInput = document.getElementById('name');
@@ -1142,7 +1171,6 @@ function fillGuestLetter(guest) {
     const paper = document.querySelector('.letter-paper');
     document.getElementById('letter-greeting').textContent = 'Hallo ' + guest.firstName + ' ' + guest.lastName + ',';
     document.querySelector('.letter-invite-text').textContent = 'Du bist herzlich zu unserer Hochzeit eingeladen.';
-    document.getElementById('letter-personal').textContent = guest.message || '';
     paper.classList.add('has-guest');
     document.getElementById('envelope-letter').classList.add('has-guest');
 }
