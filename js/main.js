@@ -1144,8 +1144,8 @@ function showGuestMessage(guest) {
     const panel = document.createElement('div');
     panel.className = 'guest-note-overlay';
     panel.hidden = true;
-    panel.innerHTML = '<div class="guest-note" role="dialog" aria-modal="true"><h3></h3><p></p><button type="button" class="guest-note-close">Schließen</button></div>';
-    panel.querySelector('h3').textContent = 'Für dich, ' + guest.firstName;
+    panel.innerHTML = '<div class="guest-note" role="dialog" aria-modal="true"><h3></h3><p></p><p class="guest-note-sign">Malika &amp; Dario</p><button type="button" class="guest-note-close">Schließen</button></div>';
+    panel.querySelector('h3').textContent = 'Lieber ' + guest.firstName + ',';
     panel.querySelector('p').textContent = guest.message;
     document.body.appendChild(panel);
 

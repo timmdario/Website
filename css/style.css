@@ -931,26 +931,48 @@ body > .parallax-bg {
 }
 
 .guest-note {
-    max-width: 460px;
-    padding: 2rem 1.8rem;
-    text-align: center;
-    background: #FFFDF9;
-    border: 1px solid var(--color-taupe);
-    border-radius: 14px;
-    box-shadow: 0 12px 40px rgba(74, 63, 53, 0.3);
+    position: relative;
+    max-width: 480px;
+    width: 100%;
+    padding: 2.4rem 2rem 1.8rem;
+    text-align: left;
+    background:
+        repeating-linear-gradient(180deg, transparent 0, transparent 31px, rgba(188, 168, 151, 0.22) 31px, rgba(188, 168, 151, 0.22) 32px),
+        linear-gradient(180deg, #FFFEF9 0%, #FBF6EC 100%);
+    border: 1px solid rgba(188, 168, 151, 0.35);
+    border-radius: 4px;
+    box-shadow: 0 14px 40px rgba(74, 63, 53, 0.35);
+    transform: rotate(-1deg);
+    animation: guestLetterIn 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
 .guest-note h3 {
-    font-family: var(--font-heading);
+    font-family: 'Caveat', cursive;
+    font-weight: 600;
+    font-size: 2rem;
     color: var(--color-braun);
-    margin-bottom: 1rem;
+    margin-bottom: 0.6rem;
 }
 
 .guest-note p {
-    font-family: var(--font-body);
-    line-height: 1.7;
+    font-family: 'Caveat', cursive;
+    font-size: 1.55rem;
+    line-height: 32px;
     color: var(--color-Text);
-    margin-bottom: 1.4rem;
+    margin-bottom: 0.8rem;
+}
+
+.guest-note-sign {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2rem;
+    color: var(--color-braun);
+    text-align: right;
+    margin-bottom: 1.2rem;
+}
+
+@keyframes guestLetterIn {
+    from { transform: translateY(30px) rotate(-4deg) scale(0.92); opacity: 0; }
+    to { transform: rotate(-1deg); opacity: 1; }
 }
 
 .guest-note-close {
