@@ -1258,16 +1258,17 @@ function initStoryReveal() {
     if (!items.length) return;
     const directions = ['left', 'right', 'bottom', 'zoom', 'top', 'right', 'left', 'bottom'];
     items.forEach((el, i) => { el.dataset.from = directions[i % directions.length]; });
+    const targets = document.querySelectorAll('.story-photo, .story-year, .story-text');
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        items.forEach(el => el.style.setProperty('--p', 1));
+        targets.forEach(el => el.style.setProperty('--p', 1));
         return;
     }
     let ticking = false;
     const update = () => {
         const vh = window.innerHeight;
-        items.forEach(el => {
+        targets.forEach(el => {
             const top = el.getBoundingClientRect().top;
-            const t = Math.min(1, Math.max(0, (vh - top) / (vh * 0.7)));
+            const t = Math.min(1, Math.max(0, (vh - top) / (vh * 0.5)));
             const p = t * t * (3 - 2 * t);
             el.style.setProperty('--p', p.toFixed(3));
         });
