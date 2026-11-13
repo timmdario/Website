@@ -1089,8 +1089,21 @@ body > .parallax-bg {
 }
 
 .detail-icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
+    position: relative;
+    width: 110px;
+    height: 110px;
+    margin: 0 auto 1rem;
+    overflow: hidden;
+}
+
+.detail-icon img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 560px;
+    max-width: none;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: multiply;
 }
 
 .detail-card h3 {
