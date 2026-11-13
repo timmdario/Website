@@ -106,6 +106,35 @@
             line-height: 1.7;
         }
 
+        .timeline-icon {
+            position: relative;
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 0.8rem;
+            overflow: hidden;
+        }
+
+        .timeline-icon img {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 200px;
+            max-width: none;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: multiply;
+        }
+
+        .timeline-list {
+            margin: 1rem 0 0 1.2rem;
+            font-family: var(--font-body);
+            color: var(--color-Text-hell);
+            line-height: 1.7;
+        }
+
+        .timeline-list li {
+            margin-bottom: 0.4rem;
+        }
+
         .schedule-note {
             font-family: var(--font-body);
             font-size: 0.9rem;
@@ -210,7 +239,20 @@
 
         <div class="timeline">
             <div class="timeline-item">
-                <div class="timeline-icon">💒</div>
+                <div class="timeline-icon"><img src="assets/ICONSWEBSITE/MrMrsTimmKalender.png" alt=""></div>
+                <h2>Freitag, 30. April 2027</h2>
+                <div class="timeline-time">Anreise ab 15:00 Uhr</div>
+                <p>Wer möchte, kann bereits am Freitag anreisen und das Wochenende entspannt mit uns beginnen. Da wir am Freitag noch mitten im Aufbau und in den Vorbereitungen stecken, verbringen wir den Abend gerne mit euch – die Zeit davor ist für uns Arbeitstag.</p>
+                <ul class="timeline-list">
+                    <li>Anreise ab 15:00 Uhr</li>
+                    <li>Selbstversorgung: Eine voll ausgestattete Küche und weitere Gemeinschaftsräume stehen euch selbstständig zur Verfügung</li>
+                    <li>Zimmer im FarmInn könnt ihr über uns buchen (40–60 € pro Person und Nacht, je nach Belegung)</li>
+                    <li>Zelt- oder Stellplatz: 25 € pro Nacht</li>
+                </ul>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-icon"><img src="assets/ICONSWEBSITE/MrMrsTimmRinge.png" alt=""></div>
                 <h2>Samstag, 1. Mai 2027</h2>
                 <p class="schedule-note">Vorläufiger Ablaufplan – Änderungen vorbehalten.</p>
                 <table class="schedule">
@@ -236,10 +278,14 @@
             </div>
 
             <div class="timeline-item">
-                <div class="timeline-icon">🍳</div>
-                <h2>Frühstück</h2>
-                <div class="timeline-time">Sonntag, 09:00 Uhr</div>
-                <p>Am nächsten Morgen laden wir zum gemeinsamen Frühstück auf dem Hof ein. Ein entspannter Ausklang mit gutem Essen und Gesprächen. (20 € pro Person)</p>
+                <div class="timeline-icon"><img src="assets/ICONSWEBSITE/MrMrsTimmBlatt.png" alt=""></div>
+                <h2>Sonntag, 2. Mai 2027</h2>
+                <div class="timeline-time">Frühstück ab 09:00 Uhr</div>
+                <p>Am Sonntag möchten wir gemeinsam mit euch frühstücken und das Wochenende in Ruhe ausklingen lassen. Den restlichen Tag nutzen wir zum Unterhalten und Aufräumen. Ihr könnt so lange bleiben, wie ihr möchtet.</p>
+                <ul class="timeline-list">
+                    <li>Gemeinsames Frühstück auf dem Hof, 20 € pro Person</li>
+                    <li>Wer nicht übernachten möchte, kann selbstverständlich schon am Samstagabend abreisen</li>
+                </ul>
             </div>
         </div>
 
