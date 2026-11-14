@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20261061">
+    <link rel="stylesheet" href="css/style.css?v=20261062">
     <style>
         .fotogalerie-page {
             min-height: 100vh;
@@ -161,14 +161,29 @@
             <p>Hier könnt ihr nach der Hochzeit Fotos ansehen und selbst hochladen</p>
         </div>
 
-        <div class="fotogalerie-upload">
+        <div class="drive-cards">
+            <a href="#" class="drive-card is-soon" data-drive="gaeste">
+                <span class="drive-card-icon">📷</span>
+                <h2>Eure Fotos hochladen</h2>
+                <p>Eure Schnappschüsse von der Feier könnt ihr in unseren Gäste-Ordner hochladen.</p>
+                <span class="drive-card-status">Ab dem Tag nach der Hochzeit verfügbar</span>
+            </a>
+            <a href="#" class="drive-card is-soon" data-drive="profi">
+                <span class="drive-card-icon">🎞️</span>
+                <h2>Professionelle Fotos</h2>
+                <p>Die Bilder unseres Fotografen findet ihr in diesem Ordner.</p>
+                <span class="drive-card-status">Ab dem Tag nach der Hochzeit verfügbar</span>
+            </a>
+        </div>
+
+        <div class="fotogalerie-upload" hidden>
             <button type="button" class="upload-btn" id="upload-btn">
                 <span>Foto hochladen</span>
                 <span class="btn-flower">✿</span>
             </button>
         </div>
 
-        <div class="fotogalerie-grid" id="foto-galerie-grid">
+        <div class="fotogalerie-grid" id="foto-galerie-grid" hidden>
             <div class="foto-galerie-empty" id="foto-galerie-empty">
                 <p>Noch keine Fotos vorhanden. Seid die Ersten!</p>
             </div>
