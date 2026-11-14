@@ -2283,7 +2283,7 @@ body > .parallax-bg {
     }
 
     .hero-names {
-        font-size: clamp(2.5rem, 10vw, 4rem);
+        font-size: clamp(2rem, 9vw, 3.4rem);
     }
 
     .section-header h2 {
