@@ -58,7 +58,7 @@ body > .parallax-bg {
     bottom: 0;
     z-index: 0;
     pointer-events: none;
-    background-image: url('../assets/background-with-white-space-greenery-leaves/Background_new_new.png');
+    background-image: url('../assets/web/bg-parallax.jpg');
     background-size: 100% auto;
     background-position: center top;
     background-repeat: repeat-y;
@@ -857,7 +857,7 @@ body > .parallax-bg {
     position: relative;
     background:
         linear-gradient(180deg, rgba(248, 244, 238, 0.6) 0%, rgba(245, 240, 232, 0.8) 100%),
-        url('../assets/background-with-white-space-greenery-leaves/Background_top.jpg') center / cover no-repeat;
+        url('../assets/web/bg-top.jpg') center / cover no-repeat;
     overflow: hidden;
 }
 
@@ -893,7 +893,7 @@ body > .parallax-bg {
     border-radius: 50%;
     border: 3px solid #FFFDF9;
     box-shadow: 0 8px 22px rgba(107, 67, 45, 0.25);
-    background: url('../assets/Rubbel_Hani.png') -165px -129px / 600px auto no-repeat;
+    background: url('../assets/web/Rubbel_Hani.jpg') -165px -129px / 600px auto no-repeat;
     cursor: pointer;
     animation: guestDogBob 1.6s ease-in-out 1.2s infinite;
 }
