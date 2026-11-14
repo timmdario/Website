@@ -2549,3 +2549,18 @@ body > .parallax-bg {
         padding: 0.6rem 0.7rem;
     }
 }
+
+@media (max-width: 600px) {
+    .guest-dog {
+        width: 84px;
+        height: 84px;
+        background-size: 460px auto;
+        background-position: -127px -99px;
+    }
+
+    .guest-bubble {
+        width: 180px;
+        bottom: 96px;
+        font-size: 0.8rem;
+    }
+}
