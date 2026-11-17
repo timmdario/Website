@@ -66,7 +66,7 @@ function lookupGuest(code) {
         firstName: String(rows[i][1] || '').trim(),
         lastName: String(rows[i][2] || '').trim(),
         message: String(rows[i][3] || ''),
-        anrede: String(rows[i][4] || '')
+        anrede: rows[i][4] === '' ? '' : String(rows[i][4])
       });
     }
   }

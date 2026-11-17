@@ -1134,8 +1134,10 @@ let currentGuest = null;
 
 // Anrede aus Sheet-Spalte "Anrede": 0 = Mann, 1 = Frau, 2 = Mehrere
 function anredeType(guest) {
-    const a = parseInt(guest && guest.anrede, 10);
-    return a === 0 || a === 1 || a === 2 ? a : 1;
+    const raw = guest && guest.anrede;
+    if (raw === '' || raw === null || raw === undefined) return 0;
+    const a = parseInt(raw, 10);
+    return a === 0 || a === 1 || a === 2 ? a : 0;
 }
 
 function anredeWord(guest) {
