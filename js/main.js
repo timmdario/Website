@@ -12,7 +12,7 @@ const EMAILJS_TEMPLATE_ID = 'template_vcgt7mo';
 const EMAILJS_CONFIRM_TEMPLATE_ID = 'template_bestaetigung';
 
 // Google Sheets Web App URL (nach Deployment einfügen)
-const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwP3S-a4T9Iyv7ctWcgT0fChLImLmAKYcHdeSg2PzKZtNy3_Vw2q6DTWvUIqByNXSBbrg/exec';
+const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxutciw1I0C0Et_jZ302z8xwi4aPuaXM3rmuPyVm_7w0dnvXGI_O3z8zgKdziZQ5H2vfw/exec';
 
 // EmailJS initialisieren (nur wenn Library geladen)
 if (typeof emailjs !== 'undefined') {
