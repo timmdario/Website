@@ -862,16 +862,25 @@ body > .parallax-bg {
 }
 
 .nav-greeting {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    margin: 0;
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0 1rem;
     font-family: 'Great Vibes', cursive;
     font-size: 2rem;
+    line-height: 1.2;
     color: var(--color-braun);
+    text-align: center;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    .nav-greeting {
+        font-size: 1.5rem;
+        margin: 0 0.5rem;
+    }
 }
 
 .nav-greeting:empty {
@@ -1209,6 +1218,37 @@ body > .parallax-bg {
     transform: translateY(-5px);
     box-shadow: var(--shadow-medium);
     border-color: var(--color-sage-hell);
+}
+
+.guest-intro {
+    max-width: 760px;
+    margin: 0 auto 2.5rem;
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--color-Text);
+    text-align: center;
+}
+
+.guest-intro[hidden] {
+    display: none;
+}
+
+.guest-intro p {
+    margin-bottom: 0.9rem;
+}
+
+.guest-intro strong {
+    font-family: var(--font-heading);
+    color: var(--color-braun);
+}
+
+.detail-day {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    letter-spacing: 1px;
+    color: var(--color-sage);
+    margin-bottom: 0.6rem;
 }
 
 .detail-icon {

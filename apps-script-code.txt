@@ -4,7 +4,8 @@
 
 // Tab mit den RSVP-Antworten (Spalten siehe unten). Falls nicht vorhanden, wird der erste Tab genutzt.
 var RSVP_SHEET_NAME = 'Antworten';
-// Tab mit den Gästen für den Briefumschlag. Spalten: Code | Vorname | Nachname | Nachricht
+// Tab mit den Gästen für den Briefumschlag. Spalten: Code | Vorname | Nachname | Nachricht | Anrede
+// Anrede: 0 = Mann, 1 = Frau, 2 = Mehrere
 // Die Code-Spalte im Tab auf "Nur Text" formatieren, damit führende Nullen erhalten bleiben.
 var GUEST_SHEET_NAME = 'Gäste';
 
@@ -64,7 +65,8 @@ function lookupGuest(code) {
         found: true,
         firstName: String(rows[i][1] || ''),
         lastName: String(rows[i][2] || ''),
-        message: String(rows[i][3] || '')
+        message: String(rows[i][3] || ''),
+        anrede: String(rows[i][4] || '')
       });
     }
   }

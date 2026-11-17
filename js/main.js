@@ -300,8 +300,8 @@ function showWebsite() {
 // COUNTDOWN
 // ========================================
 function initCountdown() {
-    // 1. Mai 2027, 14:00 Uhr deutsche Zeit (MESZ = UTC+2)
-    const targetDate = new Date('2027-05-01T14:00:00+02:00').getTime();
+    // 1. Mai 2027, 13:00 Uhr deutsche Zeit (MESZ = UTC+2)
+    const targetDate = new Date('2027-05-01T13:00:00+02:00').getTime();
 
     function update() {
         const now = Date.now();
@@ -1132,6 +1132,29 @@ function lookupGuest(code) {
 
 let currentGuest = null;
 
+// Anrede aus Sheet-Spalte "Anrede": 0 = Mann, 1 = Frau, 2 = Mehrere
+function anredeType(guest) {
+    const a = parseInt(guest && guest.anrede, 10);
+    return a === 0 || a === 1 || a === 2 ? a : 1;
+}
+
+function anredeWord(guest) {
+    return anredeType(guest) === 0 ? 'Lieber' : 'Liebe';
+}
+
+function renderGuestIntro(guest) {
+    const el = document.getElementById('guest-intro');
+    if (!el) return;
+    const multi = anredeType(guest) === 2;
+    const you = multi ? 'ihr' : 'du';
+    const have = multi ? 'habt' : 'hast';
+    el.innerHTML =
+        '<p><strong>' + String(guest.firstName).replace(/[&<>"']/g, c => '&#' + c.charCodeAt(0) + ';') + '</strong>, schön, dass ' + you + ' den Weg auf unsere Hochzeitswebsite gefunden ' + have + '!</p>' +
+        '<p>Nachdem wir uns bereits standesamtlich das Ja-Wort gegeben haben, möchten wir unsere Hochzeit am Samstag, den 01.05.2027, im Rahmen einer freien Trauung gemeinsam mit euch feiern, mit allem was dazu gehört.</p>' +
+        '<p>Hier findet ihr alle wichtigen Informationen rund um unsere Hochzeit. Sollten darüber hinaus noch Fragen offenbleiben, meldet euch jederzeit gerne bei uns!</p>';
+    el.hidden = false;
+}
+
 function showGuestMessage(guest) {
     if (!guest || !guest.message || document.getElementById('guest-dog-wrap')) return;
     const wrap = document.createElement('div');
@@ -1145,7 +1168,7 @@ function showGuestMessage(guest) {
     panel.className = 'guest-note-overlay';
     panel.hidden = true;
     panel.innerHTML = '<div class="guest-note" role="dialog" aria-modal="true"><h3></h3><p></p><p class="guest-note-sign">Malika &amp; Dario</p><button type="button" class="guest-note-close">Schließen</button></div>';
-    panel.querySelector('h3').textContent = 'Lieber ' + guest.firstName + ',';
+    panel.querySelector('h3').textContent = anredeWord(guest) + ' ' + guest.firstName + ',';
     panel.querySelector('p').textContent = guest.message;
     document.body.appendChild(panel);
 
@@ -1159,6 +1182,7 @@ function showGuestMessage(guest) {
 
 function prefillRsvpName(guest) {
     currentGuest = guest;
+    renderGuestIntro(guest);
     const greeting = document.getElementById('nav-greeting');
     if (greeting) greeting.textContent = 'Hallo ' + guest.firstName;
     const nameInput = document.getElementById('name');
@@ -1169,7 +1193,7 @@ function prefillRsvpName(guest) {
 
 function fillGuestLetter(guest) {
     const paper = document.querySelector('.letter-paper');
-    document.getElementById('letter-greeting').textContent = 'Hallo ' + guest.firstName + ' ' + guest.lastName + ',';
+    document.getElementById('letter-greeting').textContent = 'Hallo ' + guest.firstName + ',';
     document.querySelector('.letter-invite-text').textContent = 'Du bist herzlich zu unserer Hochzeit eingeladen.';
     paper.classList.add('has-guest');
     document.getElementById('envelope-letter').classList.add('has-guest');
