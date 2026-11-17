@@ -63,8 +63,8 @@ function lookupGuest(code) {
     if (rowCode.padStart(6, '0') === code) {
       return jsonOutput({
         found: true,
-        firstName: String(rows[i][1] || ''),
-        lastName: String(rows[i][2] || ''),
+        firstName: String(rows[i][1] || '').trim(),
+        lastName: String(rows[i][2] || '').trim(),
         message: String(rows[i][3] || ''),
         anrede: String(rows[i][4] || '')
       });
