@@ -104,15 +104,19 @@
             will-change: transform, opacity;
         }
 
-        .story-scene.is-active {
-            filter: url(#story-cloud-edge);
-        }
-
         .story-scene-inner {
             position: absolute;
             inset: 0;
-            -webkit-mask-image: radial-gradient(ellipse at 50% 50%, #000 0%, #000 50%, rgba(0, 0, 0, 0.9) 64%, rgba(0, 0, 0, 0.35) 77%, transparent 90%);
-            mask-image: radial-gradient(ellipse at 50% 50%, #000 0%, #000 50%, rgba(0, 0, 0, 0.9) 64%, rgba(0, 0, 0, 0.35) 77%, transparent 90%);
+            -webkit-mask-image:
+                radial-gradient(ellipse 52% 50% at 50% 50%, #000 55%, rgba(0, 0, 0, 0.85) 76%, transparent 100%),
+                radial-gradient(ellipse 49% 53% at 47% 51%, #000 55%, rgba(0, 0, 0, 0.85) 76%, transparent 100%),
+                radial-gradient(ellipse 51% 51% at 53% 49%, #000 55%, rgba(0, 0, 0, 0.85) 76%, transparent 100%);
+            -webkit-mask-composite: source-in;
+            mask-image:
+                radial-gradient(ellipse 52% 50% at 50% 50%, #000 55%, rgba(0, 0, 0, 0.85) 76%, transparent 100%),
+                radial-gradient(ellipse 49% 53% at 47% 51%, #000 55%, rgba(0, 0, 0, 0.85) 76%, transparent 100%),
+                radial-gradient(ellipse 51% 51% at 53% 49%, #000 55%, rgba(0, 0, 0, 0.85) 76%, transparent 100%);
+            mask-composite: intersect;
         }
 
         .story-scene img {
@@ -132,7 +136,7 @@
                 radial-gradient(circle at 88% 28%, rgba(255, 255, 255, 0.8), transparent 34%),
                 radial-gradient(circle at 22% 82%, rgba(255, 255, 255, 0.85), transparent 34%),
                 radial-gradient(circle at 80% 78%, rgba(255, 255, 255, 0.8), transparent 32%);
-            filter: blur(6px);
+            filter: url(#story-cloud-edge) blur(6px);
         }
 
         .story-beats {
@@ -264,7 +268,7 @@
             .story-pin { position: relative; height: auto; overflow: visible; }
             .story-stage { position: relative; height: 45svh; }
             .story-scene { display: none; }
-            .story-scene:first-child { display: block; opacity: 1; transform: none; filter: url(#story-cloud-edge); }
+            .story-scene:first-child { display: block; opacity: 1; transform: none; }
             .story-fog { display: none; }
             .story-beats { position: relative; }
             .story-beat { position: relative; opacity: 1; transform: none; padding: 1.5rem 1rem; }
@@ -385,6 +389,6 @@
         <a href="index.html#details" class="story-back">&larr; Zurück zur Startseite</a>
     </main>
 
-    <script src="js/main.js?v=20261086"></script>
+    <script src="js/main.js?v=20261087"></script>
 </body>
 </html>

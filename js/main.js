@@ -1450,7 +1450,6 @@ function initStoryReveal() {
         scenes.forEach((scene, i) => {
             const d = pos / 2 - i;
             const o = fadeIn(d, -0.6, 0.1) * fadeOut(d, 0.9, 1.6);
-            scene.classList.toggle('is-active', o > 0.02);
             const travel = clamp01((d + 0.6) / 1.6);
             const distance = (1 - travel) * 12;
             const dir = scene.dataset.dir;
