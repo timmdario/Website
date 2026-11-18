@@ -1419,8 +1419,8 @@ function initStoryReveal() {
 
     // Bilder werden an ihr Seitenverhältnis angepasst, damit möglichst wenig abgeschnitten wird
     function sizeStoryScenes() {
-        const maxH = window.innerHeight * 0.62;
-        const maxW = window.innerWidth * 0.78;
+        const maxH = window.innerHeight * 0.72;
+        const maxW = window.innerWidth * 0.83;
         scenes.forEach(scene => {
             const ratio = parseFloat(scene.style.getPropertyValue('--ratio')) || 0.75;
             let w = maxH * ratio;
@@ -1449,9 +1449,9 @@ function initStoryReveal() {
 
         scenes.forEach((scene, i) => {
             const d = pos / 2 - i;
-            const o = fadeIn(d, -0.6, 0.1) * fadeOut(d, 0.9, 1.6);
-            const travel = clamp01((d + 0.6) / 1.6);
-            const distance = (1 - travel) * 12;
+            const o = fadeIn(d, -0.12, 0) * fadeOut(d, 0.94, 1.12);
+            const travel = clamp01((d + 0.12) / 0.3);
+            const distance = (1 - travel) * 8;
             const dir = scene.dataset.dir;
             let tx = 0;
             let ty = 0;
@@ -1460,12 +1460,12 @@ function initStoryReveal() {
             else if (dir === 'right') tx = distance;
             else if (dir === 'top') ty = -distance * 0.7;
             else if (dir === 'bottom') ty = distance * 0.7;
-            else rot = (1 - travel) * -8;
+            else rot = (1 - travel) * -4;
             scene.style.setProperty('--o', o.toFixed(3));
             scene.style.setProperty('--tx', tx.toFixed(2) + 'vw');
             scene.style.setProperty('--ty', ty.toFixed(2) + 'vw');
             scene.style.setProperty('--rot', rot.toFixed(2) + 'deg');
-            scene.style.setProperty('--sc', (1.08 - travel * 0.08).toFixed(3));
+            scene.style.setProperty('--sc', (1.04 - travel * 0.04).toFixed(3));
         });
 
         beats.forEach((beat, i) => {
