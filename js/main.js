@@ -1358,13 +1358,18 @@ function initStoryReveal() {
     const nextBtn = document.querySelector('.story-next');
     if (!source.length || !timeline || !stage || !beatsWrap) return;
 
-    const scenes = [];
+    const chapters = [];
     const beats = [];
     source.forEach(item => {
         const img = item.querySelector('img');
-        const year = item.querySelector('.story-year');
-        const text = item.querySelector('.story-text');
-        if (!img || !year || !text) return;
+        const entries = item.querySelectorAll('.story-entry');
+        if (!img || !entries.length) return;
+
+        const firstYear = item.querySelector('.story-year');
+        const firstHeading = item.querySelector('.story-heading');
+        const label = 'Kapitel ' + (chapters.length + 1) + ': ' +
+            (firstYear ? firstYear.textContent.trim() : '') +
+            (firstHeading ? ' – ' + firstHeading.textContent.trim() : '');
 
         const scene = document.createElement('div');
         scene.className = 'story-scene';
@@ -1374,7 +1379,6 @@ function initStoryReveal() {
         inner.appendChild(img);
         scene.appendChild(inner);
         stage.appendChild(scene);
-        scenes.push(scene);
 
         const applyRatio = () => {
             const ratio = img.naturalWidth && img.naturalHeight ? img.naturalWidth / img.naturalHeight : 0.75;
@@ -1384,26 +1388,41 @@ function initStoryReveal() {
         img.addEventListener('load', applyRatio);
         applyRatio();
 
-        [['year', year], ['text', text]].forEach(([kind, node]) => {
-            const beat = document.createElement('div');
-            beat.className = 'story-beat story-beat--' + kind;
-            beat.dataset.kind = kind;
-            const inner = document.createElement('div');
-            inner.className = 'story-beat-inner';
-            inner.appendChild(node);
-            beat.appendChild(inner);
-            beatsWrap.appendChild(beat);
-            beats.push(beat);
+        const chapter = { scene, start: beats.length, end: beats.length };
+
+        entries.forEach(entry => {
+            const year = entry.querySelector('.story-year');
+            const headings = entry.querySelectorAll('.story-heading');
+            const texts = entry.querySelectorAll('.story-text');
+            texts.forEach((text, idx) => {
+                const beat = document.createElement('div');
+                beat.className = 'story-beat' + (idx > 0 ? ' story-beat--continue' : '');
+                beat.dataset.kind = idx === 0 ? 'year' : 'text';
+                const box = document.createElement('div');
+                box.className = 'story-beat-inner';
+                if (idx === 0 && (year || headings.length)) {
+                    const head = document.createElement('div');
+                    head.className = 'story-head';
+                    if (year) head.appendChild(year);
+                    headings.forEach(heading => head.appendChild(heading));
+                    box.appendChild(head);
+                }
+                box.appendChild(text);
+                beat.appendChild(box);
+                beatsWrap.appendChild(beat);
+                beats.push(beat);
+            });
         });
+
+        chapter.end = beats.length;
+        chapters.push(chapter);
 
         if (progressWrap) {
             const dot = document.createElement('button');
             dot.type = 'button';
-            dot.setAttribute('aria-label', 'Kapitel ' + (scenes.length) + ': ' + year.textContent.trim());
-            dot.addEventListener('click', () => {
-                const chapter = scenes.indexOf(scene);
-                scrollToStoryBeat(chapter * 2);
-            });
+            dot.setAttribute('aria-label', label);
+            const start = chapter.start;
+            dot.addEventListener('click', () => scrollToStoryBeat(start));
             progressWrap.appendChild(dot);
         }
     });
@@ -1421,7 +1440,8 @@ function initStoryReveal() {
     function sizeStoryScenes() {
         const maxH = window.innerHeight * 0.72;
         const maxW = window.innerWidth * 0.83;
-        scenes.forEach(scene => {
+        chapters.forEach(chapter => {
+            const scene = chapter.scene;
             const ratio = parseFloat(scene.style.getPropertyValue('--ratio')) || 0.75;
             let w = maxH * ratio;
             let h = maxH;
@@ -1440,17 +1460,15 @@ function initStoryReveal() {
     const fadeIn = (x, a, b) => ease(clamp01((x - a) / (b - a)));
     const fadeOut = (x, a, b) => 1 - ease(clamp01((x - a) / (b - a)));
 
-    let ticking = false;
     const update = () => {
         const total = Math.max(1, timeline.offsetHeight - window.innerHeight);
         const scrolled = Math.min(total, Math.max(0, -timeline.getBoundingClientRect().top));
         const pos = (scrolled / total) * beats.length;
-        const activeChapter = Math.min(scenes.length - 1, Math.floor(pos / 2));
 
-        scenes.forEach((scene, i) => {
-            const d = pos / 2 - i;
-            const o = fadeIn(d, -0.12, 0) * fadeOut(d, 0.94, 1.12);
-            const travel = clamp01((d + 0.12) / 0.3);
+        chapters.forEach((chapter, i) => {
+            const scene = chapter.scene;
+            const o = fadeIn(pos, chapter.start - 0.12, chapter.start) * fadeOut(pos, chapter.end - 0.12, chapter.end + 0.1);
+            const travel = clamp01((pos - chapter.start + 0.12) / 0.3);
             const distance = (1 - travel) * 8;
             const dir = scene.dataset.dir;
             let tx = 0;
@@ -1477,19 +1495,14 @@ function initStoryReveal() {
             beat.style.setProperty('--ty', ((1 - rise) * offset).toFixed(1) + 'px');
         });
 
+        let activeChapter = -1;
+        chapters.forEach((chapter, i) => {
+            if (pos >= chapter.start && pos < chapter.end) activeChapter = i;
+        });
         dots.forEach((dot, i) => dot.classList.toggle('is-active', i === activeChapter));
         if (nextBtn) {
-            const atEnd = pos > beats.length - 1.4;
-            nextBtn.hidden = atEnd;
+            nextBtn.hidden = pos > beats.length - 1.4;
             nextBtn.textContent = 'Weiter ↓';
-        }
-        ticking = false;
-    };
-
-    const requestUpdate = () => {
-        if (!ticking) {
-            requestAnimationFrame(update);
-            ticking = true;
         }
     };
 
@@ -1500,8 +1513,8 @@ function initStoryReveal() {
         });
     }
 
-    window.addEventListener('scroll', requestUpdate, { passive: true });
-    window.addEventListener('resize', requestUpdate);
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
     update();
 }
 
