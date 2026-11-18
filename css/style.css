@@ -1243,6 +1243,29 @@ body > .parallax-bg {
     color: var(--color-braun);
 }
 
+.dresscode {
+    max-width: 760px;
+    margin: 2.5rem auto 0;
+    padding: 1.6rem 1.8rem;
+    text-align: center;
+    background: rgba(255, 253, 249, 0.92);
+    border: 1px solid var(--color-taupe);
+    border-radius: 14px;
+}
+
+.dresscode h3 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2rem;
+    color: var(--color-braun);
+    margin-bottom: 0.4rem;
+}
+
+.dresscode p {
+    font-family: var(--font-body);
+    color: var(--color-Text);
+    line-height: 1.7;
+}
+
 .detail-script {
     font-family: 'Great Vibes', cursive;
     font-size: 1.9rem;
