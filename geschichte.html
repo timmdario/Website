@@ -66,13 +66,20 @@
             height: 1600vh;
         }
 
+        .story-svg-filters {
+            position: absolute;
+            width: 0;
+            height: 0;
+            overflow: hidden;
+        }
+
         .story-pin {
             position: sticky;
             top: 0;
             height: 100vh;
             height: 100svh;
             overflow: hidden;
-            background: var(--color-beige);
+            background: #fdfbf7;
         }
 
         .story-stage,
@@ -87,26 +94,46 @@
 
         .story-scene {
             position: absolute;
-            inset: -8%;
+            top: 50%;
+            left: 50%;
+            width: min(78vmin, 760px);
+            aspect-ratio: 1;
+            translate: -50% -50%;
             opacity: var(--o, 0);
             transform: translate(var(--tx, 0), var(--ty, 0)) rotate(var(--rot, 0deg)) scale(var(--sc, 1.08));
             will-change: transform, opacity;
+        }
+
+        .story-scene.is-active {
+            filter: url(#story-cloud-edge);
+        }
+
+        .story-scene-inner {
+            position: absolute;
+            inset: 0;
+            -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 0%, #000 29%, rgba(0, 0, 0, 0.94) 38%, rgba(0, 0, 0, 0.62) 48%, rgba(0, 0, 0, 0.2) 58%, transparent 70%);
+            mask-image: radial-gradient(circle at 50% 50%, #000 0%, #000 29%, rgba(0, 0, 0, 0.94) 38%, rgba(0, 0, 0, 0.62) 48%, rgba(0, 0, 0, 0.2) 58%, transparent 70%);
         }
 
         .story-scene img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: saturate(0.72) contrast(0.97);
+            filter: saturate(0.66) contrast(0.96) blur(0.6px);
         }
 
-        .story-shade {
+        .story-fog {
             position: absolute;
             inset: 0;
+            z-index: 0;
             pointer-events: none;
             background:
-                radial-gradient(ellipse at center, rgba(30, 24, 18, 0.08) 0%, rgba(30, 24, 18, 0.42) 100%),
-                linear-gradient(to bottom, rgba(245, 241, 234, 0.22), rgba(245, 241, 234, 0.05) 40%, rgba(30, 24, 18, 0.3));
+                radial-gradient(circle at 16% 26%, rgba(255, 255, 255, 0.98), transparent 38%),
+                radial-gradient(circle at 84% 32%, rgba(255, 255, 255, 0.95), transparent 40%),
+                radial-gradient(circle at 28% 80%, rgba(255, 255, 255, 0.96), transparent 40%),
+                radial-gradient(circle at 74% 76%, rgba(255, 255, 255, 0.92), transparent 38%),
+                radial-gradient(circle at 50% 50%, transparent 24%, rgba(255, 255, 255, 0.28) 44%, rgba(255, 255, 255, 0.88) 66%, #fff 100%);
+            filter: blur(10px);
         }
 
         .story-beats {
@@ -238,8 +265,8 @@
             .story-pin { position: relative; height: auto; overflow: visible; }
             .story-stage { position: relative; height: 45svh; }
             .story-scene { display: none; }
-            .story-scene:first-child { display: block; opacity: 1; transform: none; }
-            .story-shade { display: none; }
+            .story-scene:first-child { display: block; opacity: 1; transform: none; filter: url(#story-cloud-edge); }
+            .story-fog { display: none; }
             .story-beats { position: relative; }
             .story-beat { position: relative; opacity: 1; transform: none; padding: 1.5rem 1rem; }
             .story-next, .story-progress { display: none; }
@@ -247,6 +274,16 @@
     </style>
 </head>
 <body>
+    <svg class="story-svg-filters" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+        <defs>
+            <filter id="story-cloud-edge" x="-35%" y="-35%" width="170%" height="170%" color-interpolation-filters="sRGB">
+                <feTurbulence type="fractalNoise" baseFrequency="0.006 0.009" numOctaves="3" seed="12" result="cloud" />
+                <feDisplacementMap in="SourceGraphic" in2="cloud" scale="55" xChannelSelector="R" yChannelSelector="G" result="warped" />
+                <feGaussianBlur in="warped" stdDeviation="5" />
+            </filter>
+        </defs>
+    </svg>
+
     <nav class="navbar">
         <a href="index.html" class="nav-logo"><img src="assets/web/logo.png" alt="Malika & Dario" class="nav-logo-img"></a>
         <button class="nav-hamburger" aria-label="Menü"><span></span><span></span><span></span></button>
@@ -277,6 +314,7 @@
         <section class="story-timeline" aria-label="Unsere Geschichte in Bildern">
             <div class="story-pin">
                 <div class="story-stage" aria-hidden="true"></div>
+                <div class="story-fog" aria-hidden="true"></div>
                 <div class="story-beats"></div>
                 <div class="story-progress" aria-label="Kapitel"></div>
                 <button class="story-next" type="button">Weiter ↓</button>
@@ -349,6 +387,6 @@
         <a href="index.html#details" class="story-back">&larr; Zurück zur Startseite</a>
     </main>
 
-    <script src="js/main.js?v=20261083"></script>
+    <script src="js/main.js?v=20261085"></script>
 </body>
 </html>
