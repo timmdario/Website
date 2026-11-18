@@ -1350,33 +1350,129 @@ function initKarussel() {
 }
 
 function initStoryReveal() {
-    const items = document.querySelectorAll('.story-item');
-    if (!items.length) return;
-    const directions = ['left', 'right', 'bottom', 'zoom', 'left', 'right', 'bottom', 'zoom'];
-    items.forEach((el, i) => { el.dataset.from = directions[i % directions.length]; });
-    const targets = document.querySelectorAll('.story-photo, .story-year, .story-text');
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        targets.forEach(el => el.style.setProperty('--p', 1));
-        return;
+    const source = document.querySelectorAll('.story-source .story-item');
+    const timeline = document.querySelector('.story-timeline');
+    const stage = document.querySelector('.story-stage');
+    const beatsWrap = document.querySelector('.story-beats');
+    const progressWrap = document.querySelector('.story-progress');
+    const nextBtn = document.querySelector('.story-next');
+    if (!source.length || !timeline || !stage || !beatsWrap) return;
+
+    const scenes = [];
+    const beats = [];
+    source.forEach(item => {
+        const img = item.querySelector('img');
+        const year = item.querySelector('.story-year');
+        const text = item.querySelector('.story-text');
+        if (!img || !year || !text) return;
+
+        const scene = document.createElement('div');
+        scene.className = 'story-scene';
+        scene.dataset.dir = item.dataset.from || 'left';
+        scene.appendChild(img);
+        stage.appendChild(scene);
+        scenes.push(scene);
+
+        [['year', year], ['text', text]].forEach(([kind, node]) => {
+            const beat = document.createElement('div');
+            beat.className = 'story-beat story-beat--' + kind;
+            beat.dataset.kind = kind;
+            const inner = document.createElement('div');
+            inner.className = 'story-beat-inner';
+            inner.appendChild(node);
+            beat.appendChild(inner);
+            beatsWrap.appendChild(beat);
+            beats.push(beat);
+        });
+
+        if (progressWrap) {
+            const dot = document.createElement('button');
+            dot.type = 'button';
+            dot.setAttribute('aria-label', 'Kapitel ' + (scenes.length) + ': ' + year.textContent.trim());
+            dot.addEventListener('click', () => {
+                const chapter = scenes.indexOf(scene);
+                scrollToStoryBeat(chapter * 2);
+            });
+            progressWrap.appendChild(dot);
+        }
+    });
+
+    const dots = progressWrap ? Array.from(progressWrap.children) : [];
+    timeline.style.height = (beats.length * 60 + 100) + 'vh';
+
+    function scrollToStoryBeat(index) {
+        const total = timeline.offsetHeight - window.innerHeight;
+        const y = timeline.offsetTop + (Math.min(index, beats.length) / beats.length) * total;
+        window.scrollTo({ top: y, behavior: 'smooth' });
     }
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const clamp01 = x => Math.min(1, Math.max(0, x));
+    const ease = t => t * t * (3 - 2 * t);
+    const fadeIn = (x, a, b) => ease(clamp01((x - a) / (b - a)));
+    const fadeOut = (x, a, b) => 1 - ease(clamp01((x - a) / (b - a)));
+
     let ticking = false;
     const update = () => {
-        const vh = window.innerHeight;
-        targets.forEach(el => {
-            const top = el.getBoundingClientRect().top;
-            const range = el.classList.contains('story-photo') ? vh * 1.0 : vh * 0.5;
-            const t = Math.min(1, Math.max(0, (vh - top) / range));
-            const p = t * t * (3 - 2 * t);
-            el.style.setProperty('--p', p.toFixed(3));
+        const total = Math.max(1, timeline.offsetHeight - window.innerHeight);
+        const scrolled = Math.min(total, Math.max(0, -timeline.getBoundingClientRect().top));
+        const pos = (scrolled / total) * beats.length;
+        const activeChapter = Math.min(scenes.length - 1, Math.floor(pos / 2));
+
+        scenes.forEach((scene, i) => {
+            const d = pos / 2 - i;
+            const o = fadeIn(d, -0.6, 0.1) * fadeOut(d, 0.9, 1.6);
+            const travel = clamp01((d + 0.6) / 1.6);
+            const distance = (1 - travel) * 12;
+            const dir = scene.dataset.dir;
+            let tx = 0;
+            let ty = 0;
+            let rot = 0;
+            if (dir === 'left') tx = -distance;
+            else if (dir === 'right') tx = distance;
+            else if (dir === 'top') ty = -distance * 0.7;
+            else if (dir === 'bottom') ty = distance * 0.7;
+            else rot = (1 - travel) * -8;
+            scene.style.setProperty('--o', o.toFixed(3));
+            scene.style.setProperty('--tx', tx.toFixed(2) + 'vw');
+            scene.style.setProperty('--ty', ty.toFixed(2) + 'vw');
+            scene.style.setProperty('--rot', rot.toFixed(2) + 'deg');
+            scene.style.setProperty('--sc', (1.08 - travel * 0.08).toFixed(3));
         });
+
+        beats.forEach((beat, i) => {
+            const d = pos - i;
+            const o = fadeIn(d, -0.05, 0.22) * fadeOut(d, 0.72, 1.05);
+            const rise = ease(clamp01((d + 0.05) / 0.35));
+            const offset = beat.dataset.kind === 'year' ? -28 : 42;
+            beat.style.setProperty('--o', o.toFixed(3));
+            beat.style.setProperty('--ty', ((1 - rise) * offset).toFixed(1) + 'px');
+        });
+
+        dots.forEach((dot, i) => dot.classList.toggle('is-active', i === activeChapter));
+        if (nextBtn) {
+            const atEnd = pos > beats.length - 1.4;
+            nextBtn.hidden = atEnd;
+            nextBtn.textContent = 'Weiter ↓';
+        }
         ticking = false;
     };
+
     const requestUpdate = () => {
         if (!ticking) {
             requestAnimationFrame(update);
             ticking = true;
         }
     };
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            const current = Math.round((Math.min(1, Math.max(0, -timeline.getBoundingClientRect().top / Math.max(1, timeline.offsetHeight - window.innerHeight))) * beats.length));
+            scrollToStoryBeat(current + 1);
+        });
+    }
+
     window.addEventListener('scroll', requestUpdate, { passive: true });
     window.addEventListener('resize', requestUpdate);
     update();

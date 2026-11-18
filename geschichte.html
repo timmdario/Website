@@ -12,23 +12,31 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css?v=20261082">
     <style>
+        body { overflow-x: clip; }
+
         .story {
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 6rem 1.5rem 3rem;
+            max-width: none;
+            margin: 0;
+            padding: 0;
             overflow-x: clip;
         }
 
         .story-intro {
+            min-height: 78vh;
+            min-height: 78svh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            margin-bottom: 3.5rem;
+            padding: 7rem 1.5rem 2rem;
         }
 
         .story-intro h1 {
             font-family: var(--font-heading);
-            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            font-size: clamp(2rem, 5vw, 3.4rem);
             color: var(--color-braun);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.6rem;
         }
 
         .story-intro p {
@@ -37,85 +45,204 @@
             color: var(--color-Text-hell);
         }
 
-        .story-item {
-            margin-bottom: 5.5rem;
+        .story-scroll-hint {
+            margin-top: 3rem;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--color-braun);
+            animation: story-bob 2.4s ease-in-out infinite;
         }
 
-        .story-photo {
-            width: 100%;
-            max-width: 420px;
-            margin: 0 auto;
-            aspect-ratio: 3 / 4;
-            object-fit: cover;
-            border-radius: 14px;
-            box-shadow: 0 10px 30px rgba(107, 67, 45, 0.15);
-            display: block;
-            opacity: var(--p, 0);
-            transform:
-                translate(calc((1 - var(--p, 0)) * var(--dx, 0px)), calc((1 - var(--p, 0)) * var(--dy, 0px)))
-                rotate(calc((1 - var(--p, 0)) * var(--r, 0deg)))
-                scale(calc(var(--s, 1) + (1 - var(--s, 1)) * var(--p, 0)));
+        @keyframes story-bob {
+            0%, 100% { transform: translateY(0); opacity: 0.75; }
+            50% { transform: translateY(9px); opacity: 1; }
+        }
+
+        /* Die Szene bleibt stehen, während die Texte nacheinander erscheinen */
+        .story-timeline {
+            position: relative;
+            height: 1600vh;
+        }
+
+        .story-pin {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            height: 100svh;
+            overflow: hidden;
+            background: var(--color-beige);
+        }
+
+        .story-stage,
+        .story-beats {
+            position: absolute;
+            inset: 0;
+        }
+
+        .story-stage {
+            z-index: 0;
+        }
+
+        .story-scene {
+            position: absolute;
+            inset: -8%;
+            opacity: var(--o, 0);
+            transform: translate(var(--tx, 0), var(--ty, 0)) rotate(var(--rot, 0deg)) scale(var(--sc, 1.08));
             will-change: transform, opacity;
         }
 
-        .story-item[data-from="left"] { --dx: -80vw; --dy: 60px; --r: -12deg; --s: 1; }
-        .story-item[data-from="right"] { --dx: 80vw; --dy: -40px; --r: 10deg; --s: 1; }
-        .story-item[data-from="bottom"] { --dx: 0px; --dy: 60vh; --r: 0deg; --s: 0.9; }
-        .story-item[data-from="top"] { --dx: 0px; --dy: -60vh; --r: 6deg; --s: 1; }
-        .story-item[data-from="zoom"] { --dx: 0px; --dy: 0px; --r: -8deg; --s: 0.25; }
-
-        .story-item .story-year {
-            opacity: var(--p, 0);
-            transform: translateX(calc((1 - var(--p, 0)) * -30px));
+        .story-scene img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: saturate(0.72) contrast(0.97);
         }
 
-        .story-item .story-text {
-            opacity: var(--p, 0);
-            transform: translateY(calc((1 - var(--p, 0)) * 40px));
-            filter: blur(calc((1 - var(--p, 0)) * 4px));
+        .story-shade {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(ellipse at center, rgba(30, 24, 18, 0.08) 0%, rgba(30, 24, 18, 0.42) 100%),
+                linear-gradient(to bottom, rgba(245, 241, 234, 0.22), rgba(245, 241, 234, 0.05) 40%, rgba(30, 24, 18, 0.3));
+        }
+
+        .story-beats {
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .story-beat {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5rem 1.25rem 6rem;
+            opacity: var(--o, 0);
+            transform: translateY(var(--ty, 0px));
+            will-change: transform, opacity;
+        }
+
+        .story-beat-inner {
+            width: min(660px, 92vw);
+            padding: 2.2rem 2.4rem;
+            text-align: center;
+            background: rgba(250, 247, 241, 0.9);
+            border: 1px solid rgba(188, 168, 151, 0.7);
+            border-radius: 18px;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .story-beat--year .story-beat-inner {
+            background: rgba(250, 247, 241, 0.82);
+            padding: 1.2rem 2.4rem;
         }
 
         .story-year {
             display: block;
-            margin-top: 1.25rem;
             font-family: var(--font-heading);
-            font-size: 1.1rem;
+            font-size: clamp(1.8rem, 4vw, 2.7rem);
+            letter-spacing: 3px;
+            color: var(--color-braun);
+        }
+
+        .story-year::after {
+            content: "✿";
+            display: block;
+            margin-top: 0.5rem;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            letter-spacing: 0;
             color: var(--color-sage);
-            letter-spacing: 2px;
-            text-align: center;
         }
 
         .story-text {
-            margin-top: 0.6rem;
             font-family: var(--font-body);
-            font-size: 1.05rem;
-            line-height: 1.7;
-            color: var(--color-Text-hell);
-            text-align: center;
+            font-size: clamp(1rem, 2.1vw, 1.25rem);
+            line-height: 1.75;
+            color: var(--color-Text);
         }
+
+        .story-next {
+            position: absolute;
+            z-index: 3;
+            left: 50%;
+            bottom: 2rem;
+            transform: translateX(-50%);
+            padding: 0.55rem 1.4rem;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            color: var(--color-braun);
+            background: rgba(250, 247, 241, 0.9);
+            border: 1px solid rgba(188, 168, 151, 0.8);
+            border-radius: 999px;
+            cursor: pointer;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .story-next[hidden] { display: none; }
+
+        .story-progress {
+            position: absolute;
+            z-index: 3;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+
+        .story-progress button {
+            width: 9px;
+            height: 9px;
+            padding: 0;
+            border: 1px solid rgba(250, 247, 241, 0.85);
+            border-radius: 50%;
+            background: rgba(107, 67, 45, 0.35);
+            cursor: pointer;
+            transition: transform 0.25s ease, background 0.25s ease;
+        }
+
+        .story-progress button.is-active {
+            background: var(--color-weiss);
+            transform: scale(1.5);
+        }
+
+        .story-source { display: none; }
 
         .story-back {
             display: block;
+            width: fit-content;
             text-align: center;
-            margin-top: 2rem;
+            margin: 3rem auto 4rem;
             font-family: var(--font-body);
             color: var(--color-braun);
             text-decoration: none;
             border-bottom: 1px solid rgba(107, 67, 45, 0.3);
-            width: fit-content;
-            margin-left: auto;
-            margin-right: auto;
+        }
+
+        @media (max-width: 600px) {
+            .story-progress { display: none; }
+            .story-beat { padding: 4.5rem 1rem 5.5rem; }
+            .story-beat-inner { padding: 1.5rem 1.4rem; }
+            .story-next { bottom: 1.4rem; }
         }
 
         @media (prefers-reduced-motion: reduce) {
-            .story-photo,
-            .story-item .story-year,
-            .story-item .story-text {
-                opacity: 1;
-                transform: none;
-                filter: none;
-                transition: none;
-            }
+            .story-scroll-hint { animation: none; }
+            .story-timeline { height: auto !important; }
+            .story-pin { position: relative; height: auto; overflow: visible; }
+            .story-stage { position: relative; height: 45svh; }
+            .story-scene { display: none; }
+            .story-scene:first-child { display: block; opacity: 1; transform: none; }
+            .story-shade { display: none; }
+            .story-beats { position: relative; }
+            .story-beat { position: relative; opacity: 1; transform: none; padding: 1.5rem 1rem; }
+            .story-next, .story-progress { display: none; }
         }
     </style>
 </head>
@@ -144,83 +271,84 @@
         <header class="story-intro">
             <h1>Unsere Geschichte</h1>
             <p>Vom ersten Urlaub auf Kos zu heute</p>
+            <span class="story-scroll-hint">Scrollen, um weiterzulesen ↓</span>
         </header>
 
-        <section class="story-item">
-            <img class="story-photo" src="assets/WebsiteKaruselBilder/web/2023.jpeg" alt="2023" loading="lazy">
-            <span class="story-year">2023</span>
-            <p class="story-text">Damals hat niemand gewusst, dass hier mal ein Hund die Gäste durch den Hof führt. Dario hatte den Schlüssel, Malika die Idee.</p>
+        <section class="story-timeline" aria-label="Unsere Geschichte in Bildern">
+            <div class="story-pin">
+                <div class="story-stage" aria-hidden="true"></div>
+                <div class="story-beats"></div>
+                <div class="story-progress" aria-label="Kapitel"></div>
+                <button class="story-next" type="button">Weiter ↓</button>
+            </div>
         </section>
 
-        <section class="story-item">
-            <img class="story-photo" src="assets/WebsiteKaruselBilder/web/2023(2).jpeg" alt="2023" loading="lazy">
-            <span class="story-year">2023</span>
-            <p class="story-text">Dieses Foto ist das Ergebnis von zehn Versuchen, bei denen der Timer nie gepasst hat. Der elfte war perfekt.</p>
-        </section>
-
-        <section class="story-item">
-            <img class="story-photo" src="assets/WebsiteKaruselBilder/web/2023(3).jpeg" alt="2023" loading="lazy">
-            <span class="story-year">2023</span>
-            <p class="story-text">Ein Eis, zwei Löffel und die feste Überzeugung, dass man das Stück Schokolade am Ende nicht teilen muss.</p>
-        </section>
-
-        <section class="story-item">
-            <img class="story-photo" src="assets/WebsiteKaruselBilder/web/2024.jpeg" alt="2024" loading="lazy">
-            <span class="story-year">2024</span>
-            <p class="story-text">Ein Wochenende, zwei Wanderschuhe und ein Regenschirm, der sich als völlig nutzlos herausgestellt hat.</p>
-        </section>
-
-        <section class="story-item">
-            <img class="story-photo" src="assets/WebsiteKaruselBilder/web/2024(1).jpeg" alt="2024" loading="lazy">
-            <span class="story-year">2024</span>
-            <p class="story-text">Hier wurde zum ersten Mal gemeinsam gekocht. Das Ergebnis war essbar, und das ist ein Erfolg.</p>
-        </section>
-
-        <section class="story-item">
-            <img class="story-photo" src="assets/WebsiteKaruselBilder/web/2024(2).jpeg" alt="2024" loading="lazy">
-            <span class="story-year">2024</span>
-            <p class="story-text">Der Moment, in dem beide gleichzeitig gesagt haben: „Das machen wir jetzt einfach.“ Seitdem gibt es kein Zurück mehr.</p>
-        </section>
-
-        <section class="story-item">
-            <img class="story-photo" src="assets/WebsiteKaruselBilder/web/2025.jpeg" alt="2025" loading="lazy">
-            <span class="story-year">2025</span>
-            <p class="story-text">Eine Reise, bei der die Karte zweimal falsch gelesen wurde und trotzdem alle am richtigen Ort angekommen sind.</p>
-        </section>
-
-        <section class="story-item">
-            <img class="story-photo" src="assets/WebsiteKaruselBilder/web/2025(1).jpeg" alt="2025" loading="lazy">
-            <span class="story-year">2025</span>
-            <p class="story-text">Ein Picknick mit Blick aufs Wasser, bei dem die Ameisen sich ebenfalls eingeladen fühlten.</p>
-        </section>
-
-        <section class="story-item">
-            <img class="story-photo" src="assets/WebsiteKaruselBilder/web/2025(2).jpeg" alt="2025" loading="lazy">
-            <span class="story-year">2025</span>
-            <p class="story-text">Dieses Bild entstand, weil jemand dringend ein Foto brauchte und der Rest der Gruppe gerade Kaffee holte.</p>
-        </section>
-
-        <section class="story-item">
-            <img class="story-photo" src="assets/WebsiteKaruselBilder/web/2026.jpeg" alt="2026" loading="lazy">
-            <span class="story-year">2026</span>
-            <p class="story-text">Ein Tag, an dem sich alles ein bisschen wie Zuhause angefühlt hat, auch wenn wir gerade erst angekommen waren.</p>
-        </section>
-
-        <section class="story-item">
-            <img class="story-photo" src="assets/WebsiteKaruselBilder/web/2026(1).jpeg" alt="2026" loading="lazy">
-            <span class="story-year">2026</span>
-            <p class="story-text">Kurz vor dem Foto wurde der Hund angeleint, damit er nicht ins Bild läuft. Das hat nur halb funktioniert.</p>
-        </section>
-
-        <section class="story-item">
-            <img class="story-photo" src="assets/WebsiteKaruselBilder/web/2026(2).jpeg" alt="2026" loading="lazy">
-            <span class="story-year">2026</span>
-            <p class="story-text">Der letzte Eintrag in dieser Reihe, und gleichzeitig der Anfang von etwas Größerem. Jetzt wird es ernst.</p>
-        </section>
+        <div class="story-source">
+            <section class="story-item" data-from="left">
+                <img src="assets/WebsiteKaruselBilder/web/2023.jpeg" alt="Malika und Dario 2023" loading="lazy">
+                <span class="story-year">2023</span>
+                <p class="story-text">Damals hat niemand gewusst, dass hier mal ein Hund die Gäste durch den Hof führt. Dario hatte den Schlüssel, Malika die Idee.</p>
+            </section>
+            <section class="story-item" data-from="right">
+                <img src="assets/WebsiteKaruselBilder/web/2023(2).jpeg" alt="Malika und Dario 2023" loading="lazy">
+                <span class="story-year">2023</span>
+                <p class="story-text">Dieses Foto ist das Ergebnis von zehn Versuchen, bei denen der Timer nie gepasst hat. Der elfte war perfekt.</p>
+            </section>
+            <section class="story-item" data-from="bottom">
+                <img src="assets/WebsiteKaruselBilder/web/2023(3).jpeg" alt="Malika und Dario 2023" loading="lazy">
+                <span class="story-year">2023</span>
+                <p class="story-text">Ein Eis, zwei Löffel und die feste Überzeugung, dass man das Stück Schokolade am Ende nicht teilen muss.</p>
+            </section>
+            <section class="story-item" data-from="top">
+                <img src="assets/WebsiteKaruselBilder/web/2024.jpeg" alt="Malika und Dario 2024" loading="lazy">
+                <span class="story-year">2024</span>
+                <p class="story-text">Ein Wochenende, zwei Wanderschuhe und ein Regenschirm, der sich als völlig nutzlos herausgestellt hat.</p>
+            </section>
+            <section class="story-item" data-from="zoom">
+                <img src="assets/WebsiteKaruselBilder/web/2024(1).jpeg" alt="Malika und Dario 2024" loading="lazy">
+                <span class="story-year">2024</span>
+                <p class="story-text">Hier wurde zum ersten Mal gemeinsam gekocht. Das Ergebnis war essbar, und das ist ein Erfolg.</p>
+            </section>
+            <section class="story-item" data-from="left">
+                <img src="assets/WebsiteKaruselBilder/web/2024(2).jpeg" alt="Malika und Dario 2024" loading="lazy">
+                <span class="story-year">2024</span>
+                <p class="story-text">Der Moment, in dem beide gleichzeitig gesagt haben: „Das machen wir jetzt einfach.“ Seitdem gibt es kein Zurück mehr.</p>
+            </section>
+            <section class="story-item" data-from="right">
+                <img src="assets/WebsiteKaruselBilder/web/2025.jpeg" alt="Malika und Dario 2025" loading="lazy">
+                <span class="story-year">2025</span>
+                <p class="story-text">Eine Reise, bei der die Karte zweimal falsch gelesen wurde und trotzdem alle am richtigen Ort angekommen sind.</p>
+            </section>
+            <section class="story-item" data-from="bottom">
+                <img src="assets/WebsiteKaruselBilder/web/2025(1).jpeg" alt="Malika und Dario 2025" loading="lazy">
+                <span class="story-year">2025</span>
+                <p class="story-text">Ein Picknick mit Blick aufs Wasser, bei dem die Ameisen sich ebenfalls eingeladen fühlten.</p>
+            </section>
+            <section class="story-item" data-from="top">
+                <img src="assets/WebsiteKaruselBilder/web/2025(2).jpeg" alt="Malika und Dario 2025" loading="lazy">
+                <span class="story-year">2025</span>
+                <p class="story-text">Dieses Bild entstand, weil jemand dringend ein Foto brauchte und der Rest der Gruppe gerade Kaffee holte.</p>
+            </section>
+            <section class="story-item" data-from="zoom">
+                <img src="assets/WebsiteKaruselBilder/web/2026.jpeg" alt="Malika und Dario 2026" loading="lazy">
+                <span class="story-year">2026</span>
+                <p class="story-text">Ein Tag, an dem sich alles ein bisschen wie Zuhause angefühlt hat, auch wenn wir gerade erst angekommen waren.</p>
+            </section>
+            <section class="story-item" data-from="left">
+                <img src="assets/WebsiteKaruselBilder/web/2026(1).jpeg" alt="Malika und Dario 2026" loading="lazy">
+                <span class="story-year">2026</span>
+                <p class="story-text">Kurz vor dem Foto wurde der Hund angeleint, damit er nicht ins Bild läuft. Das hat nur halb funktioniert.</p>
+            </section>
+            <section class="story-item" data-from="right">
+                <img src="assets/WebsiteKaruselBilder/web/2026(2).jpeg" alt="Malika und Dario 2026" loading="lazy">
+                <span class="story-year">2026</span>
+                <p class="story-text">Der letzte Eintrag in dieser Reihe, und gleichzeitig der Anfang von etwas Größerem. Jetzt wird es ernst.</p>
+            </section>
+        </div>
 
         <a href="index.html#details" class="story-back">&larr; Zurück zur Startseite</a>
     </main>
 
-    <script src="js/main.js?v=20261080"></script>
+    <script src="js/main.js?v=20261083"></script>
 </body>
 </html>
