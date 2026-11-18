@@ -1266,6 +1266,14 @@ body > .parallax-bg {
     line-height: 1.7;
 }
 
+.dresscode-palette {
+    display: block;
+    width: 100%;
+    max-width: 620px;
+    height: auto;
+    margin: 1.2rem auto 0;
+}
+
 .detail-script {
     font-family: 'Great Vibes', cursive;
     font-size: 1.9rem;
