@@ -1376,6 +1376,14 @@ function initStoryReveal() {
         stage.appendChild(scene);
         scenes.push(scene);
 
+        const applyRatio = () => {
+            const ratio = img.naturalWidth && img.naturalHeight ? img.naturalWidth / img.naturalHeight : 0.75;
+            scene.style.setProperty('--ratio', ratio.toFixed(4));
+            sizeStoryScenes();
+        };
+        img.addEventListener('load', applyRatio);
+        applyRatio();
+
         [['year', year], ['text', text]].forEach(([kind, node]) => {
             const beat = document.createElement('div');
             beat.className = 'story-beat story-beat--' + kind;
@@ -1408,6 +1416,22 @@ function initStoryReveal() {
         const y = timeline.offsetTop + (Math.min(index, beats.length) / beats.length) * total;
         window.scrollTo({ top: y, behavior: 'smooth' });
     }
+
+    // Bilder werden an ihr Seitenverhältnis angepasst, damit möglichst wenig abgeschnitten wird
+    function sizeStoryScenes() {
+        const maxH = window.innerHeight * 0.62;
+        const maxW = window.innerWidth * 0.78;
+        scenes.forEach(scene => {
+            const ratio = parseFloat(scene.style.getPropertyValue('--ratio')) || 0.75;
+            let w = maxH * ratio;
+            let h = maxH;
+            if (w > maxW) { w = maxW; h = w / ratio; }
+            scene.style.width = Math.round(w) + 'px';
+            scene.style.height = Math.round(h) + 'px';
+        });
+    }
+    sizeStoryScenes();
+    window.addEventListener('resize', sizeStoryScenes);
 
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
