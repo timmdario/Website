@@ -2081,6 +2081,39 @@ body > .parallax-bg {
     margin-bottom: 2rem;
 }
 
+.farminn-link {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    width: min(520px, 100%);
+    padding: 1.6rem 1.8rem;
+    text-decoration: none;
+    background: rgba(255, 253, 249, 0.92);
+    border: 1px solid var(--color-taupe);
+    border-radius: 14px;
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition-smooth);
+}
+
+.farminn-link:hover {
+    background: var(--color-weiss);
+    border-color: var(--color-haselnuss);
+    transform: translateY(-2px);
+}
+
+.farminn-link-title {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    color: var(--color-braun);
+}
+
+.farminn-link-url {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--color-haselnuss);
+}
+
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
