@@ -5,16 +5,18 @@
 // Tab mit den RSVP-Antworten (Spalten siehe unten). Falls nicht vorhanden, wird der erste Tab genutzt.
 var RSVP_SHEET_NAME = 'Antworten';
 // Tab mit den Gästen für den Briefumschlag. Spalten: Code | Vorname | Nachname | Nachricht | Anrede
-// Anrede: 0 = Mann, 1 = Frau, 2 = Mehrere
-// Die Code-Spalte im Tab auf "Nur Text" formatieren, damit führende Nullen erhalten bleiben.
+// Anrede: 0 = Mann, 1 = Frau, 2 = Mehrere. Die Code-Spalte auf "Nur Text" formatieren.
 var GUEST_SHEET_NAME = 'Gäste';
+// Tab mit den Trauzeugen. Spalten: Brautpaar | Name | Telefon
+// Die Kontakte werden nur an Gäste mit gültigem Code ausgegeben.
+var TRAU_SHEET_NAME = 'Trauzeugen';
 
 function doPost(e) {
   try {
     var data = JSON.parse(e.postData.contents);
     var ss = SpreadsheetApp.getActiveSpreadsheet();
     var sheet = ss.getSheetByName(RSVP_SHEET_NAME) || ss.getSheets()[0];
-    
+
     // Spalten: Zeitstempel, Name, E-Mail, Anzahl Gäste, Namen der weiteren Gäste,
     //           Auf dem Gelände, Übernachtung Freitag, Übernachtung Samstag,
     //           Übernachtungs-Wünsche, Frühstück Sonntag, Ernährungswünsche, Nachricht
@@ -32,9 +34,9 @@ function doPost(e) {
       data.dietary || '',
       data.message || ''
     ]);
-    
+
     return jsonOutput({ success: true });
-    
+
   } catch (error) {
     return jsonOutput({ success: false, error: error.toString() });
   }
@@ -42,35 +44,63 @@ function doPost(e) {
 
 function doGet(e) {
   var params = (e && e.parameter) || {};
+  var code = String(params.code || '').trim();
   if (params.action === 'lookup') {
-    return lookupGuest(String(params.code || '').trim());
+    return lookupGuest(code);
+  }
+  if (params.action === 'contacts') {
+    return contactsFor(code);
   }
   return jsonOutput({ status: 'ok' });
 }
 
-function lookupGuest(code) {
-  if (!/^\d{6}$/.test(code)) {
-    return jsonOutput({ found: false });
-  }
+// Sucht die Gästezeile zu einem 6-stelligen Code
+function findGuestRow(code) {
+  if (!/^\d{6}$/.test(code)) return null;
   var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(GUEST_SHEET_NAME);
-  if (!sheet) {
-    return jsonOutput({ found: false, error: 'Gäste-Tab nicht gefunden' });
-  }
+  if (!sheet) return null;
   var rows = sheet.getDataRange().getValues();
   for (var i = 1; i < rows.length; i++) {
     var rowCode = String(rows[i][0]).trim();
-    if (!rowCode) continue;
-    if (rowCode.padStart(6, '0') === code) {
-      return jsonOutput({
-        found: true,
-        firstName: String(rows[i][1] || '').trim(),
-        lastName: String(rows[i][2] || '').trim(),
-        message: String(rows[i][3] || ''),
-        anrede: rows[i][4] === '' ? '' : String(rows[i][4])
-      });
+    if (rowCode && rowCode.padStart(6, '0') === code) {
+      return rows[i];
     }
   }
-  return jsonOutput({ found: false });
+  return null;
+}
+
+function lookupGuest(code) {
+  var row = findGuestRow(code);
+  if (!row) {
+    return jsonOutput({ found: false });
+  }
+  return jsonOutput({
+    found: true,
+    firstName: String(row[1] || '').trim(),
+    lastName: String(row[2] || '').trim(),
+    message: String(row[3] || ''),
+    anrede: row[4] === '' ? '' : String(row[4])
+  });
+}
+
+function contactsFor(code) {
+  if (!findGuestRow(code)) {
+    return jsonOutput({ found: false, contacts: [] });
+  }
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(TRAU_SHEET_NAME);
+  var contacts = [];
+  if (sheet) {
+    var rows = sheet.getDataRange().getValues();
+    for (var i = 1; i < rows.length; i++) {
+      var brautpaar = String(rows[i][0] || '').trim();
+      var name = String(rows[i][1] || '').trim();
+      var phone = String(rows[i][2] || '').trim();
+      if (name && phone) {
+        contacts.push({ brautpaar: brautpaar, name: name, phone: phone });
+      }
+    }
+  }
+  return jsonOutput({ found: true, contacts: contacts });
 }
 
 function jsonOutput(obj) {

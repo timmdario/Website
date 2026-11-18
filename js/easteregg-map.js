@@ -32,7 +32,7 @@ window.FARMINN_DEFAULT_MAP = {
         { "n": 17, "id": "marker-17-21", "name": "TanzLounge (EG)", "x": 0.80917, "y": 0.61, "d": "Die TanzLounge mit riesiger Bühne – hier wackeln alle Pfoten!" },
         { "n": 18, "id": "marker-18-22", "name": "ClubLounge (1. OG)", "x": 0.84417, "y": 0.60667, "d": "Die ClubLounge oben drüber: Billard, Tischtennis und Chillen." },
         { "n": 19, "id": "marker-19-23", "name": "RaucherLounge (EG)", "x": 0.84, "y": 0.54333, "d": "Die wettergeschützte RaucherLounge mit Bar und Holzofen." },
-        { "n": 20, "id": "marker-20-24", "name": "Wellnessbereich (EG)", "x": 0.65833, "y": 0.67, "d": "Der Wellnessbereich mit Sauna zum Entspannen nach dem Fest. Herrlich – und die Alpakas stehen sogar kostenlos für Hochzeitsfotos bereit!" }
+        { "n": 20, "id": "marker-20-24", "name": "Wellnessbereich (EG)", "x": 0.65833, "y": 0.67, "d": "Der Wellnessbereich mit Sauna zum Entspannen nach dem Fest. Herrlich!" }
     ],
     "buildings": [
         { "x": 83, "y": 121, "w": 90, "h": 26, "rot": 32, "tone": "brown", "timber": true, "label": "WeddingArea / Bullenstall" },

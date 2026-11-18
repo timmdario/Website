@@ -1243,6 +1243,53 @@ body > .parallax-bg {
     color: var(--color-braun);
 }
 
+.detail-script {
+    font-family: 'Great Vibes', cursive;
+    font-size: 1.9rem;
+    line-height: 1.2;
+    color: var(--color-sage);
+    margin-bottom: 0.4rem;
+}
+
+.venue-toggle {
+    cursor: pointer;
+}
+
+.venue-extra {
+    margin-top: 0.8rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid rgba(188, 168, 151, 0.4);
+    font-size: 0.92rem;
+}
+
+.venue-extra p {
+    margin-bottom: 0.5rem;
+}
+
+.trauzeugen {
+    margin-top: 0.8rem;
+}
+
+.trauzeugen-hint {
+    font-style: italic;
+    color: var(--color-Text-hell);
+}
+
+.trauzeugen-group {
+    margin-bottom: 0.8rem;
+}
+
+.trauzeugen-group ul {
+    list-style: none;
+    margin: 0.2rem 0 0;
+    padding: 0;
+}
+
+.trauzeugen-group a {
+    color: var(--color-braun);
+    text-decoration: underline;
+}
+
 .detail-day {
     font-family: var(--font-heading);
     font-size: 1.05rem;

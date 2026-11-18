@@ -1132,6 +1132,47 @@ function lookupGuest(code) {
 
 let currentGuest = null;
 
+function escHtml(s) {
+    return String(s).replace(/[&<>"']/g, c => '&#' + c.charCodeAt(0) + ';');
+}
+
+// Trauzeugen-Nummern kommen nur mit gültigem Gäste-Code aus dem Sheet
+function loadTrauzeugen() {
+    const list = document.getElementById('trauzeugen-list');
+    const code = getCookie(GUEST_COOKIE);
+    if (!list || !code || !GOOGLE_SHEETS_URL) return;
+    fetch(GOOGLE_SHEETS_URL + '?action=contacts&code=' + encodeURIComponent(code), { cache: 'no-store' })
+        .then(r => (r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status))))
+        .then(data => {
+            const contacts = data.contacts || [];
+            if (!contacts.length) return;
+            const groups = {};
+            contacts.forEach(c => { (groups[c.brautpaar] = groups[c.brautpaar] || []).push(c); });
+            list.innerHTML = Object.keys(groups).map(bp =>
+                '<div class="trauzeugen-group"><strong>' + escHtml(bp) + '</strong><ul>' +
+                groups[bp].map(c => '<li>' + escHtml(c.name) + ' · <a href="tel:' + escHtml(c.phone.replace(/\s/g, '')) + '">' + escHtml(c.phone) + '</a></li>').join('') +
+                '</ul></div>'
+            ).join('');
+        })
+        .catch(err => console.warn('Trauzeugen:', err));
+}
+
+function initVenueToggle() {
+    document.querySelectorAll('.venue-toggle').forEach(card => {
+        const extra = card.querySelector('.venue-extra');
+        if (!extra) return;
+        const toggle = () => {
+            const open = extra.hidden;
+            extra.hidden = !open;
+            card.setAttribute('aria-expanded', String(open));
+        };
+        card.addEventListener('click', toggle);
+        card.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+        });
+    });
+}
+
 // Anrede aus Sheet-Spalte "Anrede": 0 = Mann, 1 = Frau, 2 = Mehrere
 function anredeType(guest) {
     const raw = guest && guest.anrede;
@@ -1185,6 +1226,7 @@ function showGuestMessage(guest) {
 function prefillRsvpName(guest) {
     currentGuest = guest;
     renderGuestIntro(guest);
+    loadTrauzeugen();
     const greeting = document.getElementById('nav-greeting');
     if (greeting) greeting.textContent = 'Hallo ' + guest.firstName;
     const nameInput = document.getElementById('name');
@@ -1355,6 +1397,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initParallax();
     initKarussel();
     initStoryReveal();
+    initVenueToggle();
 
     const isSubpage = !document.getElementById('envelope-overlay');
 
