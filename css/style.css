@@ -813,6 +813,24 @@ body > .parallax-bg {
     color: var(--color-braun);
 }
 
+.nav-logout {
+    align-self: center;
+    margin-right: 0.4rem;
+    padding: 0.3rem 0.75rem;
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    color: var(--color-braun);
+    background: rgba(255, 253, 249, 0.7);
+    border: 1px solid var(--color-taupe);
+    border-radius: 999px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.nav-logout:hover {
+    background: #FFFDF9;
+}
+
 /* Hamburger Button */
 .nav-hamburger {
     display: none;
@@ -902,9 +920,19 @@ body > .parallax-bg {
     border-radius: 50%;
     border: 3px solid #FFFDF9;
     box-shadow: 0 8px 22px rgba(107, 67, 45, 0.25);
-    background: url('../assets/web/Rubbel_Hani.jpg') -165px -129px / 600px auto no-repeat;
+    background: url('../assets/HaniBrief.jpg') center 40% / cover no-repeat;
     cursor: pointer;
     animation: guestDogBob 1.6s ease-in-out 1.2s infinite;
+    transition: width 0.4s ease, height 0.4s ease;
+}
+
+.guest-dog-wrap.is-read .guest-dog {
+    width: 64px;
+    height: 64px;
+}
+
+.guest-dog-wrap.is-read .guest-bubble {
+    display: none;
 }
 
 .guest-bubble {
@@ -2705,8 +2733,11 @@ body > .parallax-bg {
     .guest-dog {
         width: 84px;
         height: 84px;
-        background-size: 460px auto;
-        background-position: -127px -99px;
+    }
+
+    .guest-dog-wrap.is-read .guest-dog {
+        width: 52px;
+        height: 52px;
     }
 
     .guest-bubble {

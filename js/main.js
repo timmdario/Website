@@ -1215,7 +1215,10 @@ function showGuestMessage(guest) {
     panel.querySelector('p').textContent = guest.message;
     document.body.appendChild(panel);
 
-    const open = () => { panel.hidden = false; };
+    const open = () => {
+        panel.hidden = false;
+        wrap.classList.add('is-read');
+    };
     const close = () => { panel.hidden = true; };
     wrap.querySelector('.guest-dog').addEventListener('click', open);
     wrap.querySelector('.guest-bubble').addEventListener('click', open);
@@ -1307,6 +1310,15 @@ function requireGuestOnSubpage() {
     lookupGuest(code)
         .then(guest => { if (!guest.found) toStart(); })
         .catch(toStart);
+}
+
+function initLogout() {
+    document.querySelectorAll('.nav-logout').forEach(btn => {
+        btn.addEventListener('click', () => {
+            setCookie(GUEST_COOKIE, '', -1);
+            window.location.href = location.pathname.includes('/easteregg/') ? '../index.html' : 'index.html';
+        });
+    });
 }
 
 // ========================================
@@ -1534,6 +1546,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initKarussel();
     initStoryReveal();
     initVenueToggle();
+    initLogout();
 
     const isSubpage = !document.getElementById('envelope-overlay');
 
