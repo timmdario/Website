@@ -81,41 +81,13 @@ body > .parallax-bg {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: var(--color-offwhite);
+    background: var(--color-offwhite) url('../assets/HintergrundBrief.jpg') center / cover no-repeat;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 1000;
     cursor: pointer;
     overflow: hidden;
-}
-
-/* Botanical background image */
-#envelope-overlay::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url('../assets/botanical-bg.svg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    pointer-events: none;
-}
-
-/* Soft light overlay */
-#envelope-overlay::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background:
-        radial-gradient(ellipse at 50% 50%, rgba(255, 253, 249, 0.2) 0%, transparent 60%);
-    pointer-events: none;
 }
 
 /* Scene Container */
@@ -1169,25 +1141,6 @@ body > .parallax-bg {
     font-weight: 300;
     opacity: 0.6;
     margin-top: -1rem;
-}
-
-/* Hero Flowers */
-.hero-flower {
-    position: absolute;
-    width: 80px;
-    height: 120px;
-    opacity: 0.2;
-    animation: floatSlow 8s ease-in-out infinite;
-    pointer-events: none;
-}
-
-.hero-flower-1 { top: 15%; left: 8%; animation-delay: 0s; transform: rotate(-8deg); }
-.hero-flower-2 { top: 25%; right: 8%; animation-delay: 2.5s; transform: rotate(5deg); }
-.hero-flower-3 { bottom: 18%; left: 12%; animation-delay: 5s; transform: rotate(-3deg); }
-
-@keyframes floatSlow {
-    0%, 100% { transform: translateY(0) rotate(var(--base-rotation, 0deg)); }
-    50% { transform: translateY(-15px) rotate(calc(var(--base-rotation, 0deg) + 5deg)); }
 }
 
 /* ========================================
@@ -2668,22 +2621,6 @@ body > .parallax-bg {
     .scratch-subtitle {
         font-size: 0.9rem;
     }
-}
-
-/* ========================================
-   DECORATIVE BACKGROUND PATTERN
-   ======================================== */
-
-.details-section::before,
-.rsvp-section::before {
-    content: '✿ ❁ ✾';
-    position: absolute;
-    top: 2rem;
-    right: 2rem;
-    font-size: 1rem;
-    color: var(--color-sage);
-    opacity: 0.2;
-    letter-spacing: 0.5rem;
 }
 
 .details-section,

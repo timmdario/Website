@@ -371,13 +371,6 @@ function initHeroAnimation() {
         { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' },
         '-=0.1'
     );
-
-    // Hero Flowers
-    heroTl.fromTo('.hero-flower',
-        { opacity: 0, scale: 0.5 },
-        { opacity: 0.2, scale: 1, duration: 1, stagger: 0.3, ease: 'power2.out' },
-        '-=0.4'
-    );
 }
 
 // ========================================
