@@ -1304,8 +1304,8 @@ function requireGuestOnSubpage() {
     const code = getCookie(GUEST_COOKIE);
     if (!code) return toStart();
     lookupGuest(code)
-        .then(guest => { if (!guest.found) toStart(); })
-        .catch(toStart);
+        .then(guest => { if (guest && guest.found === false) toStart(); })
+        .catch(err => console.warn('Gäste-Prüfung:', err));
 }
 
 function initLogout() {
