@@ -769,6 +769,13 @@ body > .parallax-bg {
     display: none;
 }
 
+#willkommen,
+#details,
+#faq,
+#rsvp {
+    scroll-margin-top: 90px;
+}
+
 .nav-dropdown-menu::before {
     content: '';
     position: absolute;

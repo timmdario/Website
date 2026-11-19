@@ -264,11 +264,19 @@ function openEnvelope() {
     }, '-=0.4');
 }
 
+function scrollToHashTarget() {
+    const id = decodeURIComponent(location.hash.slice(1));
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (target) window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 80, behavior: 'instant' });
+}
+
 function showWebsite() {
     envelopeOverlay.style.display = 'none';
     websiteContent.classList.remove('hidden');
     setCookie('envelope_opened', '1', 365);
     showGuestMessage(currentGuest);
+    scrollToHashTarget();
 
     // Website Content einblenden
     gsap.fromTo(websiteContent,
