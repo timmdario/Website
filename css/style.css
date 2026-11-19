@@ -957,6 +957,10 @@ body > .parallax-bg {
     position: relative;
     max-width: 480px;
     width: 100%;
+    max-height: calc(100vh - 3rem);
+    max-height: calc(100dvh - 3rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
     padding: 2.4rem 2rem 1.8rem;
     text-align: left;
     background:
