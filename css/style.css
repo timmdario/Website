@@ -871,7 +871,8 @@ body > .parallax-bg {
     margin: 0 1rem;
     font-family: 'Great Vibes', cursive;
     font-size: 2rem;
-    line-height: 1.2;
+    line-height: 1.5;
+    padding: 0.15em 0;
     color: var(--color-braun);
     text-align: center;
     white-space: nowrap;
