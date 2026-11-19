@@ -58,7 +58,7 @@ body > .parallax-bg {
     bottom: 0;
     z-index: 0;
     pointer-events: none;
-    background-image: url('../assets/background-with-white-space-greenery-leaves/botanical_background_2400x1400.png');
+    background-image: url('../assets/background-with-white-space-greenery-leaves/botanical_background_2400x1400.jpg');
     background-size: 100% auto;
     background-position: center top;
     background-repeat: repeat-y;
@@ -599,9 +599,9 @@ body > .parallax-bg {
 
 .guest-loading {
     display: block;
-    width: 180px;
+    width: 250px;
     height: auto;
-    max-width: 60%;
+    max-width: 90%;
 }
 
 .guest-loading[hidden] {
