@@ -1250,6 +1250,7 @@ function initGuestCode() {
     const form = document.getElementById('guest-code-form');
     const input = document.getElementById('guest-code');
     const errorEl = document.getElementById('guest-code-error');
+    const loadingEl = document.getElementById('guest-loading');
     if (!form) return;
 
     ['click', 'mousedown', 'touchstart'].forEach(evt => {
@@ -1271,6 +1272,7 @@ function initGuestCode() {
         }
         errorEl.textContent = '';
         busy = true;
+        if (loadingEl) loadingEl.hidden = false;
         try {
             const guest = await lookupGuest(code);
             if (!guest.found) {
@@ -1286,6 +1288,7 @@ function initGuestCode() {
             errorEl.textContent = 'Gerade klappt die Prüfung nicht. Versuch es später nochmal.';
         } finally {
             busy = false;
+            if (loadingEl) loadingEl.hidden = true;
         }
     }
 

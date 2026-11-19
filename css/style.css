@@ -625,6 +625,17 @@ body > .parallax-bg {
     color: #a33;
 }
 
+.guest-loading {
+    display: block;
+    width: 180px;
+    height: auto;
+    max-width: 60%;
+}
+
+.guest-loading[hidden] {
+    display: none;
+}
+
 .guest-skip {
     background: none;
     border: none;
