@@ -58,7 +58,7 @@ body > .parallax-bg {
     bottom: 0;
     z-index: 0;
     pointer-events: none;
-    background-image: url('../assets/web/bg-parallax.jpg');
+    background-image: url('../assets/background-with-white-space-greenery-leaves/botanical_background_2400x1400.png');
     background-size: 100% auto;
     background-position: center top;
     background-repeat: repeat-y;
@@ -797,21 +797,24 @@ body > .parallax-bg {
 }
 
 .nav-logout {
-    align-self: center;
-    margin-right: 0.4rem;
-    padding: 0.3rem 0.75rem;
-    font-family: var(--font-body);
-    font-size: 0.78rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.2rem;
+    background: none;
+    border: none;
     color: var(--color-braun);
-    background: rgba(255, 253, 249, 0.7);
-    border: 1px solid var(--color-taupe);
-    border-radius: 999px;
+    opacity: 0.7;
     cursor: pointer;
-    white-space: nowrap;
 }
 
 .nav-logout:hover {
-    background: #FFFDF9;
+    opacity: 1;
+}
+
+.nav-logout svg {
+    width: 16px;
+    height: 16px;
 }
 
 /* Hamburger Button */
