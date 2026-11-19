@@ -1082,13 +1082,13 @@ function initHamburgerMenu() {
         navLinks.classList.toggle('open');
     });
 
-    // Dropdown-Toggle auf Mobile
-    document.querySelectorAll('.nav-dropdown > a').forEach(link => {
-        link.addEventListener('click', (e) => {
+    // Dropdown-Toggle auf Mobile (Pfeil neben "Details", der Link selbst navigiert)
+    document.querySelectorAll('.nav-dropdown-toggle').forEach(btn => {
+        btn.addEventListener('click', (e) => {
             if (window.innerWidth > 768) return;
             e.preventDefault();
             e.stopPropagation();
-            link.parentElement.classList.toggle('open');
+            btn.parentElement.classList.toggle('open');
         });
     });
 
@@ -1562,7 +1562,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const storedCode = getCookie(GUEST_COOKIE);
     if (storedCode) {
+        const loadingEl = document.getElementById('guest-loading');
         envelopeOverlay.classList.add('is-checking');
+        if (loadingEl) loadingEl.hidden = false;
         lookupGuest(storedCode)
             .then(guest => {
                 if (guest.found) {
@@ -1576,6 +1578,9 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(err => {
                 console.warn('Gäste-Code:', err);
                 envelopeOverlay.classList.remove('is-checking');
+            })
+            .finally(() => {
+                if (loadingEl) loadingEl.hidden = true;
             });
     }
 

@@ -667,6 +667,10 @@ body > .parallax-bg {
     visibility: hidden;
 }
 
+#envelope-overlay.is-checking .guest-loading:not([hidden]) {
+    visibility: visible;
+}
+
 /* ========================================
    NAVIGATION
    ======================================== */
@@ -759,6 +763,10 @@ body > .parallax-bg {
     visibility: hidden;
     opacity: 0;
     transition: opacity 0.2s ease, visibility 0s 0.4s;
+}
+
+.nav-dropdown-toggle {
+    display: none;
 }
 
 .nav-dropdown-menu::before {
@@ -2464,6 +2472,22 @@ body > .parallax-bg {
 
     .nav-dropdown-menu::before {
         display: none;
+    }
+
+    .nav-dropdown-toggle {
+        display: inline-block;
+        margin-left: 0.3rem;
+        padding: 0.3rem 0.5rem;
+        font-size: 1rem;
+        color: var(--color-braun);
+        background: none;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+    }
+
+    .nav-dropdown.open .nav-dropdown-toggle {
+        transform: rotate(180deg);
     }
 
     .nav-dropdown.open .nav-dropdown-menu {
