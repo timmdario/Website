@@ -563,40 +563,6 @@ function initForm() {
         submitBtn.disabled = true;
 
         try {
-            // E-Mail an Brautpaar senden
-            await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-                name: data.name,
-                email: data.email,
-                attending: data.attending,
-                guests: data.guests,
-                guest_names: data.guest_names || 'Keine',
-                overnight: data.overnight,
-                overnight_friday: data.overnight_friday,
-                overnight_saturday: data.overnight_saturday,
-                overnight_prefs: data.overnight_prefs || 'Keine',
-                breakfast: data.breakfast,
-                dietary: data.dietary || 'Keine',
-                message: data.message || 'Keine Nachricht'
-            });
-
-            // Bestätigungs-E-Mail an Gast senden
-            if (data.email) {
-                emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_CONFIRM_TEMPLATE_ID, {
-                    name: data.name,
-                    email: data.email,
-                    attending: data.attending,
-                    guests: data.guests,
-                    guest_names: data.guest_names || 'Keine',
-                    overnight: data.overnight,
-                    overnight_friday: data.overnight_friday,
-                    overnight_saturday: data.overnight_saturday,
-                    overnight_prefs: data.overnight_prefs || 'Keine',
-                    breakfast: data.breakfast,
-                    dietary: data.dietary || 'Keine',
-                    message: data.message || 'Keine Nachricht'
-                }).catch(err => console.warn('Bestätigungs-E-Mail:', err));
-            }
-
             // An Google Sheets senden (wenn URL konfiguriert)
             if (GOOGLE_SHEETS_URL) {
                 fetch(GOOGLE_SHEETS_URL, {
@@ -618,6 +584,40 @@ function initForm() {
                         message: data.message || 'Keine Nachricht'
                     })
                 }).catch(err => console.warn('Google Sheets:', err));
+            }
+
+            // E-Mail an Brautpaar senden
+            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+                name: data.name,
+                email: data.email,
+                attending: data.attending,
+                guests: data.guests,
+                guest_names: data.guest_names || 'Keine',
+                overnight: data.overnight,
+                overnight_friday: data.overnight_friday,
+                overnight_saturday: data.overnight_saturday,
+                overnight_prefs: data.overnight_prefs || 'Keine',
+                breakfast: data.breakfast,
+                dietary: data.dietary || 'Keine',
+                message: data.message || 'Keine Nachricht'
+            }).catch(err => console.warn('Brautpaar-E-Mail:', err));
+
+            // Bestätigungs-E-Mail an Gast senden
+            if (data.email) {
+                emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_CONFIRM_TEMPLATE_ID, {
+                    name: data.name,
+                    email: data.email,
+                    attending: data.attending,
+                    guests: data.guests,
+                    guest_names: data.guest_names || 'Keine',
+                    overnight: data.overnight,
+                    overnight_friday: data.overnight_friday,
+                    overnight_saturday: data.overnight_saturday,
+                    overnight_prefs: data.overnight_prefs || 'Keine',
+                    breakfast: data.breakfast,
+                    dietary: data.dietary || 'Keine',
+                    message: data.message || 'Keine Nachricht'
+                }).catch(err => console.warn('Bestätigungs-E-Mail:', err));
             }
 
             // Button Text ändern
