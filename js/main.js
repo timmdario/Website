@@ -1592,6 +1592,7 @@ function initStoryReveal() {
     const ease = t => t * t * (3 - 2 * t);
     const fadeIn = (x, a, b) => ease(clamp01((x - a) / (b - a)));
     const fadeOut = (x, a, b) => 1 - ease(clamp01((x - a) / (b - a)));
+    const mobileStory = window.matchMedia('(max-width: 600px)').matches;
 
     const loadStoryImage = (entry) => {
         if (entry.loaded) return;
@@ -1639,9 +1640,13 @@ function initStoryReveal() {
 
         texts.forEach(step => {
             const d = pos - step.index;
-            const o = fadeIn(pos, step.index - 0.05, step.index + 0.22) *
-                (isFinite(step.nextText) ? fadeOut(pos, step.nextText - 0.3, step.nextText - 0.05) : 1);
-            const rise = ease(clamp01((d + 0.05) / 0.35));
+            const inEnd = mobileStory ? step.index + 0.02 : step.index + 0.22;
+            const outStart = step.nextText - (mobileStory ? 0.08 : 0.3);
+            const outEnd = step.nextText + (mobileStory ? 0.02 : -0.05);
+            const o = fadeIn(pos, step.index - 0.05, inEnd) *
+                (isFinite(step.nextText) ? fadeOut(pos, outStart, outEnd) : 1);
+            const riseDuration = mobileStory ? 0.12 : 0.35;
+            const rise = ease(clamp01((d + 0.05) / riseDuration));
             step.beat.style.setProperty('--o', Math.max(0, o).toFixed(3));
             step.beat.style.setProperty('--ty', ((1 - rise) * 24).toFixed(1) + 'px');
         });

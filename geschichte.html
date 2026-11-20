@@ -321,6 +321,13 @@
         @media (max-width: 600px) {
             .story-pin { --story-top: 4.5rem; }
             .story-progress { display: none; }
+            /* Die Fotos haben bereits gemalte Ränder; auf Android erzeugte die
+               SVG-Maske zusammen mit dem Fog-Filter eine fast weiße Bildebene. */
+            .story-fog { display: none; }
+            .story-scene-inner {
+                -webkit-mask-image: none;
+                mask-image: none;
+            }
             .story-beats {
                 top: 56svh;
                 bottom: 4.5rem;
@@ -516,6 +523,6 @@
         <a href="index.html#details" class="story-back">&larr; Zurück zur Startseite</a>
     </main>
 
-    <script src="js/main.js?v=20261136"></script>
+    <script src="js/main.js?v=20261138"></script>
 </body>
 </html>
