@@ -1465,19 +1465,6 @@ function initStoryReveal() {
     const nextBtn = document.querySelector('.story-next');
     if (!source.length || !timeline || !pin || !stage || !beatsWrap) return;
 
-    // Die scrollgetriebene Überblendung ist auf kleinen Displays anfällig für
-    // Viewport-Sprünge. Dort stattdessen Kapitel und Text dauerhaft im Lesefluss zeigen.
-    if (window.matchMedia('(max-width: 600px)').matches) {
-        document.body.classList.add('story-mobile-static');
-        source.forEach(section => {
-            section.querySelectorAll('.story-images img').forEach(img => {
-                if (img.dataset.src) img.src = img.dataset.src;
-                img.loading = 'lazy';
-            });
-        });
-        return;
-    }
-
     // Jeder Schritt zeigt ein Bild; gibt es mehr Bilder als Textabschnitte, laufen Bilder ohne neuen Text durch
     const steps = [];
     const chapters = [];
