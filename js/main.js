@@ -1323,6 +1323,7 @@ function initSongWish() {
     const errorEl = document.getElementById('song-error');
     const success = document.getElementById('song-success');
     const submitBtn = form.querySelector('.submit-btn');
+    const loadingEl = document.getElementById('song-loading');
     const code = getCookie(GUEST_COOKIE);
 
     if (code) {
@@ -1346,6 +1347,7 @@ function initSongWish() {
             return;
         }
         submitBtn.disabled = true;
+        loadingEl.hidden = false;
         fetch(GOOGLE_SHEETS_URL, {
             method: 'POST',
             mode: 'no-cors',
@@ -1359,11 +1361,13 @@ function initSongWish() {
             })
         })
             .then(() => {
-                form.classList.add('hidden');
+                loadingEl.hidden = true;
+                form.style.display = 'none';
                 success.classList.remove('hidden');
             })
             .catch(err => {
                 console.warn('Musikwunsch:', err);
+                loadingEl.hidden = true;
                 errorEl.textContent = 'Gerade klappt das Senden nicht. Versuch es später nochmal.';
                 submitBtn.disabled = false;
             });
@@ -1376,7 +1380,7 @@ function initSongWish() {
             submitBtn.disabled = false;
             errorEl.textContent = '';
             success.classList.add('hidden');
-            form.classList.remove('hidden');
+            form.style.display = '';
             document.getElementById('song-title').focus();
         });
     }
