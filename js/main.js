@@ -1095,12 +1095,33 @@ function initHamburgerMenu() {
 // ========================================
 const GUEST_COOKIE = 'guest_code';
 
+const GUEST_CACHE_MS = 30 * 60 * 1000;
+const guestLookups = {};
+
+// Gefundene Gäste werden kurz zwischengespeichert, damit jede Seite nicht erneut beim Sheet anfragt
 function lookupGuest(code) {
+    if (guestLookups[code]) return guestLookups[code];
+    const key = 'guest:' + code;
+    try {
+        const cached = JSON.parse(sessionStorage.getItem(key) || 'null');
+        if (cached && Date.now() - cached.ts < GUEST_CACHE_MS) {
+            guestLookups[code] = Promise.resolve(cached.data);
+            return guestLookups[code];
+        }
+    } catch (e) { /* kein Cache verfügbar */ }
     const url = GOOGLE_SHEETS_URL + '?action=lookup&code=' + encodeURIComponent(code);
-    return fetch(url).then(r => {
+    const request = fetch(url).then(r => {
         if (!r.ok) throw new Error('HTTP ' + r.status);
         return r.json();
+    }).then(data => {
+        if (data.found) {
+            try { sessionStorage.setItem(key, JSON.stringify({ ts: Date.now(), data })); } catch (e) { /* ignorieren */ }
+        }
+        return data;
     });
+    guestLookups[code] = request;
+    request.catch(() => { delete guestLookups[code]; });
+    return request;
 }
 
 let currentGuest = null;
@@ -1378,6 +1399,7 @@ function initLogout() {
     document.querySelectorAll('.nav-logout').forEach(btn => {
         btn.addEventListener('click', () => {
             setCookie(GUEST_COOKIE, '', -1);
+            Object.keys(sessionStorage).filter(k => k.startsWith('guest:')).forEach(k => sessionStorage.removeItem(k));
             window.location.href = location.pathname.includes('/easteregg/') ? '../index.html' : 'index.html';
         });
     });
