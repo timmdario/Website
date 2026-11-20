@@ -296,6 +296,53 @@
 
         .story-source { display: none; }
 
+        /* Auf Mobilgeräten bleibt jedes Kapitel statisch und vollständig lesbar. */
+        .story-mobile-static .story-timeline { display: none; }
+        .story-mobile-static .story-source {
+            display: block;
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        .story-mobile-static .story-chapter {
+            display: block;
+            margin: 0 auto 3rem;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(188, 168, 151, 0.45);
+        }
+        .story-mobile-static .story-heading {
+            margin: 0 0 1rem;
+            text-align: center;
+            line-height: 1.35;
+        }
+        .story-mobile-static .story-images {
+            display: flex;
+            gap: 0.75rem;
+            overflow-x: auto;
+            padding: 0 0 0.75rem;
+            margin: 0 -0.25rem 1rem;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+        .story-mobile-static .story-images img {
+            flex: 0 0 78vw;
+            width: 78vw;
+            max-width: 340px;
+            height: 40svh;
+            object-fit: contain;
+            background: #fdfbf7;
+            border-radius: 12px;
+            scroll-snap-align: center;
+        }
+        .story-mobile-static .story-texts {
+            text-align: center;
+        }
+        .story-mobile-static .story-text {
+            margin: 0 0 1rem;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
         .story-closing {
             padding: 3rem 1.5rem 0;
             text-align: center;
@@ -516,6 +563,6 @@
         <a href="index.html#details" class="story-back">&larr; Zurück zur Startseite</a>
     </main>
 
-    <script src="js/main.js?v=20261136"></script>
+    <script src="js/main.js?v=20261137"></script>
 </body>
 </html>
