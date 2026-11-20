@@ -680,7 +680,7 @@ body > .parallax-bg {
     top: 0;
     left: 0;
     width: 100%;
-    padding: 1rem 2rem;
+    padding: 0.6rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -885,9 +885,8 @@ body > .parallax-bg {
     min-width: 0;
     margin: 0 1rem;
     font-family: 'Great Vibes', cursive;
-    font-size: 2rem;
+    font-size: 1.5rem;
     line-height: 1.5;
-    padding: 0.15em 0;
     color: var(--color-braun);
     text-align: center;
     white-space: nowrap;
@@ -898,7 +897,7 @@ body > .parallax-bg {
 
 @media (max-width: 768px) {
     .nav-greeting {
-        font-size: 1.5rem;
+        font-size: 1.25rem;
         margin: 0 0.5rem;
     }
 }
@@ -2427,7 +2426,7 @@ body > .parallax-bg {
     }
 
     .navbar {
-        padding: 0.8rem 1.2rem;
+        padding: 0.5rem 1.2rem;
     }
 
     .nav-hamburger {
