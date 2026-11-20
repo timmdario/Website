@@ -1650,7 +1650,9 @@ function initStoryReveal() {
     if (nextBtn) {
         nextBtn.addEventListener('click', () => {
             const current = Math.floor(clamp01(-timeline.getBoundingClientRect().top / Math.max(1, timeline.offsetHeight - window.innerHeight)) * steps.length);
-            scrollToStoryStep(current + 1);
+            // Nicht direkt am Start des nächsten Schritts landen: der Text blendet
+            // erst über die ersten 0,22 Schritte ein.
+            scrollToStoryStep(Math.min(current + 1.35, steps.length - 0.01));
         });
     }
 

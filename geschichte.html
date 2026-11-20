@@ -321,7 +321,22 @@
         @media (max-width: 600px) {
             .story-pin { --story-top: 4.5rem; }
             .story-progress { display: none; }
-            .story-beat { padding: 0 1rem; }
+            .story-beats {
+                top: 48svh;
+                bottom: 4.5rem;
+                display: flex;
+                align-items: center;
+            }
+            .story-beat {
+                align-items: center;
+                padding: 0 1rem;
+            }
+            .story-beat-inner {
+                max-height: 100%;
+                overflow-y: auto;
+                overscroll-behavior: contain;
+                padding: 0.85rem 1rem;
+            }
             .story-text { font-size: 0.98rem; line-height: 1.65; }
             .story-next { bottom: 1.4rem; }
         }
