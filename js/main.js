@@ -589,11 +589,15 @@ function initForm() {
             }
 
             // Button Text ändern
-            submitBtn.innerHTML = '<span>Hanitastisch!</span> ✿';
+            const declined = data.attending === 'Nein';
+            submitBtn.innerHTML = declined ? '<span>Schade!</span> ✿' : '<span>Hanitastisch!</span> ✿';
             submitBtn.disabled = false;
 
             // Erfolg anzeigen
             rsvpForm.classList.add('hidden');
+            formSuccess.querySelector('p').textContent = declined
+                ? 'Deine Antwort wurde abgeschickt. Schade, dass du nicht dabei sein kannst!'
+                : 'Deine Antwort wurde erfolgreich gesendet. Wir freuen uns auf euch!';
             formSuccess.classList.remove('hidden');
 
             // Erfolgs-Animation
