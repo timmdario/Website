@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20261108">
+    <link rel="stylesheet" href="css/style.css?v=20261109">
     <style>
         body { overflow-x: clip; }
 
@@ -94,11 +94,11 @@
 
         .story-scene {
             position: absolute;
-            top: 50%;
+            top: 3svh;
             left: 50%;
             width: min(62vw, 44svh);
             aspect-ratio: var(--ratio, 0.75);
-            translate: -50% -50%;
+            translate: -50% 0;
             opacity: var(--o, 0);
             transform: translate(var(--tx, 0), var(--ty, 0)) rotate(var(--rot, 0deg)) scale(var(--sc, 1.04));
             will-change: transform, opacity;
@@ -140,6 +140,11 @@
         }
 
         .story-beats {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: calc(3svh + var(--story-img-h, 58svh) + 2.6rem);
             z-index: 1;
             pointer-events: none;
         }
@@ -148,22 +153,37 @@
             position: absolute;
             inset: 0;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
-            padding: 5rem 1.25rem 6rem;
+            padding: 0 1.25rem;
             opacity: var(--o, 0);
             transform: translateY(var(--ty, 0px));
             will-change: transform, opacity;
         }
 
         .story-beat-inner {
-            width: min(660px, 92vw);
-            padding: 2.2rem 2.4rem;
+            width: min(680px, 92vw);
             text-align: center;
-            background: rgba(250, 247, 241, 0.9);
+        }
+
+        .story-chapter-title {
+            position: absolute;
+            z-index: 2;
+            left: 50%;
+            top: calc(3svh + var(--story-img-h, 58svh) - 1.1rem);
+            translate: -50% 0;
+            opacity: var(--o, 0);
+            padding: 0.45rem 1.2rem;
+            font-family: var(--font-heading);
+            font-size: clamp(1.05rem, 2.4vw, 1.5rem);
+            font-style: italic;
+            color: var(--color-haselnuss);
+            white-space: nowrap;
+            background: rgba(250, 247, 241, 0.92);
             border: 1px solid rgba(188, 168, 151, 0.7);
-            border-radius: 18px;
-            box-shadow: var(--shadow-medium);
+            border-radius: 999px;
+            box-shadow: var(--shadow-soft);
+            pointer-events: none;
         }
 
         .story-beat--year .story-beat-inner {
@@ -284,8 +304,8 @@
 
         @media (max-width: 600px) {
             .story-progress { display: none; }
-            .story-beat { padding: 4.5rem 1rem 5.5rem; }
-            .story-beat-inner { padding: 1.5rem 1.4rem; }
+            .story-beat { padding: 0 1rem; }
+            .story-text { font-size: 0.98rem; line-height: 1.65; }
             .story-next { bottom: 1.4rem; }
         }
 
@@ -351,157 +371,114 @@
         </section>
 
         <div class="story-source">
-            <section class="story-item" data-from="left">
-                <img src="assets/WebsiteKaruselBilder/web/2023.jpeg" alt="Malika und Dario" loading="eager">
-                <div class="story-entry">
-                    <span class="story-year">2020</span>
-                    <span class="story-heading">Wie alles begann</span>
-                    <p class="story-text">Im Frühjahr 2020 nahm alles seinen Anfang. Durch Lea und Leon wurde ich zu einem WG-Geburtstag in die Wilhelm-Kobelt-Straße 24 eingeladen. Damals hätte ich nicht gedacht, dass aus diesem eigentlich unscheinbaren Abend einmal eine so große Geschichte entstehen würde.</p>
-                    <p class="story-text">Ich fand dich schon damals interessant, auch wenn du vielleicht nicht unbedingt mein ursprünglicher Typ warst. Rückblickend ist es ziemlich verrückt, dass aus einem Geburtstag im Wohnzimmer eine Beziehung entstehen sollte – zumal du mich anfangs gar nicht so interessant fandest.</p>
-                    <p class="story-text">Nach diesem ersten Treffen kamst du nach meinem Einzug immer häufiger zu Besuch. Es gab keinen einzelnen dramatischen Wendepunkt. Stattdessen verbrachten wir einfach immer mehr Zeit miteinander: mit Gesprächen, Blicken, Spielen und einer wachsenden Vertrautheit.</p>
+            <section class="story-chapter" data-from="left">
+                <h2 class="story-heading">Ein ziemlich guter Zufall</h2>
+                <div class="story-images">
+                    <img src="assets/Karussel/k1-1.jpg" alt="Ein ziemlich guter Zufall" loading="eager">
+                    <img src="assets/Karussel/k1-2.jpg" alt="Ein ziemlich guter Zufall" loading="eager">
+                    <img src="assets/Karussel/k1-3.jpg" alt="Ein ziemlich guter Zufall" loading="eager">
+                    <img src="assets/Karussel/k1-4.jpg" alt="Ein ziemlich guter Zufall" loading="eager">
+                </div>
+                <div class="story-texts">
+                    <p class="story-text">Manchmal beginnt eine große Geschichte mit einer ziemlich alltäglichen Sache. Bei Dario und Mali war es ein WG-Casting. Eigentlich ging es nur darum, ein neues WG-Mitglied zu finden. Dass daraus einmal eine gemeinsame Zukunft entstehen würde, war damals wohl kaum abzusehen.</p>
+                    <p class="story-text">Aus dem ersten Kennenlernen wurden weitere Besuche, aus kurzen Begegnungen längere Abende und aus einer Bekanntschaft langsam etwas, das sich immer vertrauter anfühlte.</p>
+                    <p class="story-text">Besonders eine hatte Mali dabei ziemlich schnell ins Herz geschlossen: Hani. Die beiden verstanden sich auf Anhieb und schlossen sich gegenseitig ins Herz. Und so wurde aus dem gelegentlichen Vorbeikommen immer mehr ein selbstverständlicher Teil des Lebens.</p>
                 </div>
             </section>
 
-            <section class="story-item" data-from="right">
-                <img src="assets/WebsiteKaruselBilder/web/2023(2).jpeg" alt="Malika, Dario und Hani" loading="eager">
-                <div class="story-entry">
-                    <span class="story-year">August 2020</span>
-                    <span class="story-heading">Hani kommt dazu</span>
-                    <p class="story-text">Im August kam Hani in unser Leben. Es war unser erstes Treffen mit ihr, und die beiden passten damals schon perfekt zusammen. Hani war neugierig, lebendig, sanft und liebevoll. Es war kein Wunder, dass zwischen euch schnell eine besondere Bindung entstand.</p>
+            <section class="story-chapter" data-from="right">
+                <h2 class="story-heading">Aus Besuchen wurde ein Zuhause</h2>
+                <div class="story-images">
+                    <img src="assets/Karussel/k2-1.jpg" alt="Aus Besuchen wurde ein Zuhause" loading="eager">
+                    <img src="assets/Karussel/k2-2.jpg" alt="Aus Besuchen wurde ein Zuhause" loading="eager">
+                    <img src="assets/Karussel/k2-3.jpg" alt="Aus Besuchen wurde ein Zuhause" loading="eager">
                 </div>
-                <div class="story-entry">
-                    <span class="story-year">Januar 2021</span>
-                    <span class="story-heading">Aus Freundschaft wird Liebe</span>
-                    <p class="story-text">Langsam begannen sich unsere Gefühle zu verändern. Die Gespräche wurden länger, die gemeinsame Zeit intensiver. Du wurdest immer offener und wir führten stundenlange Gespräche.</p>
-                    <p class="story-text">Am 25. Januar 2021 sollte die Anspannung endlich ihr Ventil finden. Gegen Mitternacht, nach einem stundenlangen Gespräch, fanden sich endlich unsere Lippen.</p>
-                    <p class="story-text">Es war der schönste Kuss, den ich bis dahin erlebt hatte, vielleicht sogar der schönste Abend. Es fühlte sich an wie der leise Auftakt zu etwas Großem. Die Zeit schien stillzustehen, und als sich unsere Lippen im Morgengrauen wieder trennten, war eine Verbindung entstanden, die alles Kommende tragen sollte.</p>
+                <div class="story-texts">
+                    <p class="story-text">Mit der Zeit wurde aus dem anfänglichen Kennenlernen eine immer engere Verbindung. Dario und Mali verbrachten mehr Zeit miteinander, teilten ihren Alltag und merkten irgendwann, dass sie sich ein Leben ohne den anderen kaum noch vorstellen wollten. Ein besonderes Ereignis war der erste gemeinsame Urlaub auf Kos bei dem sie sich in das Reisen mit Roller verliebten.</p>
+                    <p class="story-text">Nach etwa anderthalb Jahren war es dann so weit: Sie zogen zusammen. Aus zwei Wohnungen wurde ein gemeinsames Zuhause.</p>
+                    <p class="story-text">Und Hani? Die war natürlich längst fester Bestandteil dieser kleinen Familie.</p>
                 </div>
             </section>
 
-            <section class="story-item" data-from="bottom">
-                <img src="assets/WebsiteKaruselBilder/web/2023(3).jpeg" alt="Malika, Dario und Hani" loading="eager">
-                <div class="story-entry">
-                    <span class="story-year">Februar 2021</span>
-                    <span class="story-heading">Wir werden eine kleine Familie</span>
-                    <p class="story-text">Im Februar erlebte Hani mit uns ihren ersten Schnee. Für mich war das ein besonderer Moment, in dem ich schon nach nur zwei Monaten das Gefühl hatte, dass wir nicht einfach nur ein Paar, sondern eine kleine Familie sind.</p>
+            <section class="story-chapter" data-from="bottom">
+                <h2 class="story-heading">Weihnachten, Familie und ganz viel Wir</h2>
+                <div class="story-images">
+                    <img src="assets/Karussel/k3-1.jpg" alt="Weihnachten, Familie und ganz viel Wir" loading="eager">
+                    <img src="assets/Karussel/k3-2.jpg" alt="Weihnachten, Familie und ganz viel Wir" loading="eager">
                 </div>
-                <div class="story-entry">
-                    <span class="story-year">2021</span>
-                    <span class="story-heading">Die ersten gemeinsamen Abenteuer</span>
-                    <p class="story-text">Im Juni 2021 entstand ein erstes Bild von Mali mit Hani in Göttingen. Im Juli beschlossen wir, unseren ersten gemeinsamen Urlaub zu machen. Es sollte nach Kos gehen – eine kleine Reise nach Mühlhausen war ebenfalls Teil dieser Zeit.</p>
-                </div>
-                <div class="story-entry">
-                    <span class="story-year">September 2021</span>
-                    <span class="story-heading">Kos</span>
-                    <p class="story-text">Die Reise nach Kos tat uns beiden und unserer Beziehung gut. Sonne, Meer, Freiheit und einfach zu zweit sein. Alles, was uns fehlte, war etwas Exotik. Und so beschlossen wir, im März 2022 noch eine Reise zu wagen, die alles in den Schatten stellen sollte.</p>
-                    <p class="story-text">Auf Kos verbrachten wir viel Zeit miteinander, entdeckten die Insel und genossen das gemeinsame Unterwegssein. Mali zeigte mir außerdem, dass Katzen auch toll sein können – bei den vielen Katzen auf der Insel war das kaum zu vermeiden.</p>
+                <div class="story-texts">
+                    <p class="story-text">Ein gemeinsames Zuhause bedeutete auch, immer mehr vom Leben des anderen kennenzulernen. Weihnachten wurde zusammen verbracht, Familien wurden kennengelernt und nach und nach kamen zwei Lebenswelten immer näher zusammen.</p>
+                    <p class="story-text">Es entstanden neue Traditionen, gemeinsame Erinnerungen und viele Momente, die heute einfach dazugehören.</p>
+                    <p class="story-text">Denn eine Beziehung wächst nicht nur durch die großen Erlebnisse. Oft sind es gerade die kleinen Dinge – ein gemeinsames Frühstück, ein gemütlicher Abend oder das Zusammensein mit den Menschen, die einem wichtig sind –, die aus zwei Menschen ein richtiges Team machen.</p>
                 </div>
             </section>
 
-            <section class="story-item" data-from="top">
-                <img src="assets/WebsiteKaruselBilder/web/2024.jpeg" alt="Malika und Dario auf Reisen" loading="eager">
-                <div class="story-entry">
-                    <span class="story-year">März 2022</span>
-                    <span class="story-heading">Sri Lanka</span>
-                    <p class="story-text">Im März 2022 ging es nach Sri Lanka. Die Reise begann in Colombo, von wo aus wir mit dem Tuk-Tuk loszogen.</p>
-                    <p class="story-text">Mali musste zunächst selbst fahren. Die Leute schauten erstaunt, weil sie offenbar nicht oft Frauen am Steuer sahen. Ich fand das ziemlich cool und war stolz auf ihre Lässigkeit.</p>
-                    <p class="story-text">Wir entdeckten die Insel auf unsere eigene Weise, begegneten Schildkröten, gingen ins Meer und sammelten Erinnerungen, die uns noch lange begleiten sollten. Das erste Mal mit einer Meeresschildkröte zu schwimmen, war ein ganz besonderer Moment. Auch die kleinen Fische, die an unseren Füßen knabberten, sorgten für reichlich Kitzeln.</p>
-                    <p class="story-text">Diese Reise hat uns richtig zusammengeschweißt. Ich merkte, wie schön es ist, solche Erinnerungen mit jemandem zu teilen. Mir wurde klar, dass wir zusammen noch viele weitere Abenteuer und Reisen erleben würden.</p>
+            <section class="story-chapter" data-from="top">
+                <h2 class="story-heading">Zusammen ist die Welt noch ein bisschen größer</h2>
+                <div class="story-images">
+                    <img src="assets/Karussel/k4-1.jpg" alt="Zusammen ist die Welt noch ein bisschen größer" loading="eager">
+                    <img src="assets/Karussel/k4-2.jpg" alt="Zusammen ist die Welt noch ein bisschen größer" loading="eager">
+                    <img src="assets/Karussel/k4-3.jpg" alt="Zusammen ist die Welt noch ein bisschen größer" loading="eager">
+                    <img src="assets/Karussel/k4-4.jpg" alt="Zusammen ist die Welt noch ein bisschen größer" loading="eager">
+                    <img src="assets/Karussel/k4-5.jpg" alt="Zusammen ist die Welt noch ein bisschen größer" loading="eager">
+                    <img src="assets/Karussel/k4-6.jpg" alt="Zusammen ist die Welt noch ein bisschen größer" loading="eager">
+                    <img src="assets/Karussel/k4-7.jpg" alt="Zusammen ist die Welt noch ein bisschen größer" loading="eager">
+                </div>
+                <div class="story-texts">
+                    <p class="story-text">Dass Dario und Mali gerne gemeinsam die Welt entdecken, zeigte sich spätestens beim ersten gemeinsamen Urlaub auf Kos. Sonne, Meer, neue Eindrücke und die Erkenntnis, dass das Reisen zu zweit einfach besonders viel Spaß macht.</p>
+                    <p class="story-text">Und dabei sollte es nicht bleiben: Sri Lanka, Zypern, Vietnam und Thailand folgten. Jedes Land brachte neue Abenteuer, besondere Begegnungen und Geschichten mit sich, die heute niemand mehr missen möchte.</p>
+                    <p class="story-text">Ob fremde Landschaften erkunden, durch unbekannte Straßen schlendern oder einfach gemeinsam am Strand sitzen – die beiden sammelten nicht nur Stempel im Reisepass, sondern vor allem Erinnerungen fürs Leben.</p>
+                    <p class="story-text">Mit jedem Urlaub wurde klarer: Es ist gar nicht so wichtig, wo man gerade ist. Viel schöner ist es, jemanden an seiner Seite zu haben, mit dem sich jeder Ort ein bisschen wie Zuhause anfühlt.</p>
                 </div>
             </section>
 
-            <section class="story-item" data-from="zoom">
-                <img src="assets/WebsiteKaruselBilder/web/2024(1).jpeg" alt="Malika und Dario" loading="eager">
-                <div class="story-entry">
-                    <span class="story-year">2022 und 2023</span>
-                    <span class="story-heading">Ein gemeinsames Leben</span>
-                    <p class="story-text">Mit der Zeit entwickelte sich aus unserer Beziehung ein richtiges Zuhausegefühl. Wir sammelten Erinnerungen, machten gemeinsame Erfahrungen und wuchsen immer weiter zusammen.</p>
+            <section class="story-chapter" data-from="zoom">
+                <h2 class="story-heading">Ein eingespieltes Team</h2>
+                <div class="story-images">
+                    <img src="assets/Karussel/k5-1.jpg" alt="Ein eingespieltes Team" loading="eager">
+                    <img src="assets/Karussel/k5-2.jpg" alt="Ein eingespieltes Team" loading="eager">
                 </div>
-                <div class="story-entry">
-                    <span class="story-year">Dezember 2022</span>
-                    <span class="story-heading">Erstes Kennenlernen mit der Familie</span>
-                    <p class="story-text">Ein weiterer wichtiger Schritt war das erste Kennenlernen mit der Familie. Aus unserer kleinen Welt zu zweit wurde langsam etwas Größeres.</p>
-                </div>
-                <div class="story-entry">
-                    <span class="story-year">13. September 2023</span>
-                    <span class="story-heading">Unser erstes Festival</span>
-                    <p class="story-text">Wir besuchten unser erstes gemeinsames Festival. Ich war zunächst skeptisch, aber du hast mich immer wieder überzeugt und es war klasse!</p>
-                </div>
-                <div class="story-entry">
-                    <span class="story-year">Dezember 2023</span>
-                    <p class="story-text">Ein weiterer gemeinsamer Wintermoment, festgehalten auf einem Foto vor einer festlich beleuchteten Kulisse.</p>
+                <div class="story-texts">
+                    <p class="story-text">Über die Jahre ist aus der anfänglichen Verliebtheit etwas gewachsen, das noch viel mehr umfasst. Dario und Mali haben gemeinsam gelacht, Neues ausprobiert, Pläne geschmiedet und so manches Abenteuer erlebt.</p>
+                    <p class="story-text">Mit Hani an ihrer Seite ist aus zwei Menschen eine kleine Familie geworden. Es gab unzählige Spaziergänge, gemütliche Abende, spontane Ideen und natürlich auch die ganz normalen Tage, die vielleicht gar nicht spektakulär waren, aber gerade deshalb so wertvoll sind.</p>
+                    <p class="story-text">Irgendwann merkt man, dass Glück nicht immer aus großen Momenten bestehen muss. Manchmal ist es einfach das Wissen, dass man seinen Lieblingsmenschen direkt neben sich hat.</p>
                 </div>
             </section>
 
-            <section class="story-item" data-from="left">
-                <img src="assets/WebsiteKaruselBilder/web/2024(2).jpeg" alt="Malika und Dario in Vietnam" loading="eager">
-                <div class="story-entry">
-                    <span class="story-year">März 2024</span>
-                    <span class="story-heading">Vietnam</span>
-                    <p class="story-text">Im März 2024 reisten wir nach Vietnam. Ich fand es besonders schön, dir das Land zu zeigen, in das ich mich damals verliebt hatte.</p>
-                    <p class="story-text">Gemeinsam erkundeten wir die Landschaft, besuchten besondere Orte und erlebten das Land aus einer neuen Perspektive. Ein besonderes Erlebnis war, dass du hier zum ersten Mal auch körperlich eine der größten Schildkröten sehen konntest.</p>
-                    <p class="story-text">Diese Reise fühlte sich wieder ganz besonders an. Es war schön, einen Ort, der mir so viel bedeutete, mit dir zu teilen.</p>
+            <section class="story-chapter" data-from="left">
+                <h2 class="story-heading">Madeira und eine Frage für immer</h2>
+                <div class="story-images">
+                    <img src="assets/Karussel/k6-1.jpg" alt="Madeira und eine Frage für immer" loading="eager">
+                    <img src="assets/Karussel/k6-2.jpg" alt="Madeira und eine Frage für immer" loading="eager">
+                    <img src="assets/Karussel/k6-3.jpg" alt="Madeira und eine Frage für immer" loading="eager">
                 </div>
-                <div class="story-entry">
-                    <span class="story-year">4. August 2024</span>
-                    <span class="story-heading">Eine Hochzeit</span>
-                    <p class="story-text">Wir waren gemeinsam auf einer Hochzeit. Du hast mit deinen Dance-Moves alles abgerissen – eine legendäre Performance!</p>
-                </div>
-            </section>
-
-            <section class="story-item" data-from="right">
-                <img src="assets/WebsiteKaruselBilder/web/2025.jpeg" alt="Malika, Dario und Hani im Camper" loading="eager">
-                <div class="story-entry">
-                    <span class="story-year">Juni 2025</span>
-                    <span class="story-heading">Das Camper-Abenteuer beginnt</span>
-                    <p class="story-text">Im Juni 2025 nahmen wir Hani mit dem Camper in den Urlaub. Damit begann ein neues Kapitel unserer gemeinsamen Abenteuer.</p>
-                    <p class="story-text">Wir machten Ausflüge, verbrachten Zeit in der Natur und genossen die Freiheit, einfach gemeinsam unterwegs zu sein. Mali durfte natürlich auch ans Steuer.</p>
-                    <p class="story-text">Ein besonders schöner Moment war unser erster gemeinsamer Ausflug mit dem Camper. Die erste Nacht verbrachten wir hinter uns im Camper. Morgens hatte ich Hani zum Kuscheln zu uns ins Bett gehoben. Weil die Matratze noch zu klein war, haben wir drei uns ziemlich zusammenquetschen müssen.</p>
+                <div class="story-texts">
+                    <p class="story-text">2025 stand wieder einmal ein besonderer Urlaub an. Diesmal ging es für Dario und Mali nach Madeira – allerdings mit einem kleinen Geheimnis im Gepäck.</p>
+                    <p class="story-text">Denn während Mali von einem schönen Überraschungsurlaub ausging, hatte Dario noch etwas ganz anderes vorbereitet.</p>
+                    <p class="story-text">Zwischen der beeindruckenden Landschaft Madeiras und mit Blick auf den Atlantik wurde aus dieser Reise ein unvergessliches Erlebnis. Dario machte Mali einen Antrag und die Antwort könnt ihr euch ja denken.</p>
+                    <p class="story-text">Aus all den gemeinsamen Jahren, Reisen und Erlebnissen wurde an diesem Tag ein Versprechen für die Zukunft. Ein neues Kapitel, auf das sich beide freuen.</p>
                 </div>
             </section>
 
-            <section class="story-item" data-from="bottom">
-                <img src="assets/WebsiteKaruselBilder/web/2025(1).jpeg" alt="Unterwegs mit Hani" loading="eager">
-                <div class="story-entry">
-                    <span class="story-year">Juni 2025</span>
-                    <span class="story-heading">Steinbruchsee & Schloss Hundisburg</span>
-                    <p class="story-text">Wir besuchten unter anderem den Steinbruchsee und Schloss Hundisburg. Am See musste ich Hani immer wieder von den Klippen weglocken, weil sie gerne zehn Meter tief springen wollte.</p>
-                    <p class="story-text">Das Schloss gefiel uns sehr. Wir gönnten uns einen Aperol auf der Terrasse und ließen den Tag anschließend entspannt auf dem Campingplatz ausklingen.</p>
-                    <p class="story-text">Hani (und wir) wollten gar nicht wieder zurück.</p>
+            <section class="story-chapter" data-from="right">
+                <h2 class="story-heading">Das nächste Kapitel schreiben wir gemeinsam</h2>
+                <div class="story-images">
+                    <img src="assets/Karussel/k7-1.jpg" alt="Das nächste Kapitel schreiben wir gemeinsam" loading="eager">
+                    <img src="assets/Karussel/k7-2.jpg" alt="Das nächste Kapitel schreiben wir gemeinsam" loading="eager">
+                    <img src="assets/Karussel/k7-3.jpg" alt="Das nächste Kapitel schreiben wir gemeinsam" loading="eager">
                 </div>
-            </section>
-
-            <section class="story-item" data-from="top">
-                <img src="assets/WebsiteKaruselBilder/web/2025(2).jpeg" alt="Winterspaziergang" loading="eager">
-                <div class="story-entry">
-                    <span class="story-year">2026</span>
-                    <span class="story-heading">Immer wieder neue Erinnerungen</span>
-                    <span class="story-heading">10. Januar 2026 – Winterspaziergang</span>
-                    <p class="story-text">Mit selbstgemachten Waffeln und Lauchkäse ging es auf einen langen Schneespaziergang an der Schrote. Ein schöner Wintertag, den wir gemeinsam festhielten.</p>
-                </div>
-                <div class="story-entry">
-                    <span class="story-year">14. Februar</span>
-                    <span class="story-heading">Valentinstag</span>
-                    <p class="story-text">Frau Liebling musste mal wieder raus. Also ging es mit Picknick an den AWG-See II bei Gommern. Wir verbrachten Zeit mit Hani und Lesen.</p>
-                    <p class="story-text">Hani schaffte es maximal zweimal, ohne Pause rauf und runter zu rennen. Da musste jemand beschäftigt werden!</p>
-                </div>
-            </section>
-
-            <section class="story-item" data-from="zoom">
-                <img src="assets/WebsiteKaruselBilder/web/2026.jpeg" alt="Wildpark Schwarze Berge" loading="eager">
-                <div class="story-entry">
-                    <span class="story-year">7. März 2026</span>
-                    <span class="story-heading">Wildpark Schwarze Berge</span>
-                    <p class="story-text">Ein weiterer gemeinsamer Ausflug führte uns in den Wildpark Schwarze Berge.</p>
+                <div class="story-texts">
+                    <p class="story-text">Wenn Dario und Mali heute zurückblicken, sehen sie eine Geschichte, die mit einem WG-Casting begann und sie über gemeinsame Wohnungen, Weihnachten, Familienfeste und viele Länder bis nach Madeira geführt hat.</p>
+                    <p class="story-text">Aus einem Zufall wurde eine Begegnung. Aus einer Begegnung wurde Liebe. Und aus Liebe wurde eine gemeinsame kleine Welt, die mit jedem Jahr ein bisschen größer geworden ist.</p>
+                    <p class="story-text">Jetzt wartet das nächste Abenteuer: die Hochzeit.</p>
+                    <p class="story-text">Und diesmal dürfen all die Menschen, die Teil dieser Geschichte sind, dabei sein, wenn ein neues Kapitel beginnt.</p>
                 </div>
             </section>
         </div>
 
-        
-
         <a href="index.html#details" class="story-back">&larr; Zurück zur Startseite</a>
     </main>
 
-    <script src="js/main.js?v=20261108"></script>
+    <script src="js/main.js?v=20261109"></script>
 </body>
 </html>

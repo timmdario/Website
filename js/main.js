@@ -1366,7 +1366,7 @@ function initKarussel() {
 }
 
 function initStoryReveal() {
-    const source = document.querySelectorAll('.story-source .story-item');
+    const source = document.querySelectorAll('.story-source .story-chapter');
     const timeline = document.querySelector('.story-timeline');
     const stage = document.querySelector('.story-stage');
     const beatsWrap = document.querySelector('.story-beats');
@@ -1374,96 +1374,119 @@ function initStoryReveal() {
     const nextBtn = document.querySelector('.story-next');
     if (!source.length || !timeline || !stage || !beatsWrap) return;
 
+    // Jeder Schritt zeigt ein Bild; gibt es mehr Bilder als Textabschnitte, laufen Bilder ohne neuen Text durch
+    const steps = [];
     const chapters = [];
-    const beats = [];
-    source.forEach(item => {
-        const img = item.querySelector('img');
-        const entries = item.querySelectorAll('.story-entry');
-        if (!img || !entries.length) return;
+    const scenes = new Map();
+    const sceneList = [];
+    const texts = [];
 
-        const firstYear = item.querySelector('.story-year');
-        const firstHeading = item.querySelector('.story-heading');
-        const label = 'Kapitel ' + (chapters.length + 1) + ': ' +
-            (firstYear ? firstYear.textContent.trim() : '') +
-            (firstHeading ? ' – ' + firstHeading.textContent.trim() : '');
+    source.forEach(section => {
+        const imgs = Array.from(section.querySelectorAll('.story-images img'));
+        const paragraphs = Array.from(section.querySelectorAll('.story-text'));
+        const headingEl = section.querySelector('.story-heading');
+        if (!imgs.length) return;
 
-        const scene = document.createElement('div');
-        scene.className = 'story-scene';
-        scene.dataset.dir = item.dataset.from || 'left';
-        const inner = document.createElement('div');
-        inner.className = 'story-scene-inner';
-        inner.appendChild(img);
-        scene.appendChild(inner);
-        stage.appendChild(scene);
-
-        const applyRatio = () => {
-            const ratio = img.naturalWidth && img.naturalHeight ? img.naturalWidth / img.naturalHeight : 0.75;
-            scene.style.setProperty('--ratio', ratio.toFixed(4));
-            sizeStoryScenes();
+        const start = steps.length;
+        const count = Math.max(imgs.length, paragraphs.length);
+        for (let i = 0; i < count; i++) {
+            const img = imgs[Math.min(i, imgs.length - 1)];
+            const step = { img, index: steps.length, text: i < paragraphs.length ? paragraphs[i] : null };
+            steps.push(step);
+            if (step.text) texts.push(step);
+        }
+        const chapter = {
+            start,
+            end: steps.length,
+            title: headingEl ? headingEl.textContent.trim() : '',
+            dir: section.dataset.from || 'left'
         };
-        img.addEventListener('load', applyRatio);
-        applyRatio();
-
-        const chapter = { scene, start: beats.length, end: beats.length };
-
-        entries.forEach(entry => {
-            const year = entry.querySelector('.story-year');
-            const headings = entry.querySelectorAll('.story-heading');
-            const texts = entry.querySelectorAll('.story-text');
-            texts.forEach((text, idx) => {
-                const beat = document.createElement('div');
-                beat.className = 'story-beat' + (idx > 0 ? ' story-beat--continue' : '');
-                beat.dataset.kind = idx === 0 ? 'year' : 'text';
-                const box = document.createElement('div');
-                box.className = 'story-beat-inner';
-                if (idx === 0 && (year || headings.length)) {
-                    const head = document.createElement('div');
-                    head.className = 'story-head';
-                    if (year) head.appendChild(year);
-                    headings.forEach(heading => head.appendChild(heading));
-                    box.appendChild(head);
-                }
-                box.appendChild(text);
-                beat.appendChild(box);
-                beatsWrap.appendChild(beat);
-                beats.push(beat);
-            });
-        });
-
-        chapter.end = beats.length;
         chapters.push(chapter);
+    });
 
-        if (progressWrap) {
-            const dot = document.createElement('button');
-            dot.type = 'button';
-            dot.setAttribute('aria-label', label);
-            const start = chapter.start;
-            dot.addEventListener('click', () => scrollToStoryBeat(start));
-            progressWrap.appendChild(dot);
+    // Eine Szene pro Bild, die während aller Schritte mit diesem Bild sichtbar ist
+    steps.forEach(step => {
+        if (!scenes.has(step.img)) {
+            const chapter = chapters.find(c => step.index >= c.start && step.index < c.end);
+            const scene = document.createElement('div');
+            scene.className = 'story-scene';
+            scene.dataset.dir = chapter ? chapter.dir : 'left';
+            const inner = document.createElement('div');
+            inner.className = 'story-scene-inner';
+            inner.appendChild(step.img);
+            scene.appendChild(inner);
+            stage.appendChild(scene);
+
+            const applyRatio = () => {
+                const ratio = step.img.naturalWidth && step.img.naturalHeight ? step.img.naturalWidth / step.img.naturalHeight : 0.75;
+                scene.style.setProperty('--ratio', ratio.toFixed(4));
+                sizeStoryScenes();
+            };
+            step.img.addEventListener('load', applyRatio);
+            applyRatio();
+
+            const entry = { el: scene, start: step.index, end: step.index + 1 };
+            scenes.set(step.img, entry);
+            sceneList.push(entry);
+        } else {
+            scenes.get(step.img).end = step.index + 1;
         }
     });
 
-    const dots = progressWrap ? Array.from(progressWrap.children) : [];
-    timeline.style.height = (beats.length * 60 + 100) + 'vh';
+    // Überschriften liegen über dem Bild des Kapitels
+    chapters.forEach(chapter => {
+        const title = document.createElement('div');
+        title.className = 'story-chapter-title';
+        title.textContent = chapter.title;
+        stage.appendChild(title);
+        chapter.titleEl = title;
+    });
 
-    function scrollToStoryBeat(index) {
+    // Fließtext: jeder Abschnitt bekommt einen eigenen Textblock am Schritt, an dem er erscheint
+    texts.forEach((step, i) => {
+        const beat = document.createElement('div');
+        beat.className = 'story-beat';
+        const box = document.createElement('div');
+        box.className = 'story-beat-inner';
+        box.appendChild(step.text);
+        beat.appendChild(box);
+        beatsWrap.appendChild(beat);
+        step.beat = beat;
+        step.nextText = i + 1 < texts.length ? texts[i + 1].index : Infinity;
+    });
+
+    const dots = [];
+    if (progressWrap) {
+        chapters.forEach((chapter, i) => {
+            const dot = document.createElement('button');
+            dot.type = 'button';
+            dot.setAttribute('aria-label', 'Kapitel ' + (i + 1) + ': ' + chapter.title);
+            dot.addEventListener('click', () => scrollToStoryStep(chapter.start));
+            progressWrap.appendChild(dot);
+            dots.push(dot);
+        });
+    }
+
+    timeline.style.height = (steps.length * 50 + 100) + 'vh';
+
+    function scrollToStoryStep(index) {
         const total = timeline.offsetHeight - window.innerHeight;
-        const y = timeline.offsetTop + (Math.min(index, beats.length) / beats.length) * total;
+        const y = timeline.offsetTop + (Math.min(index, steps.length) / steps.length) * total;
         window.scrollTo({ top: y, behavior: 'smooth' });
     }
 
-    // Bilder werden an ihr Seitenverhältnis angepasst, damit möglichst wenig abgeschnitten wird
+    // Bildhöhe ist für alle Bilder gleich; das Seitenverhältnis bestimmt die Breite
     function sizeStoryScenes() {
-        const maxH = window.innerHeight * 0.72;
+        const maxH = window.innerHeight * 0.58;
         const maxW = window.innerWidth * 0.83;
-        chapters.forEach(chapter => {
-            const scene = chapter.scene;
-            const ratio = parseFloat(scene.style.getPropertyValue('--ratio')) || 0.75;
+        stage.style.setProperty('--story-img-h', Math.round(maxH) + 'px');
+        sceneList.forEach(({ el }) => {
+            const ratio = parseFloat(el.style.getPropertyValue('--ratio')) || 0.75;
             let w = maxH * ratio;
             let h = maxH;
             if (w > maxW) { w = maxW; h = w / ratio; }
-            scene.style.width = Math.round(w) + 'px';
-            scene.style.height = Math.round(h) + 'px';
+            el.style.width = Math.round(w) + 'px';
+            el.style.height = Math.round(h) + 'px';
         });
     }
     sizeStoryScenes();
@@ -1479,14 +1502,13 @@ function initStoryReveal() {
     const update = () => {
         const total = Math.max(1, timeline.offsetHeight - window.innerHeight);
         const scrolled = Math.min(total, Math.max(0, -timeline.getBoundingClientRect().top));
-        const pos = (scrolled / total) * beats.length;
+        const pos = (scrolled / total) * steps.length;
 
-        chapters.forEach((chapter, i) => {
-            const scene = chapter.scene;
-            const o = fadeIn(pos, chapter.start - 0.12, chapter.start) * fadeOut(pos, chapter.end - 0.12, chapter.end + 0.1);
-            const travel = clamp01((pos - chapter.start + 0.12) / 0.3);
+        sceneList.forEach(({ el, start, end }) => {
+            const o = fadeIn(pos, start - 0.12, start) * fadeOut(pos, end - 0.12, end + 0.1);
+            const travel = clamp01((pos - start + 0.12) / 0.3);
             const distance = (1 - travel) * 8;
-            const dir = scene.dataset.dir;
+            const dir = el.dataset.dir;
             let tx = 0;
             let ty = 0;
             let rot = 0;
@@ -1495,37 +1517,39 @@ function initStoryReveal() {
             else if (dir === 'top') ty = -distance * 0.7;
             else if (dir === 'bottom') ty = distance * 0.7;
             else rot = (1 - travel) * -4;
-            scene.style.setProperty('--o', o.toFixed(3));
-            scene.style.setProperty('--tx', tx.toFixed(2) + 'vw');
-            scene.style.setProperty('--ty', ty.toFixed(2) + 'vw');
-            scene.style.setProperty('--rot', rot.toFixed(2) + 'deg');
-            scene.style.setProperty('--sc', (1.04 - travel * 0.04).toFixed(3));
+            el.style.setProperty('--o', o.toFixed(3));
+            el.style.setProperty('--tx', tx.toFixed(2) + 'vw');
+            el.style.setProperty('--ty', ty.toFixed(2) + 'vw');
+            el.style.setProperty('--rot', rot.toFixed(2) + 'deg');
+            el.style.setProperty('--sc', (1.04 - travel * 0.04).toFixed(3));
         });
 
-        beats.forEach((beat, i) => {
-            const d = pos - i;
-            const o = fadeIn(d, -0.05, 0.22) * fadeOut(d, 0.72, 1.05);
+        chapters.forEach(chapter => {
+            const o = fadeIn(pos, chapter.start - 0.12, chapter.start) * fadeOut(pos, chapter.end - 0.12, chapter.end + 0.1);
+            chapter.titleEl.style.setProperty('--o', o.toFixed(3));
+        });
+
+        texts.forEach(step => {
+            const d = pos - step.index;
+            const o = fadeIn(pos, step.index - 0.05, step.index + 0.22) *
+                (isFinite(step.nextText) ? fadeOut(pos, step.nextText - 0.3, step.nextText - 0.05) : 1);
             const rise = ease(clamp01((d + 0.05) / 0.35));
-            const offset = beat.dataset.kind === 'year' ? -28 : 42;
-            beat.style.setProperty('--o', o.toFixed(3));
-            beat.style.setProperty('--ty', ((1 - rise) * offset).toFixed(1) + 'px');
+            step.beat.style.setProperty('--o', Math.max(0, o).toFixed(3));
+            step.beat.style.setProperty('--ty', ((1 - rise) * 24).toFixed(1) + 'px');
         });
 
-        let activeChapter = -1;
-        chapters.forEach((chapter, i) => {
-            if (pos >= chapter.start && pos < chapter.end) activeChapter = i;
-        });
+        const activeChapter = chapters.findIndex(c => pos >= c.start && pos < c.end);
         dots.forEach((dot, i) => dot.classList.toggle('is-active', i === activeChapter));
         if (nextBtn) {
-            nextBtn.hidden = pos > beats.length - 1.4;
+            nextBtn.hidden = pos > steps.length - 1.4;
             nextBtn.textContent = 'Weiter ↓';
         }
     };
 
     if (nextBtn) {
         nextBtn.addEventListener('click', () => {
-            const current = Math.round((Math.min(1, Math.max(0, -timeline.getBoundingClientRect().top / Math.max(1, timeline.offsetHeight - window.innerHeight))) * beats.length));
-            scrollToStoryBeat(current + 1);
+            const current = Math.floor(clamp01(-timeline.getBoundingClientRect().top / Math.max(1, timeline.offsetHeight - window.innerHeight)) * steps.length);
+            scrollToStoryStep(current + 1);
         });
     }
 
