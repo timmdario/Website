@@ -1477,8 +1477,8 @@ function initStoryReveal() {
 
     // Bildhöhe ist für alle Bilder gleich; das Seitenverhältnis bestimmt die Breite
     function sizeStoryScenes() {
-        const maxH = window.innerHeight * 0.58;
-        const maxW = window.innerWidth * 0.83;
+        const maxH = window.innerHeight * 0.72;
+        const maxW = window.innerWidth * 0.92;
         stage.style.setProperty('--story-img-h', Math.round(maxH) + 'px');
         sceneList.forEach(({ el }) => {
             const ratio = parseFloat(el.style.getPropertyValue('--ratio')) || 0.75;
@@ -1525,7 +1525,7 @@ function initStoryReveal() {
         });
 
         chapters.forEach(chapter => {
-            const o = fadeIn(pos, chapter.start - 0.12, chapter.start) * fadeOut(pos, chapter.end - 0.12, chapter.end + 0.1);
+            const o = fadeIn(pos, chapter.start - 0.05, chapter.start + 0.2) * fadeOut(pos, chapter.start + 0.6, chapter.start + 0.9);
             chapter.titleEl.style.setProperty('--o', o.toFixed(3));
         });
 

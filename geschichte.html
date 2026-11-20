@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20261109">
+    <link rel="stylesheet" href="css/style.css?v=20261110">
     <style>
         body { overflow-x: clip; }
 
@@ -144,7 +144,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            top: calc(3svh + var(--story-img-h, 58svh) + 2.6rem);
+            top: calc(3svh + var(--story-img-h, 70svh) * 0.72);
             z-index: 1;
             pointer-events: none;
         }
@@ -163,14 +163,18 @@
 
         .story-beat-inner {
             width: min(680px, 92vw);
+            padding: 1.1rem 1.4rem;
             text-align: center;
+            background: rgba(250, 247, 241, 0.88);
+            border-radius: 16px;
+            box-shadow: var(--shadow-soft);
         }
 
         .story-chapter-title {
             position: absolute;
             z-index: 2;
             left: 50%;
-            top: calc(3svh + var(--story-img-h, 58svh) - 1.1rem);
+            top: calc(3svh + 1.4rem);
             translate: -50% 0;
             opacity: var(--o, 0);
             padding: 0.45rem 1.2rem;
@@ -479,6 +483,6 @@
         <a href="index.html#details" class="story-back">&larr; Zurück zur Startseite</a>
     </main>
 
-    <script src="js/main.js?v=20261109"></script>
+    <script src="js/main.js?v=20261110"></script>
 </body>
 </html>
