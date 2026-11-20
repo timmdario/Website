@@ -1368,6 +1368,18 @@ function initSongWish() {
                 submitBtn.disabled = false;
             });
     });
+
+    const again = document.getElementById('song-again');
+    if (again) {
+        again.addEventListener('click', () => {
+            form.reset();
+            submitBtn.disabled = false;
+            errorEl.textContent = '';
+            success.classList.add('hidden');
+            form.classList.remove('hidden');
+            document.getElementById('song-title').focus();
+        });
+    }
 }
 
 function initLogout() {

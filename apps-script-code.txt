@@ -109,30 +109,36 @@ function contactsFor(code) {
 }
 
 // Speichert einen Musikwunsch. Nur mit gültigem Gäste-Code, Name kommt aus dem Gäste-Tab
+// Akzeptiert einen Wunsch (title/artist/note) oder mehrere (songs: [{title, artist, note}, ...])
 function saveSongWish(data) {
   var guest = findGuestRow(String(data.code || '').trim());
   if (!guest) {
     return jsonOutput({ success: false, error: 'Ungültiger Code' });
   }
-  var title = String(data.title || '').trim();
-  if (!title) {
+  var list = (data.songs && data.songs.length) ? data.songs : [{ title: data.title, artist: data.artist, note: data.note }];
+  var rows = [];
+  for (var i = 0; i < list.length; i++) {
+    var title = String(list[i].title || '').trim();
+    if (!title) continue;
+    rows.push([
+      new Date(),
+      String(guest[1] || '').trim(),
+      String(guest[2] || '').trim(),
+      title,
+      String(list[i].artist || '').trim(),
+      String(list[i].note || '').trim()
+    ]);
+  }
+  if (!rows.length) {
     return jsonOutput({ success: false, error: 'Songtitel fehlt' });
   }
   var ss = SpreadsheetApp.getActiveSpreadsheet();
-  var sheet = ss.getSheetByName(SONG_SHEET_NAME);
-  if (!sheet) {
-    sheet = ss.insertSheet(SONG_SHEET_NAME);
+  var sheet = ss.getSheetByName(SONG_SHEET_NAME) || ss.insertSheet(SONG_SHEET_NAME);
+  if (sheet.getLastRow() === 0) {
     sheet.appendRow(['Zeitstempel', 'Vorname', 'Nachname', 'Songtitel', 'Interpret', 'Anmerkung']);
   }
-  sheet.appendRow([
-    new Date(),
-    String(guest[1] || '').trim(),
-    String(guest[2] || '').trim(),
-    title,
-    String(data.artist || '').trim(),
-    String(data.note || '').trim()
-  ]);
-  return jsonOutput({ success: true });
+  sheet.getRange(sheet.getLastRow() + 1, 1, rows.length, 6).setValues(rows);
+  return jsonOutput({ success: true, saved: rows.length });
 }
 
 function jsonOutput(obj) {
