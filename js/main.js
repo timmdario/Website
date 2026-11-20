@@ -1458,11 +1458,12 @@ function initKarussel() {
 function initStoryReveal() {
     const source = document.querySelectorAll('.story-source .story-chapter');
     const timeline = document.querySelector('.story-timeline');
+    const pin = document.querySelector('.story-pin');
     const stage = document.querySelector('.story-stage');
     const beatsWrap = document.querySelector('.story-beats');
     const progressWrap = document.querySelector('.story-progress');
     const nextBtn = document.querySelector('.story-next');
-    if (!source.length || !timeline || !stage || !beatsWrap) return;
+    if (!source.length || !timeline || !pin || !stage || !beatsWrap) return;
 
     // Jeder Schritt zeigt ein Bild; gibt es mehr Bilder als Textabschnitte, laufen Bilder ohne neuen Text durch
     const steps = [];
@@ -1559,15 +1560,20 @@ function initStoryReveal() {
 
     timeline.style.height = (steps.length * 50 + 100) + 'vh';
 
+    // Die Sticky-Szene nutzt 100svh. Ihre echte Höhe ist die zuverlässige
+    // Scrollstrecke, auch wenn auf Mobilgeräten die Browserleisten wechseln.
+    const storyScrollDistance = () => Math.max(1, timeline.offsetHeight - pin.offsetHeight);
+
     function scrollToStoryStep(index) {
-        const total = timeline.offsetHeight - window.innerHeight;
+        const total = storyScrollDistance();
         const y = timeline.offsetTop + (Math.min(index, steps.length) / steps.length) * total;
         window.scrollTo({ top: y, behavior: 'smooth' });
     }
 
     // Bildhöhe ist für alle Bilder gleich; das Seitenverhältnis bestimmt die Breite
     function sizeStoryScenes() {
-        const maxH = window.innerHeight * 0.72;
+        const viewportHeight = pin.offsetHeight;
+        const maxH = viewportHeight * 0.72;
         const maxW = window.innerWidth * 0.92;
         stage.style.setProperty('--story-img-h', Math.round(maxH) + 'px');
         sceneList.forEach(({ el }) => {
@@ -1582,11 +1588,6 @@ function initStoryReveal() {
     sizeStoryScenes();
     window.addEventListener('resize', sizeStoryScenes);
 
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        sceneList.forEach(loadStoryImage);
-        return;
-    }
-
     const clamp01 = x => Math.min(1, Math.max(0, x));
     const ease = t => t * t * (3 - 2 * t);
     const fadeIn = (x, a, b) => ease(clamp01((x - a) / (b - a)));
@@ -1598,15 +1599,21 @@ function initStoryReveal() {
         entry.img.src = entry.img.dataset.src;
     };
 
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        sceneList.forEach(loadStoryImage);
+        return;
+    }
+
     const update = () => {
-        const total = Math.max(1, timeline.offsetHeight - window.innerHeight);
+        const total = storyScrollDistance();
         const scrolled = Math.min(total, Math.max(0, -timeline.getBoundingClientRect().top));
         const pos = (scrolled / total) * steps.length;
 
         sceneList.forEach(entry => { if (pos >= entry.start - 2) loadStoryImage(entry); });
 
         sceneList.forEach(({ el, start, end }) => {
-            const o = fadeIn(pos, start - 0.12, start) * fadeOut(pos, end - 0.12, end + 0.1);
+            const out = end === steps.length ? 1 : fadeOut(pos, end - 0.12, end + 0.1);
+            const o = fadeIn(pos, start - 0.12, start) * out;
             const travel = clamp01((pos - start + 0.12) / 0.3);
             const distance = (1 - travel) * 8;
             const dir = el.dataset.dir;
@@ -1649,7 +1656,7 @@ function initStoryReveal() {
 
     if (nextBtn) {
         nextBtn.addEventListener('click', () => {
-            const current = Math.floor(clamp01(-timeline.getBoundingClientRect().top / Math.max(1, timeline.offsetHeight - window.innerHeight)) * steps.length);
+            const current = Math.floor(clamp01(-timeline.getBoundingClientRect().top / storyScrollDistance()) * steps.length);
             // Nicht direkt am Start des nächsten Schritts landen: der Text blendet
             // erst über die ersten 0,22 Schritte ein.
             scrollToStoryStep(Math.min(current + 1.35, steps.length - 0.01));

@@ -322,7 +322,7 @@
             .story-pin { --story-top: 4.5rem; }
             .story-progress { display: none; }
             .story-beats {
-                top: 48svh;
+                top: 56svh;
                 bottom: 4.5rem;
                 display: flex;
                 align-items: center;
@@ -334,7 +334,8 @@
             .story-beat-inner {
                 max-height: 100%;
                 overflow-y: auto;
-                overscroll-behavior: contain;
+                overscroll-behavior-y: auto;
+                -webkit-overflow-scrolling: touch;
                 padding: 0.85rem 1rem;
             }
             .story-text { font-size: 0.98rem; line-height: 1.65; }
@@ -515,6 +516,6 @@
         <a href="index.html#details" class="story-back">&larr; Zurück zur Startseite</a>
     </main>
 
-    <script src="js/main.js?v=20261135"></script>
+    <script src="js/main.js?v=20261136"></script>
 </body>
 </html>
