@@ -1214,7 +1214,9 @@ function prefillRsvpName(guest) {
 function fillGuestLetter(guest) {
     const paper = document.querySelector('.letter-paper');
     document.getElementById('letter-greeting').textContent = 'Hallo ' + guest.firstName + ',';
-    document.querySelector('.letter-invite-text').textContent = 'Du bist herzlich zu unserer Hochzeit eingeladen.';
+    document.querySelector('.letter-invite-text').textContent = anredeType(guest) === 2
+        ? 'Ihr seid herzlich zu unserer Hochzeit eingeladen.'
+        : 'Du bist herzlich zu unserer Hochzeit eingeladen.';
     paper.classList.add('has-guest');
     document.getElementById('envelope-letter').classList.add('has-guest');
 }
