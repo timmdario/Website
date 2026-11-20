@@ -477,7 +477,7 @@ function initFAQ() {
 }
 
 // ========================================
-// RSVP FORMULAR (EmailJS)
+// RSVP FORMULAR
 // ========================================
 function initForm() {
     // Pill-Toggle für Radio-Buttons
