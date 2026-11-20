@@ -1358,6 +1358,20 @@ function initSongWish() {
     }
 }
 
+function initStoryClosing() {
+    const el = document.getElementById('story-closing');
+    const code = getCookie(GUEST_COOKIE);
+    if (!el || !code) return;
+    lookupGuest(code)
+        .then(guest => {
+            if (!guest.found) return;
+            const multi = anredeType(guest) === 2;
+            el.textContent = guest.firstName + ', wir hoffen ' + (multi ? 'ihr seid' : 'du bist') + ' auch dabei.';
+            el.hidden = false;
+        })
+        .catch(err => console.warn('Geschichte-Abschluss:', err));
+}
+
 function initLogout() {
     document.querySelectorAll('.nav-logout').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -1628,6 +1642,7 @@ document.addEventListener('DOMContentLoaded', () => {
             initFotoGalerie();
         }
         initSongWish();
+        initStoryClosing();
         return;
     }
 
