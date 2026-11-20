@@ -558,7 +558,6 @@ function initForm() {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         name: data.name,
-                        email: data.email,
                         attending: data.attending,
                         guests: data.guests,
                         guest_names: data.guest_names || 'Keine',
