@@ -1483,7 +1483,7 @@ function initStoryReveal() {
             step.img.addEventListener('load', applyRatio);
             applyRatio();
 
-            const entry = { el: scene, start: step.index, end: step.index + 1 };
+            const entry = { el: scene, img: step.img, start: step.index, end: step.index + 1, loaded: false };
             scenes.set(step.img, entry);
             sceneList.push(entry);
         } else {
@@ -1550,17 +1550,28 @@ function initStoryReveal() {
     sizeStoryScenes();
     window.addEventListener('resize', sizeStoryScenes);
 
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        sceneList.forEach(loadStoryImage);
+        return;
+    }
 
     const clamp01 = x => Math.min(1, Math.max(0, x));
     const ease = t => t * t * (3 - 2 * t);
     const fadeIn = (x, a, b) => ease(clamp01((x - a) / (b - a)));
     const fadeOut = (x, a, b) => 1 - ease(clamp01((x - a) / (b - a)));
 
+    const loadStoryImage = (entry) => {
+        if (entry.loaded) return;
+        entry.loaded = true;
+        entry.img.src = entry.img.dataset.src;
+    };
+
     const update = () => {
         const total = Math.max(1, timeline.offsetHeight - window.innerHeight);
         const scrolled = Math.min(total, Math.max(0, -timeline.getBoundingClientRect().top));
         const pos = (scrolled / total) * steps.length;
+
+        sceneList.forEach(entry => { if (pos >= entry.start - 2) loadStoryImage(entry); });
 
         sceneList.forEach(({ el, start, end }) => {
             const o = fadeIn(pos, start - 0.12, start) * fadeOut(pos, end - 0.12, end + 0.1);
