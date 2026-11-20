@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="description" content="Musikwünsche für die Hochzeit von Malika &amp; Dario">
+    <link rel="icon" type="image/png" href="assets/web/logo.png">
+    <title>Musikwünsche - Malika &amp; Dario</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=20261114">
+    <style>
+        .subpage {
+            min-height: 100vh;
+            padding: 6rem 2rem 4rem;
+        }
+
+        .subpage-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .subpage-header h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            color: var(--color-braun);
+            margin-bottom: 0.8rem;
+        }
+
+        .subpage-header p {
+            font-family: var(--font-body);
+            font-style: italic;
+            color: var(--color-Text-hell);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .subpage-header .section-flower {
+            color: var(--color-sage);
+            margin: 0 0.5rem;
+        }
+
+        .timeline {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--color-sage), var(--color-taupe), var(--color-sage));
+            opacity: 0.3;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: rgba(255, 253, 249, 0.85);
+            backdrop-filter: blur(6px);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(107, 67, 45, 0.08);
+            border: 1px solid rgba(188, 168, 151, 0.15);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.35rem;
+            top: 2.2rem;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--color-sage);
+            border: 3px solid var(--color-weiss);
+            box-shadow: 0 0 0 2px var(--color-sage);
+        }
+
+        .timeline-icon {
+            font-size: 2.2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .timeline-item h2 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--color-braun);
+            margin-bottom: 0.3rem;
+        }
+
+        .timeline-time {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            color: var(--color-sage);
+            margin-bottom: 0.8rem;
+        }
+
+        .timeline-item p {
+            color: var(--color-Text-hell);
+            line-height: 1.7;
+        }
+
+        .timeline-icon {
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 0.8rem;
+        }
+
+        .timeline-icon img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            mix-blend-mode: multiply;
+        }
+
+        .timeline-list {
+            margin: 1rem 0 0 1.2rem;
+            font-family: var(--font-body);
+            color: var(--color-Text-hell);
+            line-height: 1.7;
+        }
+
+        .timeline-list li {
+            margin-bottom: 0.4rem;
+        }
+
+        .schedule-note {
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-style: italic;
+            color: var(--color-Text-hell);
+            margin-bottom: 1rem;
+        }
+
+        .schedule {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: var(--font-body);
+        }
+
+        .schedule td {
+            padding: 0.6rem 0.4rem;
+            border-bottom: 1px solid rgba(188, 168, 151, 0.35);
+            vertical-align: top;
+            color: var(--color-Text-hell);
+            line-height: 1.5;
+        }
+
+        .schedule td:first-child {
+            width: 1%;
+            white-space: nowrap;
+            padding-right: 1.2rem;
+            font-family: var(--font-heading);
+            color: var(--color-sage);
+        }
+
+        .schedule small {
+            display: block;
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .subpage-back {
+            display: inline-block;
+            margin-top: 3rem;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: var(--color-braun);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(107, 67, 45, 0.3);
+            transition: var(--transition-smooth);
+            text-align: center;
+            width: 100%;
+        }
+
+        .subpage-back:hover {
+            color: var(--color-haselnuss);
+            border-bottom-color: var(--color-haselnuss);
+        }
+
+        @media (max-width: 480px) {
+            .subpage {
+                padding: 5rem 1rem 3rem;
+            }
+
+            .timeline {
+                padding-left: 2rem;
+            }
+
+            .timeline-item::before {
+                left: -1.6rem;
+                width: 12px;
+                height: 12px;
+            }
+
+            .timeline-item {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+    <style>
+        .song-wrap { max-width: 560px; margin: 0 auto; text-align: center; }
+        .song-greeting { font-family: 'Great Vibes', cursive; font-size: 2rem; color: var(--color-braun); min-height: 2.4rem; }
+        .song-intro { font-family: var(--font-body); color: var(--color-Text-hell); margin-bottom: 2rem; }
+        .song-form { text-align: left; margin: 0 auto; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="nav-logo"><img src="assets/web/logo.png" alt="Malika & Dario" class="nav-logo-img"></a>
+        <button class="nav-hamburger" aria-label="Menü"><span></span><span></span><span></span></button>
+        <ul class="nav-links">
+            <li><a href="index.html">Willkommen</a></li>
+            <li class="nav-dropdown">
+                <a href="ablauf.html">Details</a><button type="button" class="nav-dropdown-toggle" aria-label="Untermenü öffnen">▾</button>
+                <ul class="nav-dropdown-menu">
+                    <li><a href="ablauf.html" class="active">Ablauf</a></li>
+                    <li><a href="location.html">Location</a></li>
+                    <li><a href="zimmer.html">Zimmer</a></li>
+                </ul>
+            </li>
+            <li><a href="fotogalerie.html">Foto Galerie</a></li><li><a href="musikwuensche.html">Musikwünsche</a></li>
+            <li><a href="index.html#faq">FAQ</a></li>
+            <li><a href="index.html#rsvp">RSVP</a></li>
+            <li><a href="impressum.html">Impressum</a></li><li><button type="button" class="nav-logout" aria-label="Ausloggen" title="Ausloggen"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button></li>
+        </ul>
+    </nav>
+
+    <div class="subpage">
+        <div class="subpage-header">
+            <h1><span class="section-flower">✿</span> Musikwünsche <span class="section-flower">✿</span></h1>
+            <p>Welches Lied darf auf unserer Feier auf keinen Fall fehlen?</p>
+        </div>
+
+        <div class="song-wrap">
+            <p class="song-greeting" id="song-greeting"></p>
+            <p class="song-intro">Ob Tanzflächen-Klassiker oder ein Herzenslied: Schreibt uns euren Songwunsch. Wir geben die Liste an unseren DJ weiter.</p>
+
+            <form id="song-form" class="rsvp-form song-form" autocomplete="off">
+                <div class="form-group">
+                    <label for="song-title">Songtitel *</label>
+                    <input type="text" id="song-title" required placeholder="z. B. Dancing Queen">
+                </div>
+                <div class="form-group">
+                    <label for="song-artist">Interpret</label>
+                    <input type="text" id="song-artist" placeholder="z. B. ABBA">
+                </div>
+                <div class="form-group">
+                    <label for="song-note">Anmerkung</label>
+                    <input type="text" id="song-note" placeholder="z. B. nur der Refrain">
+                </div>
+                <p class="guest-code-error" id="song-error" role="alert"></p>
+                <button type="submit" class="submit-btn">
+                    <span>Wunsch absenden</span>
+                    <span class="btn-flower">✿</span>
+                </button>
+            </form>
+
+            <div id="song-success" class="form-success hidden">
+                <div class="success-icon">🎶</div>
+                <h3>Danke!</h3>
+                <p>Dein Songwunsch ist angekommen.</p>
+            </div>
+        </div>
+
+        <a href="index.html#details" class="subpage-back">&larr; Zurück zu Details</a>
+    </div>
+
+    <script src="js/main.js?v=20261114"></script>
+</body>
+</html>

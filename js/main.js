@@ -1316,6 +1316,60 @@ function requireGuestOnSubpage() {
         .catch(err => console.warn('Gäste-Prüfung:', err));
 }
 
+function initSongWish() {
+    const form = document.getElementById('song-form');
+    if (!form) return;
+    const greeting = document.getElementById('song-greeting');
+    const errorEl = document.getElementById('song-error');
+    const success = document.getElementById('song-success');
+    const submitBtn = form.querySelector('.submit-btn');
+    const code = getCookie(GUEST_COOKIE);
+
+    if (code) {
+        lookupGuest(code)
+            .then(guest => {
+                if (guest.found && greeting) greeting.textContent = 'Hallo ' + guest.firstName + '!';
+            })
+            .catch(err => console.warn('Musikwunsch-Gruß:', err));
+    }
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        errorEl.textContent = '';
+        const title = document.getElementById('song-title').value.trim();
+        if (!title) {
+            errorEl.textContent = 'Bitte gib mindestens einen Songtitel an.';
+            return;
+        }
+        if (!code) {
+            errorEl.textContent = 'Bitte gib zuerst deinen Code auf der Startseite ein.';
+            return;
+        }
+        submitBtn.disabled = true;
+        fetch(GOOGLE_SHEETS_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                type: 'song',
+                code: code,
+                title: title,
+                artist: document.getElementById('song-artist').value.trim(),
+                note: document.getElementById('song-note').value.trim()
+            })
+        })
+            .then(() => {
+                form.classList.add('hidden');
+                success.classList.remove('hidden');
+            })
+            .catch(err => {
+                console.warn('Musikwunsch:', err);
+                errorEl.textContent = 'Gerade klappt das Senden nicht. Versuch es später nochmal.';
+                submitBtn.disabled = false;
+            });
+    });
+}
+
 function initLogout() {
     document.querySelectorAll('.nav-logout').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -1585,6 +1639,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (document.getElementById('upload-btn')) {
             initFotoGalerie();
         }
+        initSongWish();
         return;
     }
 

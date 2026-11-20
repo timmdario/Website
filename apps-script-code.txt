@@ -10,10 +10,15 @@ var GUEST_SHEET_NAME = 'Gäste';
 // Tab mit den Trauzeugen. Spalten: Brautpaar | Name | Telefon
 // Die Kontakte werden nur an Gäste mit gültigem Code ausgegeben.
 var TRAU_SHEET_NAME = 'Trauzeugen';
+// Tab mit den Musikwünschen (wird automatisch angelegt). Spalten: Zeitstempel | Vorname | Nachname | Songtitel | Interpret | Anmerkung
+var SONG_SHEET_NAME = 'Musikwünsche';
 
 function doPost(e) {
   try {
     var data = JSON.parse(e.postData.contents);
+    if (data.type === 'song') {
+      return saveSongWish(data);
+    }
     var ss = SpreadsheetApp.getActiveSpreadsheet();
     var sheet = ss.getSheetByName(RSVP_SHEET_NAME) || ss.getSheets()[0];
 
@@ -101,6 +106,33 @@ function contactsFor(code) {
     }
   }
   return jsonOutput({ found: true, contacts: contacts });
+}
+
+// Speichert einen Musikwunsch. Nur mit gültigem Gäste-Code, Name kommt aus dem Gäste-Tab
+function saveSongWish(data) {
+  var guest = findGuestRow(String(data.code || '').trim());
+  if (!guest) {
+    return jsonOutput({ success: false, error: 'Ungültiger Code' });
+  }
+  var title = String(data.title || '').trim();
+  if (!title) {
+    return jsonOutput({ success: false, error: 'Songtitel fehlt' });
+  }
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName(SONG_SHEET_NAME);
+  if (!sheet) {
+    sheet = ss.insertSheet(SONG_SHEET_NAME);
+    sheet.appendRow(['Zeitstempel', 'Vorname', 'Nachname', 'Songtitel', 'Interpret', 'Anmerkung']);
+  }
+  sheet.appendRow([
+    new Date(),
+    String(guest[1] || '').trim(),
+    String(guest[2] || '').trim(),
+    title,
+    String(data.artist || '').trim(),
+    String(data.note || '').trim()
+  ]);
+  return jsonOutput({ success: true });
 }
 
 function jsonOutput(obj) {
