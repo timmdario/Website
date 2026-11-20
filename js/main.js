@@ -1230,10 +1230,10 @@ function prefillRsvpName(guest) {
     if (nameInput && !nameInput.value) {
         nameInput.value = guest.firstName + ' ' + guest.lastName;
     }
-    const guestsInput = document.getElementById('guests');
-    if (guestsInput && anredeType(guest) === 2) {
-        guestsInput.value = '2';
-        guestsInput.dispatchEvent(new Event('change', { bubbles: true }));
+    const guestsField = document.getElementById('guests');
+    if (guestsField && anredeType(guest) === 2) {
+        guestsField.value = '2';
+        guestsField.dispatchEvent(new Event('change', { bubbles: true }));
     }
     const guestsInput = document.getElementById('guests');
     if (guestsInput && anredeType(guest) === 2) {
