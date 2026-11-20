@@ -328,6 +328,10 @@
                 -webkit-mask-image: none;
                 mask-image: none;
             }
+            /* Nicht für jedes Kapitel dauerhaft eine GPU-Ebene reservieren. */
+            .story-scene,
+            .story-beat { will-change: auto; }
+            .story-scene.is-nearby { will-change: transform, opacity; }
             .story-beats {
                 top: 56svh;
                 bottom: 4.5rem;
@@ -523,6 +527,6 @@
         <a href="index.html#details" class="story-back">&larr; Zurück zur Startseite</a>
     </main>
 
-    <script src="js/main.js?v=20261138"></script>
+    <script src="js/main.js?v=20261139"></script>
 </body>
 </html>

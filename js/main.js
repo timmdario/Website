@@ -1600,8 +1600,18 @@ function initStoryReveal() {
         entry.img.src = entry.img.dataset.src;
     };
 
+    const unloadStoryImage = (entry) => {
+        if (!entry.loaded) return;
+        entry.img.removeAttribute('src');
+        entry.loaded = false;
+    };
+
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        sceneList.forEach(loadStoryImage);
+        if (mobileStory) {
+            if (sceneList[0]) loadStoryImage(sceneList[0]);
+        } else {
+            sceneList.forEach(loadStoryImage);
+        }
         return;
     }
 
@@ -1610,7 +1620,19 @@ function initStoryReveal() {
         const scrolled = Math.min(total, Math.max(0, -timeline.getBoundingClientRect().top));
         const pos = (scrolled / total) * steps.length;
 
-        sceneList.forEach(entry => { if (pos >= entry.start - 2) loadStoryImage(entry); });
+        sceneList.forEach(entry => {
+            if (mobileStory) {
+                // Nur Szenen in der Nähe des aktuellen Scrollpunkts behalten.
+                // Das erlaubt beim Zurückscrollen rechtzeitiges Nachladen,
+                // gibt aber ältere Bild-/GPU-Ressourcen wieder frei.
+                const nearby = pos >= entry.start - 2 && pos <= entry.end + 2;
+                entry.el.classList.toggle('is-nearby', nearby);
+                if (nearby) loadStoryImage(entry);
+                else unloadStoryImage(entry);
+            } else if (pos >= entry.start - 2) {
+                loadStoryImage(entry);
+            }
+        });
 
         sceneList.forEach(({ el, start, end }) => {
             const out = end === steps.length ? 1 : fadeOut(pos, end - 0.12, end + 0.1);
