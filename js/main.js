@@ -1,23 +1,10 @@
 /* ========================================
    MALIKA & DARIO - HOCHZEITSWEBSITE
-   JavaScript: Animationen, FAQ, EmailJS
+   JavaScript: Animationen, FAQ, Gäste-Code
    ======================================== */
-
-// ========================================
-// EMAILJS KONFIGURATION
-// ========================================
-const EMAILJS_PUBLIC_KEY = 'bsy7xvQ7fhd3udqmU';
-const EMAILJS_SERVICE_ID = 'service_3k4jtrq';
-const EMAILJS_TEMPLATE_ID = 'template_vcgt7mo';
-const EMAILJS_CONFIRM_TEMPLATE_ID = 'template_bestaetigung';
 
 // Google Sheets Web App URL (nach Deployment einfügen)
 const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzqkcHzcFQScpf2IXVl2hGh0WM8GsCXk88aCnRZuy9eSXhO05I9VItnobkBfi30OkkG-g/exec';
-
-// EmailJS initialisieren (nur wenn Library geladen)
-if (typeof emailjs !== 'undefined') {
-    emailjs.init(EMAILJS_PUBLIC_KEY);
-}
 
 // ScrollTrigger Plugin registrieren (nur wenn Library geladen)
 if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
@@ -584,40 +571,6 @@ function initForm() {
                         message: data.message || 'Keine Nachricht'
                     })
                 }).catch(err => console.warn('Google Sheets:', err));
-            }
-
-            // E-Mail an Brautpaar senden
-            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-                name: data.name,
-                email: data.email,
-                attending: data.attending,
-                guests: data.guests,
-                guest_names: data.guest_names || 'Keine',
-                overnight: data.overnight,
-                overnight_friday: data.overnight_friday,
-                overnight_saturday: data.overnight_saturday,
-                overnight_prefs: data.overnight_prefs || 'Keine',
-                breakfast: data.breakfast,
-                dietary: data.dietary || 'Keine',
-                message: data.message || 'Keine Nachricht'
-            }).catch(err => console.warn('Brautpaar-E-Mail:', err));
-
-            // Bestätigungs-E-Mail an Gast senden
-            if (data.email) {
-                emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_CONFIRM_TEMPLATE_ID, {
-                    name: data.name,
-                    email: data.email,
-                    attending: data.attending,
-                    guests: data.guests,
-                    guest_names: data.guest_names || 'Keine',
-                    overnight: data.overnight,
-                    overnight_friday: data.overnight_friday,
-                    overnight_saturday: data.overnight_saturday,
-                    overnight_prefs: data.overnight_prefs || 'Keine',
-                    breakfast: data.breakfast,
-                    dietary: data.dietary || 'Keine',
-                    message: data.message || 'Keine Nachricht'
-                }).catch(err => console.warn('Bestätigungs-E-Mail:', err));
             }
 
             // Button Text ändern
