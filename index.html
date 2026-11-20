@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&family=Great+Vibes&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20261119">
+    <link rel="stylesheet" href="css/style.css?v=20261121">
 </head>
 <body>
     <!-- Envelope Animation Overlay -->
@@ -422,26 +422,10 @@
             <p class="rsvp-intro">Bitte lasst uns bis zum 31. Januar 2027 wissen, ob ihr kommen könnt.</p>
             <form id="rsvp-form" class="rsvp-form">
                 <div class="form-group">
-                    <label for="name">Name *</label>
-                    <input type="text" id="name" name="name" required placeholder="Dein vollständiger Name">
-                </div>
-
-                <div class="form-group">
-                    <label for="guests">Anzahl Gäste (inkl. dir) *</label>
-                    <input type="number" id="guests" name="guests" min="1" max="10" value="1" required>
-                </div>
-
-                <div class="form-group" id="guest-names-group">
-                    <label for="guest_names">Namen der weiteren Gäste</label>
-                    <textarea id="guest_names" name="guest_names" rows="2" placeholder="Bitte Namen der Begleitung eintragen, z. B. Max Mustermann, Anna Beispiel"></textarea>
-                    <span class="label-hint">Damit wir die Schlafplätze und Sitzordnung planen können.</span>
-                </div>
-
-                <div class="form-group">
                     <label>Kommt ihr zu unserer Hochzeit?</label>
                     <div class="radio-group">
                         <label class="radio-label">
-                            <input type="radio" name="attending" value="Ja">
+                            <input type="radio" name="attending" value="Ja" required>
                             <span class="radio-custom"></span>
                             <span>Ja, ich bin dabei</span>
                         </label>
@@ -453,7 +437,23 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" data-rsvp="basic">
+                    <label for="name">Name *</label>
+                    <input type="text" id="name" name="name" required placeholder="Dein vollständiger Name">
+                </div>
+
+                <div class="form-group" data-rsvp="full">
+                    <label for="guests">Anzahl Gäste (inkl. dir) *</label>
+                    <input type="number" id="guests" name="guests" min="1" max="10" value="1" required>
+                </div>
+
+                <div class="form-group" id="guest-names-group" data-rsvp="full">
+                    <label for="guest_names">Namen der weiteren Gäste</label>
+                    <textarea id="guest_names" name="guest_names" rows="2" placeholder="Bitte Namen der Begleitung eintragen, z. B. Max Mustermann, Anna Beispiel"></textarea>
+                    <span class="label-hint">Damit wir die Schlafplätze und Sitzordnung planen können.</span>
+                </div>
+
+                <div class="form-group" data-rsvp="full">
                     <label>Möchtet ihr auf dem Gelände übernachten? <span class="label-hint">(42,50–60 € pro Person und Nacht, Einzelbelegung mit 50 % Aufschlag; 25 € pro Nacht für Zelt, Wohnmobil oder Stellplatz)</span></label>
                     <div class="radio-group">
                         <label class="radio-label">
@@ -508,7 +508,7 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" data-rsvp="full">
                     <label>Frühstück Sonntag, 2. Mai? <span class="label-hint">(20 € pro Person)</span></label>
                     <div class="radio-group">
                         <label class="radio-label">
@@ -524,12 +524,12 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" data-rsvp="full">
                     <label for="dietary">Ernährungswünsche / Allergien</label>
                     <textarea id="dietary" name="dietary" rows="3" placeholder="Vegetarisch, vegan, Allergien..."></textarea>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" data-rsvp="basic">
                     <label for="message">Nachricht an das Brautpaar</label>
                     <textarea id="message" name="message" rows="4" placeholder="Eine persönliche Nachricht..."></textarea>
                 </div>
@@ -560,6 +560,6 @@
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="js/main.js?v=20261119"></script>
+    <script src="js/main.js?v=20261121"></script>
 </body>
 </html>

@@ -502,6 +502,22 @@ function initForm() {
         });
     });
 
+    // Erst die Frage "Kommt ihr?" beantworten, bei "Ja" öffnet sich der Rest
+    if (rsvpForm) {
+        const attendingRadios = rsvpForm.querySelectorAll('input[name="attending"]');
+        const rsvpGroups = rsvpForm.querySelectorAll('[data-rsvp]');
+        const updateRsvpSteps = () => {
+            const answer = rsvpForm.querySelector('input[name="attending"]:checked');
+            rsvpGroups.forEach(group => {
+                const show = !!answer && (group.dataset.rsvp === 'basic' || answer.value === 'Ja');
+                group.style.display = show ? '' : 'none';
+                group.querySelectorAll('input, textarea').forEach(el => { el.disabled = !show; });
+            });
+        };
+        attendingRadios.forEach(radio => radio.addEventListener('change', updateRsvpSteps));
+        updateRsvpSteps();
+    }
+
     // Overnight conditional toggle
     const overnightRadios = document.querySelectorAll('input[name="overnight"]');
     const overnightDetails = document.getElementById('overnight-details');
