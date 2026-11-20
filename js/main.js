@@ -1464,7 +1464,6 @@ function initStoryReveal() {
     const progressWrap = document.querySelector('.story-progress');
     const nextBtn = document.querySelector('.story-next');
     if (!source.length || !timeline || !pin || !stage || !beatsWrap) return;
-    const mobileStory = window.matchMedia('(max-width: 600px)').matches;
 
     // Jeder Schritt zeigt ein Bild; gibt es mehr Bilder als Textabschnitte, laufen Bilder ohne neuen Text durch
     const steps = [];
@@ -1475,18 +1474,9 @@ function initStoryReveal() {
 
     source.forEach(section => {
         const imgs = Array.from(section.querySelectorAll('.story-images img'));
-        let paragraphs = Array.from(section.querySelectorAll('.story-text'));
+        const paragraphs = Array.from(section.querySelectorAll('.story-text'));
         const headingEl = section.querySelector('.story-heading');
         if (!imgs.length) return;
-
-        // Mobile: Madeira hat 3 Bilder und 4 Absätze. Die ersten beiden
-        // Absätze bilden gemeinsam den ersten Schritt, damit Bild und Text
-        // wieder 1:1 durch die Szene laufen. Desktop bleibt unverändert.
-        if (mobileStory && headingEl?.textContent.trim() === 'Madeira und eine Frage für immer' && paragraphs.length === 4 && imgs.length === 3) {
-            const intro = paragraphs[0].cloneNode(true);
-            intro.textContent = paragraphs[0].textContent.trim() + ' ' + paragraphs[1].textContent.trim();
-            paragraphs = [intro, paragraphs[2].cloneNode(true), paragraphs[3].cloneNode(true)];
-        }
 
         const start = steps.length;
         const count = Math.max(imgs.length, paragraphs.length);
@@ -1602,6 +1592,8 @@ function initStoryReveal() {
     const ease = t => t * t * (3 - 2 * t);
     const fadeIn = (x, a, b) => ease(clamp01((x - a) / (b - a)));
     const fadeOut = (x, a, b) => 1 - ease(clamp01((x - a) / (b - a)));
+    const mobileStory = window.matchMedia('(max-width: 600px)').matches;
+
     const loadStoryImage = (entry) => {
         if (entry.loaded) return;
         entry.loaded = true;
