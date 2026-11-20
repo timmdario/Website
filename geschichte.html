@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20261111">
+    <link rel="stylesheet" href="css/style.css?v=20261112">
     <style>
         body { overflow-x: clip; }
 
@@ -74,6 +74,7 @@
         }
 
         .story-pin {
+            --story-top: 5.5rem;
             position: sticky;
             top: 0;
             height: 100vh;
@@ -94,7 +95,7 @@
 
         .story-scene {
             position: absolute;
-            top: 3svh;
+            top: var(--story-top);
             left: 50%;
             width: min(62vw, 44svh);
             aspect-ratio: var(--ratio, 0.75);
@@ -144,7 +145,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            top: calc(3svh + var(--story-img-h, 70svh) * 0.72);
+            top: calc(var(--story-top) + var(--story-img-h, 70svh) * 0.72);
             z-index: 1;
             pointer-events: none;
         }
@@ -174,7 +175,7 @@
             position: absolute;
             z-index: 2;
             left: 50%;
-            top: calc(3svh + 1.4rem);
+            top: calc(var(--story-top) + 1.4rem);
             translate: -50% 0;
             opacity: var(--o, 0);
             padding: 0.45rem 1.2rem;
@@ -307,6 +308,7 @@
         }
 
         @media (max-width: 600px) {
+            .story-pin { --story-top: 4.5rem; }
             .story-progress { display: none; }
             .story-beat { padding: 0 1rem; }
             .story-text { font-size: 0.98rem; line-height: 1.65; }
@@ -483,6 +485,6 @@
         <a href="index.html#details" class="story-back">&larr; Zurück zur Startseite</a>
     </main>
 
-    <script src="js/main.js?v=20261111"></script>
+    <script src="js/main.js?v=20261112"></script>
 </body>
 </html>
