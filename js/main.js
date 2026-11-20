@@ -1230,6 +1230,16 @@ function prefillRsvpName(guest) {
     if (nameInput && !nameInput.value) {
         nameInput.value = guest.firstName + ' ' + guest.lastName;
     }
+    const guestsInput = document.getElementById('guests');
+    if (guestsInput && anredeType(guest) === 2) {
+        guestsInput.value = '2';
+        guestsInput.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+    const guestsInput = document.getElementById('guests');
+    if (guestsInput && anredeType(guest) === 2) {
+        guestsInput.value = '2';
+        guestsInput.dispatchEvent(new Event('input'));
+    }
 }
 
 function fillGuestLetter(guest) {
