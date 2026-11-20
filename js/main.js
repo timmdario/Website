@@ -450,8 +450,15 @@ function initScrollAnimations() {
 // FAQ ACCORDION
 // ========================================
 function initFAQ() {
+    const setExpanded = (item, expanded) => {
+        const answer = item.querySelector('.faq-answer');
+        item.classList.toggle('active', expanded);
+        if (answer) answer.style.maxHeight = expanded ? answer.scrollHeight + 'px' : '0px';
+    };
+
     faqItems.forEach(item => {
         const question = item.querySelector('.faq-question');
+        if (!question) return;
 
         question.addEventListener('click', () => {
             const isActive = item.classList.contains('active');
@@ -459,12 +466,12 @@ function initFAQ() {
             // Alle anderen schließen
             faqItems.forEach(otherItem => {
                 if (otherItem !== item) {
-                    otherItem.classList.remove('active');
+                    setExpanded(otherItem, false);
                 }
             });
 
             // Aktuelles Item togglen
-            item.classList.toggle('active');
+            setExpanded(item, !isActive);
 
             // Smooth Scroll wenn nötig
             if (!isActive) {
@@ -472,6 +479,14 @@ function initFAQ() {
                     item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }, 100);
             }
+        });
+    });
+
+    window.addEventListener('resize', () => {
+        faqItems.forEach(item => {
+            if (!item.classList.contains('active')) return;
+            const answer = item.querySelector('.faq-answer');
+            if (answer) answer.style.maxHeight = answer.scrollHeight + 'px';
         });
     });
 }
@@ -1147,6 +1162,8 @@ function loadTrauzeugen() {
                 groups[bp].map(c => '<li>' + escHtml(c.name) + ' · <a href="tel:' + escHtml(c.phone.replace(/\s/g, '')) + '">' + escHtml(c.phone) + '</a></li>').join('') +
                 '</ul></div>'
             ).join('');
+            const answer = list.closest('.faq-answer');
+            if (answer && answer.closest('.faq-item.active')) answer.style.maxHeight = answer.scrollHeight + 'px';
         })
         .catch(err => console.warn('Trauzeugen:', err));
 }
