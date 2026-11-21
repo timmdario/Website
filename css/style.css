@@ -696,7 +696,8 @@ body > .parallax-bg {
 }
 
 .nav-logo-img {
-    height: 38px;
+    height: 30px;
+    padding: 3px;
     width: auto;
     object-fit: contain;
 }
@@ -2530,7 +2531,7 @@ body > .parallax-bg {
     }
 
     .nav-logo-img {
-        height: 40px;
+        height: 26px;
     }
 
     .hero-logo {
