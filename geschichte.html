@@ -353,17 +353,11 @@
             .story-next { bottom: 1.4rem; }
         }
 
-        /* iOS Safari ruckelt bei scrollgekoppelten Transform-Updates in
-           Sticky-Containern. Auf iPhones bleibt das Bild deshalb geometrisch
-           ruhig; die Opacity-Überblendung der Szenen bleibt erhalten. */
-        @supports (-webkit-touch-callout: none) {
-            @media (max-width: 600px) {
-                .story-scene { transform: none !important; }
-                .story-scene.is-nearby { will-change: opacity; }
-                .story-beat { transform: none !important; }
-                .story-beat { will-change: opacity; }
-            }
-        }
+        /* JS setzt diese Klasse nur auf iPhones. Keine scrollgekoppelten
+           Vertikalbewegungen auf Safari-iOS. */
+        .ios-story .story-scene { transform: none !important; }
+        .ios-story .story-scene.is-nearby { will-change: opacity; }
+        .ios-story .story-beat { transform: none !important; will-change: opacity; }
 
         @media (prefers-reduced-motion: reduce) {
             .story-scroll-hint { animation: none; }
@@ -539,6 +533,6 @@
         <a href="index.html#details" class="story-back">&larr; Zurück zur Startseite</a>
     </main>
 
-    <script src="js/main.js?v=20261139"></script>
+    <script src="js/main.js?v=20261140"></script>
 </body>
 </html>

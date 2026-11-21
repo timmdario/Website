@@ -1481,6 +1481,9 @@ function initStoryReveal() {
     const progressWrap = document.querySelector('.story-progress');
     const nextBtn = document.querySelector('.story-next');
     if (!source.length || !timeline || !pin || !stage || !beatsWrap) return;
+    const mobileStory = window.matchMedia('(max-width: 600px)').matches;
+    const iosStory = mobileStory && window.CSS && window.CSS.supports('(-webkit-touch-callout: none)');
+    if (iosStory) document.documentElement.classList.add('ios-story');
 
     // Jeder Schritt zeigt ein Bild; gibt es mehr Bilder als Textabschnitte, laufen Bilder ohne neuen Text durch
     const steps = [];
@@ -1579,7 +1582,8 @@ function initStoryReveal() {
 
     // Die Sticky-Szene nutzt 100svh. Ihre echte Höhe ist die zuverlässige
     // Scrollstrecke, auch wenn auf Mobilgeräten die Browserleisten wechseln.
-    const storyScrollDistance = () => Math.max(1, timeline.offsetHeight - pin.offsetHeight);
+    let storyScrollRange = Math.max(1, timeline.offsetHeight - pin.offsetHeight);
+    const storyScrollDistance = () => storyScrollRange;
 
     function scrollToStoryStep(index) {
         const total = storyScrollDistance();
@@ -1603,14 +1607,11 @@ function initStoryReveal() {
         });
     }
     sizeStoryScenes();
-    window.addEventListener('resize', sizeStoryScenes);
 
     const clamp01 = x => Math.min(1, Math.max(0, x));
     const ease = t => t * t * (3 - 2 * t);
     const fadeIn = (x, a, b) => ease(clamp01((x - a) / (b - a)));
     const fadeOut = (x, a, b) => 1 - ease(clamp01((x - a) / (b - a)));
-    const mobileStory = window.matchMedia('(max-width: 600px)').matches;
-
     const loadStoryImage = (entry) => {
         if (entry.loaded) return;
         entry.loaded = true;
@@ -1665,11 +1666,12 @@ function initStoryReveal() {
             else if (dir === 'top') ty = -distance * 0.7;
             else if (dir === 'bottom') ty = distance * 0.7;
             else rot = (1 - travel) * -4;
+            if (iosStory) { tx = 0; ty = 0; rot = 0; }
             el.style.setProperty('--o', o.toFixed(3));
             el.style.setProperty('--tx', tx.toFixed(2) + 'vw');
             el.style.setProperty('--ty', ty.toFixed(2) + 'vw');
             el.style.setProperty('--rot', rot.toFixed(2) + 'deg');
-            el.style.setProperty('--sc', (1.04 - travel * 0.04).toFixed(3));
+            el.style.setProperty('--sc', iosStory ? '1' : (1.04 - travel * 0.04).toFixed(3));
         });
 
         chapters.forEach(chapter => {
@@ -1685,9 +1687,9 @@ function initStoryReveal() {
             const o = fadeIn(pos, step.index - 0.05, inEnd) *
                 (isFinite(step.nextText) ? fadeOut(pos, outStart, outEnd) : 1);
             const riseDuration = mobileStory ? 0.12 : 0.35;
-            const rise = ease(clamp01((d + 0.05) / riseDuration));
+            const rise = iosStory ? 1 : ease(clamp01((d + 0.05) / riseDuration));
             step.beat.style.setProperty('--o', Math.max(0, o).toFixed(3));
-            step.beat.style.setProperty('--ty', ((1 - rise) * 24).toFixed(1) + 'px');
+            step.beat.style.setProperty('--ty', iosStory ? '0px' : ((1 - rise) * 24).toFixed(1) + 'px');
         });
 
         const activeChapter = chapters.findIndex(c => pos >= c.start && pos < c.end);
@@ -1707,8 +1709,22 @@ function initStoryReveal() {
         });
     }
 
-    window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
+    let iosUpdateQueued = false;
+    const scheduleUpdate = () => {
+        if (!iosStory) { update(); return; }
+        if (iosUpdateQueued) return;
+        iosUpdateQueued = true;
+        window.requestAnimationFrame(() => {
+            iosUpdateQueued = false;
+            update();
+        });
+    };
+    window.addEventListener('scroll', scheduleUpdate, { passive: true });
+    window.addEventListener('resize', () => {
+        storyScrollRange = Math.max(1, timeline.offsetHeight - pin.offsetHeight);
+        sizeStoryScenes();
+        scheduleUpdate();
+    });
     update();
 }
 
