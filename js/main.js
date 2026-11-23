@@ -1472,6 +1472,21 @@ function initKarussel() {
     next.addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));
 }
 
+function initIOSStoryNotice() {
+    const dialog = document.getElementById('ios-story-notice');
+    if (!dialog) return;
+
+    const isAppleMobile = /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    if (!isAppleMobile) return;
+
+    const closeButton = document.getElementById('ios-story-notice-close');
+    closeButton?.addEventListener('click', () => dialog.close());
+
+    if (typeof dialog.showModal === 'function') dialog.showModal();
+    else window.alert('Die Geschichte kann beim Scrollen auf iPhones noch etwas zittern. Am ruhigsten läuft’s auf Android oder am PC.');
+}
+
 function initStoryReveal() {
     const source = document.querySelectorAll('.story-source .story-chapter');
     const timeline = document.querySelector('.story-timeline');
@@ -1481,6 +1496,7 @@ function initStoryReveal() {
     const progressWrap = document.querySelector('.story-progress');
     const nextBtn = document.querySelector('.story-next');
     if (!source.length || !timeline || !pin || !stage || !beatsWrap) return;
+    initIOSStoryNotice();
     const mobileStory = window.matchMedia('(max-width: 600px)').matches;
     const iosStory = mobileStory && window.CSS && window.CSS.supports('(-webkit-touch-callout: none)');
     if (iosStory) document.documentElement.classList.add('ios-story');

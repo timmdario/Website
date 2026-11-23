@@ -318,6 +318,36 @@
             border-bottom: 1px solid rgba(107, 67, 45, 0.3);
         }
 
+        .ios-story-notice {
+            width: min(440px, calc(100% - 2rem));
+            padding: 1.6rem;
+            color: var(--color-Text);
+            background: #fffdf9;
+            border: 1px solid rgba(188, 168, 151, 0.7);
+            border-radius: 16px;
+            box-shadow: 0 16px 48px rgba(74, 63, 53, 0.28);
+        }
+
+        .ios-story-notice::backdrop { background: rgba(42, 35, 30, 0.5); }
+        .ios-story-notice h2 {
+            margin-bottom: 0.75rem;
+            color: var(--color-braun);
+            font-family: var(--font-heading);
+            font-size: 1.35rem;
+        }
+        .ios-story-notice p { line-height: 1.65; }
+        .ios-story-notice button {
+            display: block;
+            margin: 1.2rem 0 0 auto;
+            padding: 0.6rem 1.2rem;
+            color: #fffdf9;
+            background: var(--color-braun);
+            border: 0;
+            border-radius: 999px;
+            font: inherit;
+            cursor: pointer;
+        }
+
         @media (max-width: 600px) {
             .story-pin { --story-top: 4.5rem; }
             .story-progress { display: none; }
@@ -420,7 +450,13 @@
             </div>
         </section>
 
-        <p class="story-closing" id="story-closing" hidden></p>
+    <p class="story-closing" id="story-closing" hidden></p>
+
+    <dialog class="ios-story-notice" id="ios-story-notice" aria-labelledby="ios-story-notice-title">
+        <h2 id="ios-story-notice-title">Kleiner iPhone-Hinweis 🍎</h2>
+        <p>Die Geschichte kann beim Scrollen auf iPhones noch etwas zittern. iOS hat wohl gern seine eigenen Ideen – und Dario hatte keine Lust mehr auf Extra-Runden für Apples Sonderlocken. Am ruhigsten läuft’s auf Android oder am PC. Wenn du auf dem iPhone bleibst: viel Spaß beim Wackel-Kino!</p>
+        <button type="button" id="ios-story-notice-close">Alles klar</button>
+    </dialog>
 
         <div class="story-source">
             <section class="story-chapter" data-from="left">
@@ -533,6 +569,6 @@
         <a href="index.html#details" class="story-back">&larr; Zurück zur Startseite</a>
     </main>
 
-    <script src="js/main.js?v=20261140"></script>
+    <script src="js/main.js?v=20261141"></script>
 </body>
 </html>
