@@ -1142,7 +1142,7 @@ function lookupGuest(code) {
 // Wird ausschließlich nach erfolgreicher Code-Prüfung im Startseiten-Login aufgerufen.
 function logSuccessfulLogin(code) {
     const url = GOOGLE_SHEETS_URL + '?action=loginLog&code=' + encodeURIComponent(code);
-    return fetch(url, { cache: 'no-store' }).then(response => {
+    return fetch(url, { cache: 'no-store', keepalive: true }).then(response => {
         if (!response.ok) throw new Error('HTTP ' + response.status);
         return response.json();
     }).then(result => {
