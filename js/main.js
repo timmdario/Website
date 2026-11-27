@@ -4,7 +4,7 @@
    ======================================== */
 
 // Google Sheets Web App URL (nach Deployment einfügen)
-const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzqkcHzcFQScpf2IXVl2hGh0WM8GsCXk88aCnRZuy9eSXhO05I9VItnobkBfi30OkkG-g/exec';
+const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyNXScbg7YQLbolGV77MBI1xtzZpMd3_9VnIPPWaGDwmZ9y1_Xn0BUJ0lHLZNtXQOurJw/exec';
 
 // ScrollTrigger Plugin registrieren (nur wenn Library geladen)
 if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
