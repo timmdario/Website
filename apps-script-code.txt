@@ -96,7 +96,10 @@ function lookupGuest(code) {
 // Separater Endpunkt: protokolliert nur, wenn der Code gültig ist.
 function recordSuccessfulLogin(code) {
   var guest = findGuestRow(code);
-  if (!guest) return jsonOutput({ success: false });
+  if (!guest) {
+    console.warn('Login-Protokoll: Code bei erneuter Prüfung nicht gefunden.');
+    return jsonOutput({ success: false, error: 'Code bei erneuter Prüfung nicht gefunden' });
+  }
 
   try {
     var lock = LockService.getScriptLock();
@@ -114,13 +117,14 @@ function recordSuccessfulLogin(code) {
       var name = [String(guest[1] || '').trim(), String(guest[2] || '').trim()]
         .filter(Boolean).join(' ');
       sheet.appendRow([new Date(), name]);
+      console.info('Login-Protokoll: Eintrag geschrieben, Tabellenzeile ' + sheet.getLastRow() + '.');
     } finally {
       lock.releaseLock();
     }
     return jsonOutput({ success: true });
   } catch (error) {
     console.error('Login-Protokoll:', error);
-    return jsonOutput({ success: false });
+    return jsonOutput({ success: false, error: String(error) });
   }
 }
 

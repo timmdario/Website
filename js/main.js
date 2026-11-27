@@ -1145,6 +1145,9 @@ function logSuccessfulLogin(code) {
     return fetch(url, { cache: 'no-store' }).then(response => {
         if (!response.ok) throw new Error('HTTP ' + response.status);
         return response.json();
+    }).then(result => {
+        if (!result.success) throw new Error(result.error || 'Apps Script hat den Login nicht protokolliert');
+        return result;
     });
 }
 
