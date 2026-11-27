@@ -10,6 +10,8 @@ var GUEST_SHEET_NAME = 'Gäste';
 // Tab mit den Trauzeugen. Spalten: Brautpaar | Name | Telefon
 // Die Kontakte werden nur an Gäste mit gültigem Code ausgegeben.
 var TRAU_SHEET_NAME = 'Trauzeugen';
+// Protokolliert ausschließlich erfolgreiche manuelle Logins auf der Startseite.
+var LOGIN_LOG_SHEET_NAME = 'Login-Protokoll';
 // Tab mit den Musikwünschen (wird automatisch angelegt). Spalten: Zeitstempel | Vorname | Nachname | Songtitel | Interpret | Anmerkung
 var SONG_SHEET_NAME = 'Musikwünsche';
 
@@ -56,6 +58,9 @@ function doGet(e) {
   if (params.action === 'contacts') {
     return contactsFor(code);
   }
+  if (params.action === 'loginLog') {
+    return recordSuccessfulLogin(code);
+  }
   return jsonOutput({ status: 'ok' });
 }
 
@@ -86,6 +91,37 @@ function lookupGuest(code) {
     message: String(row[3] || ''),
     anrede: row[4] === '' ? '' : String(row[4])
   });
+}
+
+// Separater Endpunkt: protokolliert nur, wenn der Code gültig ist.
+function recordSuccessfulLogin(code) {
+  var guest = findGuestRow(code);
+  if (!guest) return jsonOutput({ success: false });
+
+  try {
+    var lock = LockService.getScriptLock();
+    lock.waitLock(10000);
+    try {
+      var ss = SpreadsheetApp.getActiveSpreadsheet();
+      var sheet = ss.getSheetByName(LOGIN_LOG_SHEET_NAME);
+      if (!sheet) {
+        sheet = ss.insertSheet(LOGIN_LOG_SHEET_NAME);
+        sheet.appendRow(['Zeitstempel', 'Name']);
+      } else if (sheet.getLastRow() === 0) {
+        sheet.appendRow(['Zeitstempel', 'Name']);
+      }
+
+      var name = [String(guest[1] || '').trim(), String(guest[2] || '').trim()]
+        .filter(Boolean).join(' ');
+      sheet.appendRow([new Date(), name]);
+    } finally {
+      lock.releaseLock();
+    }
+    return jsonOutput({ success: true });
+  } catch (error) {
+    console.error('Login-Protokoll:', error);
+    return jsonOutput({ success: false });
+  }
 }
 
 function contactsFor(code) {

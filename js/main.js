@@ -1139,6 +1139,15 @@ function lookupGuest(code) {
     return request;
 }
 
+// Wird ausschließlich nach erfolgreicher Code-Prüfung im Startseiten-Login aufgerufen.
+function logSuccessfulLogin(code) {
+    const url = GOOGLE_SHEETS_URL + '?action=loginLog&code=' + encodeURIComponent(code);
+    return fetch(url, { cache: 'no-store' }).then(response => {
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        return response.json();
+    });
+}
+
 let currentGuest = null;
 
 function escHtml(s) {
@@ -1302,6 +1311,7 @@ function initGuestCode() {
                 errorEl.textContent = 'Diesen Code kennen wir nicht. Bitte prüfe ihn noch einmal.';
                 return;
             }
+            logSuccessfulLogin(code).catch(err => console.warn('Login-Protokoll:', err));
             setCookie(GUEST_COOKIE, code, 365);
             prefillRsvpName(guest);
             fillGuestLetter(guest);
