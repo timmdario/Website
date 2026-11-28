@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>Karten-Editor – Hani's Rundgang</title>
+    <title>Karten-Editor â€“ Hani's Rundgang</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lora:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/style.css?v=20261146">
+    <link rel="stylesheet" href="../css/style.css?v=20261147">
     <style>
         .ed-wrap { max-width: 1180px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
         .ed-head { margin-bottom: 1.25rem; }
@@ -57,18 +57,18 @@
 <body>
     <div class="ed-wrap">
         <header class="ed-head">
-            <h1>🛠 Karten-Editor – Hani's Rundgang</h1>
-            <p>Ziehe Orte, Gebäude, Hütten, Flächen, Straßen, Parkplätze, Bäume, Teiche und Hanis Startpunkt mit der Maus auf der Karte. Danach <strong>„map.json herunterladen“</strong> und die Datei im Repository unter <code>easteregg/map.json</code> ersetzen.</p>
+            <h1>ðŸ›  Karten-Editor â€“ Hani's Rundgang</h1>
+            <p>Ziehe Orte, GebÃ¤ude, HÃ¼tten, FlÃ¤chen, StraÃŸen, ParkplÃ¤tze, BÃ¤ume, Teiche und Hanis Startpunkt mit der Maus auf der Karte. Danach <strong>â€žmap.json herunterladenâ€œ</strong> und die Datei im Repository unter <code>easteregg/map.json</code> ersetzen.</p>
         </header>
 
         <div class="ed-grid">
             <div>
                 <div class="ed-toolbar">
                     <button class="ed-btn" data-add="feature">+ Ort</button>
-                    <button class="ed-btn" data-add="building">+ Gebäude</button>
-                    <button class="ed-btn" data-add="hut">+ Hütte</button>
-                    <button class="ed-btn" data-add="area">+ Fläche</button>
-                    <button class="ed-btn" data-add="road">+ Straße</button>
+                    <button class="ed-btn" data-add="building">+ GebÃ¤ude</button>
+                    <button class="ed-btn" data-add="hut">+ HÃ¼tte</button>
+                    <button class="ed-btn" data-add="area">+ FlÃ¤che</button>
+                    <button class="ed-btn" data-add="road">+ StraÃŸe</button>
                     <button class="ed-btn" data-add="parking">+ Parkplatz</button>
                     <button class="ed-btn" data-add="pond">+ Teich</button>
                     <button class="ed-btn" data-add="tree">+ Baum</button>
@@ -78,7 +78,7 @@
                 <div class="ed-stage">
                     <canvas id="ed-canvas" width="480" height="360"></canvas>
                 </div>
-                <p class="ed-hint">Tipp: Objekt anklicken und ziehen. Bei Flächen und Straßen (Polylinie) erscheinen Eckpunkte zum Verschieben. Gebäude lassen sich unter „Eigenschaften“ drehen. Pfeiltasten verschieben das Ausgewählte fein (mit Shift 10&nbsp;px), <strong>Entf</strong> löscht.</p>
+                <p class="ed-hint">Tipp: Objekt anklicken und ziehen. Bei FlÃ¤chen und StraÃŸen (Polylinie) erscheinen Eckpunkte zum Verschieben. GebÃ¤ude lassen sich unter â€žEigenschaftenâ€œ drehen. Pfeiltasten verschieben das AusgewÃ¤hlte fein (mit Shift 10&nbsp;px), <strong>Entf</strong> lÃ¶scht.</p>
             </div>
 
             <div>
@@ -100,7 +100,7 @@
                         <button class="ed-btn" id="ed-copy">Kopieren</button>
                         <button class="ed-btn" id="ed-import">JSON laden</button>
                     </div>
-                    <label class="ed-btn" style="display:inline-block">Datei öffnen<input type="file" id="ed-file" accept=".json,application/json" style="display:none"></label>
+                    <label class="ed-btn" style="display:inline-block">Datei Ã¶ffnen<input type="file" id="ed-file" accept=".json,application/json" style="display:none"></label>
                     <textarea class="ed-json" id="ed-json" spellcheck="false"></textarea>
                     <div class="ed-status" id="ed-status"></div>
                 </div>

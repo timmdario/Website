@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20261146">
+    <link rel="stylesheet" href="css/style.css?v=20261147">
     <style>
         body { overflow-x: clip; }
 
@@ -60,7 +60,7 @@
             50% { transform: translateY(9px); opacity: 1; }
         }
 
-        /* Die Szene bleibt stehen, während die Texte nacheinander erscheinen */
+        /* Die Szene bleibt stehen, wÃ¤hrend die Texte nacheinander erscheinen */
         .story-timeline {
             position: relative;
             height: 1600vh;
@@ -216,7 +216,7 @@
         .story-text + .story-text { margin-top: 0.9rem; }
 
         .story-beat--continue .story-beat-inner::before {
-            content: "✿";
+            content: "âœ¿";
             display: block;
             margin-bottom: 0.5rem;
             font-size: 0.9rem;
@@ -232,7 +232,7 @@
         }
 
         .story-year::after {
-            content: "✿";
+            content: "âœ¿";
             display: block;
             margin-top: 0.5rem;
             font-family: var(--font-body);
@@ -355,14 +355,14 @@
         @media (max-width: 600px) {
             .story-pin { --story-top: 4.5rem; }
             .story-progress { display: none; }
-            /* Die Fotos haben bereits gemalte Ränder; auf Android erzeugte die
-               SVG-Maske zusammen mit dem Fog-Filter eine fast weiße Bildebene. */
+            /* Die Fotos haben bereits gemalte RÃ¤nder; auf Android erzeugte die
+               SVG-Maske zusammen mit dem Fog-Filter eine fast weiÃŸe Bildebene. */
             .story-fog { display: none; }
             .story-scene-inner {
                 -webkit-mask-image: none;
                 mask-image: none;
             }
-            /* Nicht für jedes Kapitel dauerhaft eine GPU-Ebene reservieren. */
+            /* Nicht fÃ¼r jedes Kapitel dauerhaft eine GPU-Ebene reservieren. */
             .story-scene,
             .story-beat { will-change: auto; }
             .story-scene.is-nearby { will-change: transform, opacity; }
@@ -419,18 +419,18 @@
 
     <nav class="navbar">
         <a href="index.html" class="nav-logo"><img src="assets/web/logo.png?v=20261143" alt="Malika & Dario" class="nav-logo-img"></a>
-        <button class="nav-hamburger" aria-label="Menü"><span></span><span></span><span></span></button>
+        <button class="nav-hamburger" aria-label="MenÃ¼"><span></span><span></span><span></span></button>
         <ul class="nav-links">
             <li><a href="index.html">Willkommen</a></li>
             <li class="nav-dropdown">
-                <a href="ablauf.html">Details</a><button type="button" class="nav-dropdown-toggle" aria-label="Untermenü öffnen">▾</button>
+                <a href="ablauf.html">Details</a><button type="button" class="nav-dropdown-toggle" aria-label="UntermenÃ¼ Ã¶ffnen">â–¾</button>
                 <ul class="nav-dropdown-menu">
                     <li><a href="ablauf.html">Ablauf</a></li>
                     <li><a href="location.html">Location</a></li>
                     <li><a href="zimmer.html">Zimmer</a></li>
                 </ul>
             </li>
-            <li><a href="fotogalerie.html">Foto Galerie</a></li><li><a href="musikwuensche.html">Musikwünsche</a></li>
+            <li><a href="fotogalerie.html">Foto Galerie</a></li><li><a href="musikwuensche.html">MusikwÃ¼nsche</a></li>
             <li><a href="index.html#faq">FAQ</a></li>
             <li><a href="index.html#rsvp">RSVP</a></li>
             <li><a href="impressum.html">Impressum</a></li><li><button type="button" class="nav-logout" aria-label="Ausloggen" title="Ausloggen"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button></li>
@@ -441,7 +441,7 @@
         <header class="story-intro">
             <h1>Unsere Geschichte</h1>
             <p>Vom ersten Urlaub auf Kos zu heute</p>
-            <span class="story-scroll-hint">Scrollen, um weiterzulesen ↓</span>
+            <span class="story-scroll-hint">Scrollen, um weiterzulesen â†“</span>
         </header>
 
         <section class="story-timeline" aria-label="Unsere Geschichte in Bildern">
@@ -450,15 +450,15 @@
                 <div class="story-fog" aria-hidden="true"></div>
                 <div class="story-beats"></div>
                 <div class="story-progress" aria-label="Kapitel"></div>
-                <button class="story-next" type="button">Weiter ↓</button>
+                <button class="story-next" type="button">Weiter â†“</button>
             </div>
         </section>
 
     <p class="story-closing" id="story-closing" hidden></p>
 
     <dialog class="ios-story-notice" id="ios-story-notice" aria-labelledby="ios-story-notice-title">
-        <h2 id="ios-story-notice-title">Kleiner iPhone-Hinweis 🍎</h2>
-        <p>Apple schafft es mal wieder nicht, sich an Browser-Standards zu halten. Dario hatte keine Lust, dafür eine Extra-Wurst zu braten – deshalb kann die Geschichte auf iPhones beim Scrollen zittern. Optimiert für Android und PC. Wenn du trotzdem auf dem iPhone bleibst: viel Spaß beim Wackel-Kino!</p>
+        <h2 id="ios-story-notice-title">Kleiner iPhone-Hinweis ðŸŽ</h2>
+        <p>Apple schafft es mal wieder nicht, sich an Browser-Standards zu halten. Dario hatte keine Lust, dafÃ¼r eine Extra-Wurst zu braten â€“ deshalb kann die Geschichte auf iPhones beim Scrollen zittern. Optimiert fÃ¼r Android und PC. Wenn du trotzdem auf dem iPhone bleibst: viel SpaÃŸ beim Wackel-Kino!</p>
         <button type="button" id="ios-story-notice-close">Alles klar</button>
     </dialog>
 
@@ -472,8 +472,8 @@
                     <img data-src="assets/Karussel/k1-4.jpg" alt="Ein ziemlich guter Zufall" loading="eager">
                 </div>
                 <div class="story-texts">
-                    <p class="story-text">Manchmal beginnt eine große Geschichte mit einer ziemlich alltäglichen Sache. Bei uns war es ein WG-Casting. Mali zog aus und Dario zog ein – eigentlich ein denkbar ungünstiger Start für eine gemeinsame Zukunft.</p>
-                    <p class="story-text">Doch Mali kam immer wieder zu Besuch. Aus kurzen Begegnungen wurden längere Abende, aus beiläufigen Gesprächen Vertrautheit und aus einer Bekanntschaft langsam etwas, das sich immer mehr nach mehr anfühlte.</p>
+                    <p class="story-text">Manchmal beginnt eine groÃŸe Geschichte mit einer ziemlich alltÃ¤glichen Sache. Bei uns war es ein WG-Casting. Mali zog aus und Dario zog ein â€“ eigentlich ein denkbar ungÃ¼nstiger Start fÃ¼r eine gemeinsame Zukunft.</p>
+                    <p class="story-text">Doch Mali kam immer wieder zu Besuch. Aus kurzen Begegnungen wurden lÃ¤ngere Abende, aus beilÃ¤ufigen GesprÃ¤chen Vertrautheit und aus einer Bekanntschaft langsam etwas, das sich immer mehr nach mehr anfÃ¼hlte.</p>
                     <p class="story-text">Besonders eine hatte Mali ziemlich schnell um den Finger gewickelt: Havana. Die beiden verstanden sich auf Anhieb und schlossen sich gegenseitig ins Herz. Und so wurden aus gelegentlichen Besuchen immer mehr gemeinsame Momente, bis Mali irgendwann gar nicht mehr so richtig wegzudenken war.</p>
                 </div>
             </section>
@@ -486,10 +486,10 @@
                     <img data-src="assets/Karussel/k2-2.jpg" alt="Aus Besuchen wurde ein Zuhause" loading="eager">
                 </div>
                 <div class="story-texts">
-                    <p class="story-text">Mit der Zeit wurde aus dem anfänglichen Kennenlernen eine immer engere Verbindung. Wir verbrachten mehr und mehr Zeit miteinander, teilten kleine und große Momente des Alltags und merkten irgendwann, dass der andere längst einen festen Platz im eigenen Leben gefunden hatte.</p>
-                    <p class="story-text">Unser erstes großes Abenteuer war unser erster gemeinsamer Urlaub auf Kos. Dort entdeckten wir nicht nur die Insel, sondern auch unsere gemeinsame Liebe zum Reisen auf zwei Rädern – mit dem Roller die Gegend erkunden, spontan anhalten und einfach gemeinsam unterwegs sein.</p>
-                    <p class="story-text">Und irgendwann war klar: Aus zwei Leben sollte eines werden. Nach etwa anderthalb Jahren war es so weit und wir zogen zusammen. Aus zwei Wohnungen wurde ein gemeinsames Zuhause, aus Alltag wurde Alltag zu zweit und aus einem Wir wurde etwas, das sich ganz selbstverständlich anfühlte.</p>
-                    <p class="story-text">Und Havana? Die war natürlich längst fester Bestandteil dieser kleinen Familie.</p>
+                    <p class="story-text">Mit der Zeit wurde aus dem anfÃ¤nglichen Kennenlernen eine immer engere Verbindung. Wir verbrachten mehr und mehr Zeit miteinander, teilten kleine und groÃŸe Momente des Alltags und merkten irgendwann, dass der andere lÃ¤ngst einen festen Platz im eigenen Leben gefunden hatte.</p>
+                    <p class="story-text">Unser erstes groÃŸes Abenteuer war unser erster gemeinsamer Urlaub auf Kos. Dort entdeckten wir nicht nur die Insel, sondern auch unsere gemeinsame Liebe zum Reisen auf zwei RÃ¤dern â€“ mit dem Roller die Gegend erkunden, spontan anhalten und einfach gemeinsam unterwegs sein.</p>
+                    <p class="story-text">Und irgendwann war klar: Aus zwei Leben sollte eines werden. Nach etwa anderthalb Jahren war es so weit und wir zogen zusammen. Aus zwei Wohnungen wurde ein gemeinsames Zuhause, aus Alltag wurde Alltag zu zweit und aus einem Wir wurde etwas, das sich ganz selbstverstÃ¤ndlich anfÃ¼hlte.</p>
+                    <p class="story-text">Und Havana? Die war natÃ¼rlich lÃ¤ngst fester Bestandteil dieser kleinen Familie.</p>
                 </div>
             </section>
 
@@ -500,29 +500,29 @@
                     <img data-src="assets/Karussel/k3-1.jpg" alt="Weihnachten, Familie und ganz viel Wir" loading="eager">
                 </div>
                 <div class="story-texts">
-                    <p class="story-text">Ein gemeinsames Zuhause bedeutete auch, immer mehr vom Leben des anderen kennenzulernen. Weihnachten wurde zusammen verbracht, Familien kennengelernt und nach und nach wuchsen zwei Lebenswelten immer näher zusammen.</p>
-                    <p class="story-text">Es entstanden neue Traditionen, gemeinsame Erinnerungen und viele kleine Momente, die irgendwann ganz selbstverständlich zu unserem Leben gehörten.</p>
-                    <p class="story-text">Denn eine Beziehung wächst nicht nur durch die großen Abenteuer. Oft sind es gerade die unscheinbaren Dinge, die am Ende am meisten bedeuten: ein gemeinsames Frühstück, gemütliche Abende, vertraute Abläufe und das Zusammensein mit den Menschen, die einem am Herzen liegen.</p>
-                    <p class="story-text">Und irgendwo zwischen all diesen kleinen Momenten wurde aus uns immer mehr ein richtig gutes Team – mit einem gemeinsamen Alltag und gemeinsamen Wurzeln.</p>
+                    <p class="story-text">Ein gemeinsames Zuhause bedeutete auch, immer mehr vom Leben des anderen kennenzulernen. Weihnachten wurde zusammen verbracht, Familien kennengelernt und nach und nach wuchsen zwei Lebenswelten immer nÃ¤her zusammen.</p>
+                    <p class="story-text">Es entstanden neue Traditionen, gemeinsame Erinnerungen und viele kleine Momente, die irgendwann ganz selbstverstÃ¤ndlich zu unserem Leben gehÃ¶rten.</p>
+                    <p class="story-text">Denn eine Beziehung wÃ¤chst nicht nur durch die groÃŸen Abenteuer. Oft sind es gerade die unscheinbaren Dinge, die am Ende am meisten bedeuten: ein gemeinsames FrÃ¼hstÃ¼ck, gemÃ¼tliche Abende, vertraute AblÃ¤ufe und das Zusammensein mit den Menschen, die einem am Herzen liegen.</p>
+                    <p class="story-text">Und irgendwo zwischen all diesen kleinen Momenten wurde aus uns immer mehr ein richtig gutes Team â€“ mit einem gemeinsamen Alltag und gemeinsamen Wurzeln.</p>
                 </div>
             </section>
 
             <section class="story-chapter" data-from="top">
-                <h2 class="story-heading">Zusammen ist die Welt noch ein bisschen größer</h2>
+                <h2 class="story-heading">Zusammen ist die Welt noch ein bisschen grÃ¶ÃŸer</h2>
                 <div class="story-images">
-                    <img data-src="assets/Karussel/k4-1.jpg" alt="Zusammen ist die Welt noch ein bisschen größer" loading="eager">
-                    <img data-src="assets/Karussel/k4-2.jpg" alt="Zusammen ist die Welt noch ein bisschen größer" loading="eager">
-                    <img data-src="assets/Karussel/k4-3.jpg" alt="Zusammen ist die Welt noch ein bisschen größer" loading="eager">
-                    <img data-src="assets/Karussel/k4-4.jpg" alt="Zusammen ist die Welt noch ein bisschen größer" loading="eager">
-                    <img data-src="assets/Karussel/k4-5.jpg" alt="Zusammen ist die Welt noch ein bisschen größer" loading="eager">
-                    <img data-src="assets/Karussel/k4-6.jpg" alt="Zusammen ist die Welt noch ein bisschen größer" loading="eager">
-                    <img data-src="assets/Karussel/k4-7n.jpg" alt="Zusammen ist die Welt noch ein bisschen größer" loading="eager">
+                    <img data-src="assets/Karussel/k4-1.jpg" alt="Zusammen ist die Welt noch ein bisschen grÃ¶ÃŸer" loading="eager">
+                    <img data-src="assets/Karussel/k4-2.jpg" alt="Zusammen ist die Welt noch ein bisschen grÃ¶ÃŸer" loading="eager">
+                    <img data-src="assets/Karussel/k4-3.jpg" alt="Zusammen ist die Welt noch ein bisschen grÃ¶ÃŸer" loading="eager">
+                    <img data-src="assets/Karussel/k4-4.jpg" alt="Zusammen ist die Welt noch ein bisschen grÃ¶ÃŸer" loading="eager">
+                    <img data-src="assets/Karussel/k4-5.jpg" alt="Zusammen ist die Welt noch ein bisschen grÃ¶ÃŸer" loading="eager">
+                    <img data-src="assets/Karussel/k4-6.jpg" alt="Zusammen ist die Welt noch ein bisschen grÃ¶ÃŸer" loading="eager">
+                    <img data-src="assets/Karussel/k4-7n.jpg" alt="Zusammen ist die Welt noch ein bisschen grÃ¶ÃŸer" loading="eager">
                 </div>
                 <div class="story-texts">
-                    <p class="story-text">Dass wir gerne gemeinsam die Welt entdecken, zeigte sich bereits bei unserem ersten gemeinsamen Urlaub auf Kos. Sonne, Meer, neue Eindrücke und die Erkenntnis, dass das Reisen zu zweit einfach besonders viel Spaß macht.</p>
-                    <p class="story-text">Und dabei sollte es nicht bleiben: Sri Lanka, Zypern, Vietnam und Thailand folgten. Jedes Land brachte neue Abenteuer, besondere Begegnungen und Geschichten mit sich, die wir heute nicht mehr missen möchten.</p>
-                    <p class="story-text">Ob fremde Landschaften erkunden, durch unbekannte Straßen schlendern oder einfach gemeinsam am Strand sitzen – wir sammelten nicht nur Stempel im Reisepass, sondern vor allem Erinnerungen fürs Leben.</p>
-                    <p class="story-text">Mit jedem Urlaub wurde uns klarer: Es ist gar nicht so wichtig, wo wir gerade sind. Viel schöner ist es, jemanden an seiner Seite zu haben, mit dem sich jeder Ort ein bisschen wie Zuhause anfühlt.</p>
+                    <p class="story-text">Dass wir gerne gemeinsam die Welt entdecken, zeigte sich bereits bei unserem ersten gemeinsamen Urlaub auf Kos. Sonne, Meer, neue EindrÃ¼cke und die Erkenntnis, dass das Reisen zu zweit einfach besonders viel SpaÃŸ macht.</p>
+                    <p class="story-text">Und dabei sollte es nicht bleiben: Sri Lanka, Zypern, Vietnam und Thailand folgten. Jedes Land brachte neue Abenteuer, besondere Begegnungen und Geschichten mit sich, die wir heute nicht mehr missen mÃ¶chten.</p>
+                    <p class="story-text">Ob fremde Landschaften erkunden, durch unbekannte StraÃŸen schlendern oder einfach gemeinsam am Strand sitzen â€“ wir sammelten nicht nur Stempel im Reisepass, sondern vor allem Erinnerungen fÃ¼rs Leben.</p>
+                    <p class="story-text">Mit jedem Urlaub wurde uns klarer: Es ist gar nicht so wichtig, wo wir gerade sind. Viel schÃ¶ner ist es, jemanden an seiner Seite zu haben, mit dem sich jeder Ort ein bisschen wie Zuhause anfÃ¼hlt.</p>
                 </div>
             </section>
 
@@ -533,44 +533,44 @@
                     <img data-src="assets/Karussel/k5-2.jpg" alt="Ein eingespieltes Team" loading="eager">
                 </div>
                 <div class="story-texts">
-                    <p class="story-text">Über die Jahre ist aus der anfänglichen Verliebtheit etwas gewachsen, das noch viel mehr umfasst. Wir haben gemeinsam gelacht, Neues ausprobiert, Pläne geschmiedet und so manches Abenteuer erlebt.</p>
-                    <p class="story-text">Mit Havana an unserer Seite ist aus zwei Menschen eine kleine Familie geworden. Es gab unzählige Spaziergänge, gemütliche Abende, spontane Ideen und natürlich auch die ganz normalen Tage, die vielleicht gar nicht spektakulär waren, aber gerade deshalb so wertvoll sind.</p>
-                    <p class="story-text">Irgendwann merkt man, dass Glück nicht immer aus großen Momenten bestehen muss. Manchmal ist es einfach das Wissen, seinen Lieblingsmenschen direkt neben sich zu haben – und jemanden, mit dem selbst die alltäglichsten Dinge besonders werden.</p>
+                    <p class="story-text">Ãœber die Jahre ist aus der anfÃ¤nglichen Verliebtheit etwas gewachsen, das noch viel mehr umfasst. Wir haben gemeinsam gelacht, Neues ausprobiert, PlÃ¤ne geschmiedet und so manches Abenteuer erlebt.</p>
+                    <p class="story-text">Mit Havana an unserer Seite ist aus zwei Menschen eine kleine Familie geworden. Es gab unzÃ¤hlige SpaziergÃ¤nge, gemÃ¼tliche Abende, spontane Ideen und natÃ¼rlich auch die ganz normalen Tage, die vielleicht gar nicht spektakulÃ¤r waren, aber gerade deshalb so wertvoll sind.</p>
+                    <p class="story-text">Irgendwann merkt man, dass GlÃ¼ck nicht immer aus groÃŸen Momenten bestehen muss. Manchmal ist es einfach das Wissen, seinen Lieblingsmenschen direkt neben sich zu haben â€“ und jemanden, mit dem selbst die alltÃ¤glichsten Dinge besonders werden.</p>
                 </div>
             </section>
 
             <section class="story-chapter" data-from="left">
-                <h2 class="story-heading">Madeira und eine Frage für immer</h2>
+                <h2 class="story-heading">Madeira und eine Frage fÃ¼r immer</h2>
                 <div class="story-images">
-                    <img data-src="assets/Karussel/k6-1.jpg" alt="Madeira und eine Frage für immer" loading="eager">
-                    <img data-src="assets/Karussel/k6-2.jpg" alt="Madeira und eine Frage für immer" loading="eager">
-                    <img data-src="assets/Karussel/k6-3.jpg" alt="Madeira und eine Frage für immer" loading="eager">
+                    <img data-src="assets/Karussel/k6-1.jpg" alt="Madeira und eine Frage fÃ¼r immer" loading="eager">
+                    <img data-src="assets/Karussel/k6-2.jpg" alt="Madeira und eine Frage fÃ¼r immer" loading="eager">
+                    <img data-src="assets/Karussel/k6-3.jpg" alt="Madeira und eine Frage fÃ¼r immer" loading="eager">
                 </div>
                 <div class="story-texts">
-                    <p class="story-text">2025 stand wieder einmal ein besonderer Urlaub an. Diesmal ging es für uns nach Madeira – allerdings mit einem kleinen Geheimnis im Gepäck.</p>
-                    <p class="story-text">Denn während Mali von einem schönen Überraschungsurlaub ausging, hatte Dario noch etwas ganz anderes vorbereitet. Zugegeben: Nach all den gemeinsamen Jahren hatte er sich mit diesem Vorhaben auch wirklich Zeit gelassen.</p>
-                    <p class="story-text">Doch das Warten sollte sich lohnen. Zwischen der beeindruckenden Landschaft Madeiras und mit Blick auf den Atlantik wurde aus dieser Reise ein unvergessliches Erlebnis. Dario stellte endlich die große Frage und die Antwort könnt ihr euch vermutlich denken, sonst wärt ihr jetzt nicht hier.</p>
-                    <p class="story-text">Aus all den gemeinsamen Jahren, Reisen und Erlebnissen wurde an diesem Tag ein Versprechen für die Zukunft. Und damit begann ein ganz neues Kapitel unserer Geschichte.</p>
+                    <p class="story-text">2025 stand wieder einmal ein besonderer Urlaub an. Diesmal ging es fÃ¼r uns nach Madeira â€“ allerdings mit einem kleinen Geheimnis im GepÃ¤ck.</p>
+                    <p class="story-text">Denn wÃ¤hrend Mali von einem schÃ¶nen Ãœberraschungsurlaub ausging, hatte Dario noch etwas ganz anderes vorbereitet. Zugegeben: Nach all den gemeinsamen Jahren hatte er sich mit diesem Vorhaben auch wirklich Zeit gelassen.</p>
+                    <p class="story-text">Doch das Warten sollte sich lohnen. Zwischen der beeindruckenden Landschaft Madeiras und mit Blick auf den Atlantik wurde aus dieser Reise ein unvergessliches Erlebnis. Dario stellte endlich die groÃŸe Frage und die Antwort kÃ¶nnt ihr euch vermutlich denken, sonst wÃ¤rt ihr jetzt nicht hier.</p>
+                    <p class="story-text">Aus all den gemeinsamen Jahren, Reisen und Erlebnissen wurde an diesem Tag ein Versprechen fÃ¼r die Zukunft. Und damit begann ein ganz neues Kapitel unserer Geschichte.</p>
                 </div>
             </section>
 
             <section class="story-chapter" data-from="right">
-                <h2 class="story-heading">Das nächste Kapitel schreiben wir gemeinsam</h2>
+                <h2 class="story-heading">Das nÃ¤chste Kapitel schreiben wir gemeinsam</h2>
                 <div class="story-images">
-                    <img data-src="assets/Karussel/k7-1.jpg" alt="Das nächste Kapitel schreiben wir gemeinsam" loading="eager">
-                    <img data-src="assets/Karussel/k7-2.jpg" alt="Das nächste Kapitel schreiben wir gemeinsam" loading="eager">
-                    <img data-src="assets/Karussel/k7-3.jpg" alt="Das nächste Kapitel schreiben wir gemeinsam" loading="eager">
+                    <img data-src="assets/Karussel/k7-1.jpg" alt="Das nÃ¤chste Kapitel schreiben wir gemeinsam" loading="eager">
+                    <img data-src="assets/Karussel/k7-2.jpg" alt="Das nÃ¤chste Kapitel schreiben wir gemeinsam" loading="eager">
+                    <img data-src="assets/Karussel/k7-3.jpg" alt="Das nÃ¤chste Kapitel schreiben wir gemeinsam" loading="eager">
                 </div>
                 <div class="story-texts">
-                    <p class="story-text">Wenn wir heute zurückblicken, sehen wir eine Geschichte, die mit einem WG-Casting begann und uns über gemeinsame Wohnungen, Weihnachten, Familienfeste und viele Länder hierher geführt hat.</p>
-                    <p class="story-text">Aus einem ziemlich guten Zufall wurde eine Begegnung. Aus einer Begegnung wurde Liebe. Und aus Liebe wurde eine gemeinsame kleine Welt, die mit jedem Jahr ein bisschen größer geworden ist.</p>
-                    <p class="story-text">Jetzt wartet das nächste Abenteuer: unsere Hochzeit.</p>
-                    <p class="story-text">Und diesmal dürfen all die Menschen, die Teil unserer Geschichte sind, dabei sein, wenn wir gemeinsam das nächste Kapitel aufschlagen.</p>
+                    <p class="story-text">Wenn wir heute zurÃ¼ckblicken, sehen wir eine Geschichte, die mit einem WG-Casting begann und uns Ã¼ber gemeinsame Wohnungen, Weihnachten, Familienfeste und viele LÃ¤nder hierher gefÃ¼hrt hat.</p>
+                    <p class="story-text">Aus einem ziemlich guten Zufall wurde eine Begegnung. Aus einer Begegnung wurde Liebe. Und aus Liebe wurde eine gemeinsame kleine Welt, die mit jedem Jahr ein bisschen grÃ¶ÃŸer geworden ist.</p>
+                    <p class="story-text">Jetzt wartet das nÃ¤chste Abenteuer: unsere Hochzeit.</p>
+                    <p class="story-text">Und diesmal dÃ¼rfen all die Menschen, die Teil unserer Geschichte sind, dabei sein, wenn wir gemeinsam das nÃ¤chste Kapitel aufschlagen.</p>
                 </div>
             </section>
         </div>
 
-        <a href="index.html#details" class="story-back">&larr; Zurück zur Startseite</a>
+        <a href="index.html#details" class="story-back">&larr; ZurÃ¼ck zur Startseite</a>
     </main>
 
     <script src="js/main.js?v=20261141"></script>
