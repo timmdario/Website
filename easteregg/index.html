@@ -84,7 +84,7 @@
         }
 
         .egg-dialog::before {
-            content: 'ðŸ¶';
+            content: '🐶';
             position: absolute;
             left: 0.9rem;
             top: 0.85rem;
@@ -248,7 +248,7 @@
         }
 
         .egg-legend li.found .name::after {
-            content: ' âœ“';
+            content: ' ✓';
             color: var(--color-sage);
         }
 
@@ -301,18 +301,18 @@
 <body>
     <nav class="navbar">
         <a href="../index.html" class="nav-logo"><img src="../assets/web/logo.png?v=20261143" alt="Malika &amp; Dario" class="nav-logo-img"></a>
-        <button class="nav-hamburger" aria-label="MenÃ¼"><span></span><span></span><span></span></button>
+        <button class="nav-hamburger" aria-label="Menü"><span></span><span></span><span></span></button>
         <ul class="nav-links">
             <li><a href="../index.html">Willkommen</a></li>
             <li class="nav-dropdown">
-                <a href="../ablauf.html">Details</a><button type="button" class="nav-dropdown-toggle" aria-label="UntermenÃ¼ Ã¶ffnen">â–¾</button>
+                <a href="../ablauf.html">Details</a><button type="button" class="nav-dropdown-toggle" aria-label="Untermenü öffnen">▾</button>
                 <ul class="nav-dropdown-menu">
                     <li><a href="../ablauf.html">Ablauf</a></li>
                     <li><a href="../location.html">Location</a></li>
                     <li><a href="../zimmer.html">Zimmer</a></li>
                 </ul>
             </li>
-            <li><a href="../fotogalerie.html">Foto Galerie</a></li><li><a href="../musikwuensche.html">MusikwÃ¼nsche</a></li>
+            <li><a href="../fotogalerie.html">Foto Galerie</a></li><li><a href="../musikwuensche.html">Musikwünsche</a></li>
             <li><a href="../index.html#faq">FAQ</a></li>
             <li><a href="../index.html#rsvp">RSVP</a></li>
             <li><a href="../impressum.html">Impressum</a></li><li><button type="button" class="nav-logout" aria-label="Ausloggen" title="Ausloggen"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button></li>
@@ -321,8 +321,8 @@
 
     <div class="egg-wrap">
         <header class="egg-header">
-            <h1>ðŸ¾ Hani's Rundgang ðŸ¾</h1>
-            <p>Hani, unser vierbeiniger Ehrengast, fÃ¼hrt euch Ã¼ber das FarmInn. Bewegt ihn mit den <strong>Pfeiltasten</strong> oder <strong>WASD</strong>, tippt auf die Karte oder nutzt das Steuerkreuz. Sobald ihr in die NÃ¤he eines Ortes kommt, erzÃ¤hlt Hani, was ihr seht.</p>
+            <h1>🐾 Hani's Rundgang 🐾</h1>
+            <p>Hani, unser vierbeiniger Ehrengast, führt euch über das FarmInn. Bewegt ihn mit den <strong>Pfeiltasten</strong> oder <strong>WASD</strong>, tippt auf die Karte oder nutzt das Steuerkreuz. Sobald ihr in die Nähe eines Ortes kommt, erzählt Hani, was ihr seht.</p>
         </header>
 
         <div class="egg-stage">
@@ -332,18 +332,18 @@
 
         <div class="egg-dialog">
             <div class="egg-dialog-name">Hani</div>
-            <div class="egg-dialog-text" id="egg-dialog-text">Wuff! Ich bin Hani. Folgt mir Ã¼ber den Hof â€“ geht einfach in die NÃ¤he eines Ortes, dann erzÃ¤hle ich euch, was ihr seht!</div>
+            <div class="egg-dialog-text" id="egg-dialog-text">Wuff! Ich bin Hani. Folgt mir über den Hof – geht einfach in die Nähe eines Ortes, dann erzähle ich euch, was ihr seht!</div>
         </div>
 
         <div class="egg-controls">
             <div class="dpad" aria-label="Steuerkreuz">
-                <button class="dpad-btn up" data-dir="up" aria-label="Nach oben">â–²</button>
-                <button class="dpad-btn left" data-dir="left" aria-label="Nach links">â—€</button>
-                <button class="dpad-btn right" data-dir="right" aria-label="Nach rechts">â–¶</button>
-                <button class="dpad-btn down" data-dir="down" aria-label="Nach unten">â–¼</button>
+                <button class="dpad-btn up" data-dir="up" aria-label="Nach oben">▲</button>
+                <button class="dpad-btn left" data-dir="left" aria-label="Nach links">◀</button>
+                <button class="dpad-btn right" data-dir="right" aria-label="Nach rechts">▶</button>
+                <button class="dpad-btn down" data-dir="down" aria-label="Nach unten">▼</button>
             </div>
             <div class="egg-side">
-                <p class="egg-hint">Tipp: Tippt auf einen Ort auf der Karte, damit Hani dorthin lÃ¤uft.</p>
+                <p class="egg-hint">Tipp: Tippt auf einen Ort auf der Karte, damit Hani dorthin läuft.</p>
                 <button class="egg-reset" id="egg-reset">Neu starten</button>
             </div>
         </div>
@@ -353,7 +353,7 @@
             <ul id="egg-legend-list"></ul>
         </div>
 
-        <a href="../index.html" class="subpage-back">&larr; ZurÃ¼ck zur Hochzeitsseite</a>
+        <a href="../index.html" class="subpage-back">&larr; Zurück zur Hochzeitsseite</a>
     </div>
 
     <script src="../js/main.js?v=20261135"></script>
