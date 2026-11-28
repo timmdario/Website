@@ -127,7 +127,7 @@ body > .parallax-bg {
 
 /* Overlay Logo */
 .overlay-logo {
-    width: 180px;
+    width: min(180px, 22vh);
     height: auto;
     margin-bottom: 1.5rem;
     position: relative;
@@ -2539,7 +2539,7 @@ body > .parallax-bg {
     }
 
     .overlay-logo {
-        width: 140px;
+        width: min(140px, 20vh);
     }
 
     .hero-names {
